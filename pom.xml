@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>info.magnolia.maven.poms-enterprise</groupId>
+    <artifactId>magnolia-parent-pom-enterprise</artifactId>
+    <version>31</version>
+  </parent>
+  <groupId>info.magnolia.commercetools</groupId>
+  <artifactId>magnolia-commercetools</artifactId>
+  <name>Commercetools Parent</name>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <magnoliaVersion>5.4.5</magnoliaVersion>
+    <damVersion>2.1</damVersion>
+    <javaVersion>1.8</javaVersion>
+  </properties>
+
+  <issueManagement>
+    <system>Jira</system>
+    <url>http://jira.magnolia-cms.com/browse/MCOMMTOOLS</url>
+  </issueManagement>
+
+  <!-- Fill the following in, so you can use the release plugin -->
+  <scm>
+    <connection>scm:git:ssh://git.magnolia-cms.com/integration/magnolia-commercetools</connection>
+    <developerConnection>scm:git:ssh://git.magnolia-cms.com/integration/magnolia-commercetools</developerConnection>
+    <url>https://git.magnolia-cms.com/integration/magnolia-commercetools</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- EE BUNDLE -->
+      <dependency>
+        <groupId>info.magnolia.eebundle</groupId>
+        <artifactId>magnolia-enterprise-bundle-parent</artifactId>
+        <version>${magnoliaVersion}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- UI -->
+      <dependency>
+        <groupId>info.magnolia.ui</groupId>
+        <artifactId>magnolia-ui-project</artifactId>
+        <version>${magnoliaVersion}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>info.magnolia.dam</groupId>
+        <artifactId>magnolia-dam-parent</artifactId>
+        <version>${damVersion}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- SITE -->
+      <dependency>
+        <groupId>info.magnolia.site</groupId>
+        <artifactId>magnolia-site</artifactId>
+        <version>1.0.5</version>
+      </dependency>
+
+      <!-- COMMERCETOOLS API -->
+      <dependency>
+        <groupId>com.commercetools.sdk.jvm.core</groupId>
+        <artifactId>commercetools-models</artifactId>
+        <version>1.0.0-RC1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.commercetools.sdk.jvm.core</groupId>
+        <artifactId>commercetools-java-client</artifactId>
+        <version>1.0.0-RC1</version>
+      </dependency>
+
+      <!-- COMMONS CONFIGURATION -->
+      <dependency>
+        <groupId>commons-configuration</groupId>
+        <artifactId>commons-configuration</artifactId>
+        <version>1.7</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <!-- SERVLET API -->
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>2.5</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <!-- WEB APP -->
+      <dependency>
+        <groupId>info.magnolia.eebundle</groupId>
+        <artifactId>magnolia-enterprise-pro-demo-webapp</artifactId>
+        <version>${magnoliaVersion}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- TEST -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+        <scope>test</scope>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <repositories>
+    <repository>
+      <id>magnolia.public</id>
+      <url>https://nexus.magnolia-cms.com/content/groups/public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>magnolia.enterprise.releases</id>
+      <url>https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>magnolia.enterprise.snapshots</id>
+      <url>https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.snapshots</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>vaadin-addons</id>
+      <url>https://maven.vaadin.com/vaadin-addons</url>
+    </repository>
+  </repositories>
+
+  <modules>
+    <module>magnolia-commercetools-integration</module>
+    <module>magnolia-commercetools-demo</module>
+    <module>magnolia-commercetools-webapp</module>
+  </modules>
+</project>
