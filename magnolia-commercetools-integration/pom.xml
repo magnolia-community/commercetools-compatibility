@@ -13,6 +13,28 @@
   <name>Commercetools Integration Module</name>
 
   <dependencies>
+    <!-- CORE -->
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-core</artifactId>
+    </dependency>
+
+    <!-- UI -->
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-workbench</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-framework</artifactId>
+    </dependency>
+
     <!-- LICENSE -->
     <dependency>
       <groupId>info.magnolia</groupId>
