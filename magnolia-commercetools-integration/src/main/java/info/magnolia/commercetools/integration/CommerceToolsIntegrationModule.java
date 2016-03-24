@@ -36,6 +36,8 @@ import io.sphere.sdk.client.SphereClientFactory;
  */
 public class CommerceToolsIntegrationModule implements EnterpriseLicensedModule, ModuleLifecycle {
 
+    public static final int DEFAULT_QUERY_TIMEOUT = 122;
+
     final SphereClientFactory factory = SphereClientFactory.of();
 
     private Map<String, CommerceToolsProjectConfiguration> projects = new HashMap<>();
@@ -48,7 +50,7 @@ public class CommerceToolsIntegrationModule implements EnterpriseLicensedModule,
 
     @Override
     public String[] getSupportedEditions() {
-        return new String[] { LicenseConsts.EDITION_ENTERPRISE };
+        return new String[]{LicenseConsts.EDITION_ENTERPRISE};
     }
 
     @Override
@@ -69,9 +71,6 @@ public class CommerceToolsIntegrationModule implements EnterpriseLicensedModule,
     public SphereClient getSphereClient(String name) {
         if (sphereClients.containsKey(name)) {
             return sphereClients.get(name);
-        } else if (projects.containsKey(name)) {
-            sphereClients.put(name, factory.createClient(projects.get(name).getSphereClientConfig()));
-            return sphereClients.get(name);
         }
         return null;
     }
@@ -84,18 +83,19 @@ public class CommerceToolsIntegrationModule implements EnterpriseLicensedModule,
         this.projects = projects;
     }
 
-    private void closeAllClients() {
-        for (String key: sphereClients.keySet()) {
-            sphereClients.get(key).close();
+    @Override
+    public void start(ModuleLifecycleContext moduleLifecycleContext) {
+        for (String name : projects.keySet()) {
+            sphereClients.put(name, factory.createClient(projects.get(name).getSphereClientConfig()));
+            //TODO handle if SphereClient is not configured properly
         }
     }
 
     @Override
-    public void start(ModuleLifecycleContext moduleLifecycleContext) {
-    }
-
-    @Override
     public void stop(ModuleLifecycleContext moduleLifecycleContext) {
-        closeAllClients();
+        for (SphereClient client : sphereClients.values()) {
+            client.close();
+        }
+        sphereClients.clear();
     }
 }

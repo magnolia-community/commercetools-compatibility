@@ -95,7 +95,7 @@ public class CommerceToolsProjectConfiguration {
                 return SphereClientConfig.of(projectKey, clientId, clientSecret);
             }
         }
-        log.error("Project {} is not configured properly.", name);
+        log.error("Project [/modules/commercetools-integration/config/projects/{}] is not configured properly.", name);
         return null;
     }
 
