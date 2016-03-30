@@ -14,6 +14,8 @@
  */
 package info.magnolia.commercetools.integration;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import info.magnolia.license.EnterpriseLicensedModule;
 import info.magnolia.license.License;
 import info.magnolia.license.LicenseConsts;
@@ -27,14 +29,21 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import io.sphere.sdk.client.BlockingSphereClient;
 import io.sphere.sdk.client.SphereClient;
 import io.sphere.sdk.client.SphereClientFactory;
+import io.sphere.sdk.json.JsonException;
+import io.sphere.sdk.projects.queries.ProjectGet;
 
 /**
  * Module class.
  */
 public class CommerceToolsIntegrationModule implements EnterpriseLicensedModule, ModuleLifecycle {
+
+    private static final Logger log = LoggerFactory.getLogger(CommerceToolsIntegrationModule.class);
 
     public static final int DEFAULT_QUERY_TIMEOUT = 122;
 
@@ -86,8 +95,14 @@ public class CommerceToolsIntegrationModule implements EnterpriseLicensedModule,
     @Override
     public void start(ModuleLifecycleContext moduleLifecycleContext) {
         for (String name : projects.keySet()) {
-            sphereClients.put(name, factory.createClient(projects.get(name).getSphereClientConfig()));
-            //TODO handle if SphereClient is not configured properly
+            SphereClient sphereClient = factory.createClient(projects.get(name).getSphereClientConfig());
+            try {
+                BlockingSphereClient.of(sphereClient, DEFAULT_QUERY_TIMEOUT, SECONDS).executeBlocking(ProjectGet.of());
+            } catch (JsonException e) {
+                log.error("Project [/modules/commercetools-integration/config/projects/{}] is not configured properly.", name);
+                sphereClient.close();
+            }
+            sphereClients.put(name, sphereClient);
         }
     }
 

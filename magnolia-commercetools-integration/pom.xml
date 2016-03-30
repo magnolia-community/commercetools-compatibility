@@ -35,6 +35,17 @@
       <artifactId>magnolia-ui-framework</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-form</artifactId>
+    </dependency>
+
+    <!-- DAM -->
+    <dependency>
+      <groupId>info.magnolia.dam</groupId>
+      <artifactId>magnolia-dam-app</artifactId>
+    </dependency>
+
     <!-- LICENSE -->
     <dependency>
       <groupId>info.magnolia</groupId>
@@ -50,6 +61,11 @@
     <dependency>
       <groupId>com.commercetools.sdk.jvm.core</groupId>
       <artifactId>commercetools-java-client</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.commercetools.sdk.jvm.core</groupId>
+      <artifactId>commercetools-convenience</artifactId>
     </dependency>
 
     <!-- COMMONS CONFIGURATION -->

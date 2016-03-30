@@ -89,8 +89,6 @@ public class CommerceToolsTreePresenter extends TreePresenter {
         return super.getIcon(item);
     }
 
-
-
     private CommerceToolsContentConnectorDefinition getContentConnectorDefinition() {
         return ((CommerceToolsContentConnectorImpl) contentConnector).getContentConnectorDefinition();
     }

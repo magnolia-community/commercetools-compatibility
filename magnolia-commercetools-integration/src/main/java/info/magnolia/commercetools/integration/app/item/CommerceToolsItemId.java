@@ -17,7 +17,7 @@ package info.magnolia.commercetools.integration.app.item;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Item id used to identify CommerceTools products and categories. Information stored in this id is &lt;projectId&gt;-&lt;type&gt;-&lt;parentId&gt;-&lt;id&gt;.
@@ -43,9 +43,9 @@ public class CommerceToolsItemId {
         }
     }
 
-    private static final Pattern ITEM_KEY_PATTERN = Pattern.compile("^(.+)-(category|product)-(\\d+)-(\\d+)$");
+    private static final String DELIMITER = "--";
 
-    private static final String DELIMITER = "-";
+    private static final Pattern ITEM_KEY_PATTERN = Pattern.compile("^(.+)" + DELIMITER + "(category|product)" + DELIMITER + "([A-Fa-f0-9]+-){4}([A-Fa-f0-9]+)" + DELIMITER + "([A-Fa-f0-9]+-){4}([A-Fa-f0-9]+)$");
 
     private ItemType type;
 
@@ -92,7 +92,7 @@ public class CommerceToolsItemId {
         if (!ITEM_KEY_PATTERN.matcher(itemId).matches()) {
             throw new InvalidItemIdException("Key does not match required pattern");
         }
-        String[] arr = StringUtils.split(itemId, DELIMITER);
+        String[] arr = StringUtils.splitByWholeSeparator(itemId, DELIMITER);
         String projectId = arr[0];
         ItemType type = ItemType.valueOf(arr[1].toUpperCase());
         String parentId = arr[2];
@@ -114,7 +114,7 @@ public class CommerceToolsItemId {
             return false;
         }
         CommerceToolsItemId obj = (CommerceToolsItemId) o;
-        return obj.getProjectId().equals(projectId) && obj.getType().equals(type) && obj.getId() == id && obj.getParentId() == parentId;
+        return StringUtils.equals(obj.getProjectId(), projectId) && obj.getType().equals(type) && StringUtils.equals(obj.getId(), id) && StringUtils.equals(obj.getParentId(), parentId);
     }
 
     @Override

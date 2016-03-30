@@ -14,12 +14,12 @@
  */
 package info.magnolia.commercetools.integration.app.contentconnector;
 
-import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
 import info.magnolia.commercetools.integration.CommerceToolsProjectConfiguration;
 import info.magnolia.commercetools.integration.app.container.CommerceToolsContainer;
 import info.magnolia.commercetools.integration.app.item.CommerceToolsItem;
 import info.magnolia.commercetools.integration.app.item.CommerceToolsItemId;
+import info.magnolia.context.Context;
 import info.magnolia.ui.vaadin.integration.contentconnector.AbstractContentConnector;
 
 import java.util.Map;
@@ -46,7 +46,7 @@ public class CommerceToolsContentConnectorImpl extends AbstractContentConnector 
     private final CommerceToolsContainer container;
 
     @Inject
-    public CommerceToolsContentConnectorImpl(final CommerceToolsContentConnectorDefinition contentConnectorDefinition, final Provider<CommerceToolsIntegrationModule> commerceToolsIntegrationModuleProvider, final I18nContentSupport i18nContentSupport) {
+    public CommerceToolsContentConnectorImpl(final CommerceToolsContentConnectorDefinition contentConnectorDefinition, final Provider<CommerceToolsIntegrationModule> commerceToolsIntegrationModuleProvider, final Context context) {
         super(contentConnectorDefinition);
         this.contentConnectorDefinition = contentConnectorDefinition;
         //set first ctProject as default
@@ -56,7 +56,7 @@ public class CommerceToolsContentConnectorImpl extends AbstractContentConnector 
         } else {
             log.warn("No CommerceTools project found ([/modules/commercetools-integration/config/projects/]). Please fix your configuration.");
         }
-        container = new CommerceToolsContainer(this, commerceToolsIntegrationModuleProvider, i18nContentSupport);
+        container = new CommerceToolsContainer(this, commerceToolsIntegrationModuleProvider, context);
     }
 
     @Override
