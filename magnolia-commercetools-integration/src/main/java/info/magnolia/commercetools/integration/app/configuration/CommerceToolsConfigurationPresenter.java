@@ -28,6 +28,7 @@ import info.magnolia.ui.api.app.SubAppEventBus;
 import info.magnolia.ui.api.context.UiContext;
 import info.magnolia.ui.dialog.formdialog.FormBuilder;
 import info.magnolia.ui.form.definition.FormDefinition;
+import info.magnolia.ui.form.field.definition.FieldDefinition;
 import info.magnolia.ui.vaadin.form.FormViewReduced;
 import info.magnolia.ui.vaadin.integration.jcr.AbstractJcrNodeAdapter;
 import info.magnolia.ui.vaadin.integration.jcr.DefaultProperty;
@@ -127,7 +128,14 @@ public class CommerceToolsConfigurationPresenter implements CommerceToolsConfigu
         try {
             Session session = contextProvider.get().getJCRSession(RepositoryConstants.CONFIG);
             if (session.nodeExists(path)) {
-                session.removeItem(path);
+                Node parameters = session.getNode(path);
+                for (FieldDefinition fieldDefinition : formDefinition.getTabs().get(0).getFields()) {
+                    if (!fieldDefinition.getName().equals("site")) {
+                        if (parameters.hasProperty(fieldDefinition.getName())) {
+                            parameters.getProperty(fieldDefinition.getName()).remove();
+                        }
+                    }
+                }
             }
             session.save();
             // refresh
