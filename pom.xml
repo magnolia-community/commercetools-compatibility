@@ -16,6 +16,7 @@
     <magnoliaVersion>5.4.5</magnoliaVersion>
     <damVersion>2.1</damVersion>
     <javaVersion>1.8</javaVersion>
+    <commerceToolsSDKVersion>1.0.0-RC4</commerceToolsSDKVersion>
   </properties>
 
   <issueManagement>
@@ -70,12 +71,17 @@
       <dependency>
         <groupId>com.commercetools.sdk.jvm.core</groupId>
         <artifactId>commercetools-models</artifactId>
-        <version>1.0.0-RC1</version>
+        <version>${commerceToolsSDKVersion}</version>
       </dependency>
       <dependency>
         <groupId>com.commercetools.sdk.jvm.core</groupId>
         <artifactId>commercetools-java-client</artifactId>
-        <version>1.0.0-RC1</version>
+        <version>${commerceToolsSDKVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.commercetools.sdk.jvm.core</groupId>
+        <artifactId>commercetools-convenience</artifactId>
+        <version>${commerceToolsSDKVersion}</version>
       </dependency>
 
       <!-- COMMONS CONFIGURATION -->
