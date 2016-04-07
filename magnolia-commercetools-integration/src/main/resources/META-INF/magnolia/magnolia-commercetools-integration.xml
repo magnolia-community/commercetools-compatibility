@@ -20,6 +20,26 @@
     </component>
   </components>
 
+  <components>
+    <id>app-ctSetup</id>
+  </components>
+
+  <components>
+    <id>app-ctSetup-main</id>
+    <component>
+      <type>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationSubApp</type>
+      <implementation>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationSubApp</implementation>
+    </component>
+    <component>
+      <type>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationView</type>
+      <implementation>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationViewImpl</implementation>
+    </component>
+    <component>
+      <type>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationPresenter</type>
+      <implementation>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationPresenter</implementation>
+    </component>
+  </components>
+
   <dependencies>
     <dependency>
       <name>core</name>
@@ -36,6 +56,10 @@
     <dependency>
       <name>dam-app</name>
       <version>2.1/*</version>
+    </dependency>
+    <dependency>
+      <name>site</name>
+      <version>1.0.1/*</version>
     </dependency>
     <dependency>
       <name>enterprise</name>

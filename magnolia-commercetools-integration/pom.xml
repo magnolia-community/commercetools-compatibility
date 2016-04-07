@@ -46,6 +46,12 @@
       <artifactId>magnolia-dam-app</artifactId>
     </dependency>
 
+    <!-- SITE -->
+    <dependency>
+      <groupId>info.magnolia.site</groupId>
+      <artifactId>magnolia-site</artifactId>
+    </dependency>
+
     <!-- LICENSE -->
     <dependency>
       <groupId>info.magnolia</groupId>
