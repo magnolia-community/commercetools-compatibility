@@ -4,7 +4,7 @@
     <sv:value>mgnl:content</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>d681cf84-72d1-1513-b438-d587cb97603d</sv:value>
+    <sv:value>1f592cc5-7dc6-51e2-c14a-f51cc8d5f598</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>
@@ -26,7 +26,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>206ccbb3-da2d-c4be-fdbd-2d74fcf7f0f7</sv:value>
+      <sv:value>5f33b066-205d-e0d1-dcd5-6583fc654a2b</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.commercetools.integration.app.configuration.field.SiteSelectFieldFactory$Definition</sv:value>
@@ -55,7 +55,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>b7e926be-9d4f-43ab-6565-16b76516a6dc</sv:value>
+      <sv:value>888277fd-66ab-f8b6-4139-27f059a9fd2d</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.commercetools.integration.app.configuration.field.CountrySelectFieldFactory$Definition</sv:value>
@@ -93,7 +93,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>24ef3778-5a88-8fe0-97a9-c42edc9c7655</sv:value>
+      <sv:value>1bcb2478-5a1d-a89e-1415-275643bf865f</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.commercetools.integration.app.configuration.field.CurrencySelectFieldFactory$Definition</sv:value>
@@ -131,7 +131,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>2887dc70-bfdc-92d8-e674-81ae5ba42156</sv:value>
+      <sv:value>f17219b9-69ce-d2b8-af51-d435e09666c1</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.commercetools.integration.app.configuration.field.LanguageSelectFieldFactory$Definition</sv:value>
@@ -169,7 +169,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>2b870ba6-8bca-384a-9d40-78c771cd7cd1</sv:value>
+      <sv:value>989c9af9-3193-7cce-4fc8-ee0b0c52783b</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.commercetools.integration.app.configuration.field.ProjectSelectFieldFactory$Definition</sv:value>
@@ -207,7 +207,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>dcfce51c-c3b4-6681-9add-8c1fbb2fae8d</sv:value>
+      <sv:value>dc61c788-46c3-61d3-071b-cece4fd95678</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.commercetools.integration.app.detail.fields.CategoriesListFieldFactory$Definition</sv:value>
@@ -236,7 +236,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>468fcb64-88e4-f9e6-8fca-9bfa1b916569</sv:value>
+      <sv:value>17546f09-bfaf-6570-cef5-8f76de9723bc</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.commercetools.integration.app.detail.fields.VariantsListFieldFactory$Definition</sv:value>
@@ -274,7 +274,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>b02af5d3-bca4-e456-fea0-8cf17c9e16bd</sv:value>
+      <sv:value>1aa5ceda-0c48-15dc-ed76-4948a2eafcc7</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.commercetools.integration.app.detail.fields.PricesListFieldFactory$Definition</sv:value>
@@ -303,7 +303,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>b5f8ee74-2ff4-6b0c-1ab6-f300fad5ad64</sv:value>
+      <sv:value>48aaf751-9747-a145-59fc-4add0a6b2204</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
       <sv:value>info.magnolia.commercetools.integration.app.detail.fields.CommerceToolsImageFieldDefinition</sv:value>

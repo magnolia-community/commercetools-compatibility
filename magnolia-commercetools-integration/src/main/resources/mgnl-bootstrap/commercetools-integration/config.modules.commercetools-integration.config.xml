@@ -4,7 +4,7 @@
     <sv:value>mgnl:content</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>1c9ecede-4031-45ce-b2dc-d77197392b46</sv:value>
+    <sv:value>5af73e60-2e49-605e-7db4-e79defb36cc6</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>
@@ -26,7 +26,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>bd5145ef-12ee-4d8a-8821-74c218d92c13</sv:value>
+      <sv:value>1a9c8251-ee88-d574-73f4-59cd01cd68ec</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -48,7 +48,7 @@
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>fdb56cb0-81fc-4ac8-acd4-d52bd9601f33</sv:value>
+        <sv:value>83466b0e-7ee5-3e29-0ec4-2715e20d509f</sv:value>
       </sv:property>
       <sv:property sv:name="clientId" sv:type="String">
         <sv:value>LQtuHgDCfTi4HeKFgtxPB_Ia</sv:value>
