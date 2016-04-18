@@ -4,7 +4,7 @@
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>e5653b40-b85b-4b56-b567-f71f928b1b05</sv:value>
+    <sv:value>b77b4276-cb38-eea7-6f62-572bfb4931de</sv:value>
   </sv:property>
   <sv:property sv:name="color" sv:type="String">
     <sv:value>#9A3332</sv:value>
@@ -32,7 +32,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>74544680-b886-4916-b72e-baa81b2fe21d</sv:value>
+      <sv:value>a4a83bb4-7e76-269f-32e9-b46568cd1145</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -54,7 +54,7 @@
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>563ab617-1b73-45ea-bc66-3cd4b3a89a49</sv:value>
+        <sv:value>d7890caa-8eb0-dd6a-2fe4-45053e52b851</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:createdBy" sv:type="String">
         <sv:value>admin</sv:value>
@@ -77,7 +77,7 @@
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>710bac05-291f-4abc-bebe-c7990d1eac9d</sv:value>
+        <sv:value>ed0e4804-36ba-650f-fd8d-0404048719c9</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:createdBy" sv:type="String">
         <sv:value>admin</sv:value>

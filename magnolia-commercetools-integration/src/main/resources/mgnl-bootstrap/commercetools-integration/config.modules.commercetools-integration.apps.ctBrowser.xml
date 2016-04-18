@@ -4,7 +4,7 @@
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>2cb632db-1c4f-43b6-8d9c-5cfd792876b2</sv:value>
+    <sv:value>204071cc-65dd-36f0-834f-f4aad34e2191</sv:value>
   </sv:property>
   <sv:property sv:name="appClass" sv:type="String">
     <sv:value>info.magnolia.ui.contentapp.ContentApp</sv:value>
@@ -35,7 +35,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>425aabde-3524-4feb-8f6e-ae60d5b603cf</sv:value>
+      <sv:value>48ae645a-fcbc-31a8-1798-f56da51f53b5</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -57,7 +57,7 @@
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>77d2cc68-d7d5-41a3-aa54-34587a10a1d4</sv:value>
+        <sv:value>9a03e96c-7217-88f7-6282-032cc9c5e0a6</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
         <sv:value>info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor</sv:value>
@@ -85,7 +85,7 @@
           <sv:value>mgnl:contentNode</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>5fc5efbf-4591-4735-a81e-5060b510289d</sv:value>
+          <sv:value>e44d7a72-a5d9-954f-e768-94778dcc6978</sv:value>
         </sv:property>
         <sv:property sv:name="class" sv:type="String">
           <sv:value>info.magnolia.commercetools.integration.app.contentconnector.CommerceToolsContentConnectorDefinition</sv:value>
@@ -111,7 +111,7 @@
           <sv:value>mgnl:contentNode</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>adb77b55-b3ed-4b90-a6b8-efaca7255297</sv:value>
+          <sv:value>5f85bcf5-e937-7229-3584-71df04a27979</sv:value>
         </sv:property>
         <sv:property sv:name="dropConstraintClass" sv:type="String">
           <sv:value>info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint</sv:value>
@@ -139,7 +139,7 @@
             <sv:value>mgnl:contentNode</sv:value>
           </sv:property>
           <sv:property sv:name="jcr:uuid" sv:type="String">
-            <sv:value>d93cc941-34da-476c-92ae-31e975dcc6cd</sv:value>
+            <sv:value>182d7c2f-38c6-8674-8d76-7eea712e8f59</sv:value>
           </sv:property>
           <sv:property sv:name="extends" sv:type="String">
             <sv:value>override</sv:value>
@@ -164,7 +164,7 @@
               <sv:value>mgnl:contentNode</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:uuid" sv:type="String">
-              <sv:value>cf7adbc8-2d7b-4d15-87fa-4c5cc277b1c3</sv:value>
+              <sv:value>182b2cd8-95ca-6051-8fb8-b4393a5cd35d</sv:value>
             </sv:property>
             <sv:property sv:name="class" sv:type="String">
               <sv:value>info.magnolia.ui.workbench.tree.TreePresenterDefinition</sv:value>
@@ -192,7 +192,7 @@
                 <sv:value>mgnl:contentNode</sv:value>
               </sv:property>
               <sv:property sv:name="jcr:uuid" sv:type="String">
-                <sv:value>f3fa7a61-e0b3-40d4-8fb8-9040e9c9b062</sv:value>
+                <sv:value>b6928544-8553-0ac2-686d-71b18fb5a87c</sv:value>
               </sv:property>
               <sv:property sv:name="jcr:createdBy" sv:type="String">
                 <sv:value>admin</sv:value>
@@ -214,7 +214,7 @@
                   <sv:value>mgnl:contentNode</sv:value>
                 </sv:property>
                 <sv:property sv:name="jcr:uuid" sv:type="String">
-                  <sv:value>b2ce0838-0a46-4454-91b0-a162fe58a2c0</sv:value>
+                  <sv:value>b33b99ba-2762-bb38-98ab-70007edc400e</sv:value>
                 </sv:property>
                 <sv:property sv:name="class" sv:type="String">
                   <sv:value>info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition</sv:value>
@@ -249,7 +249,7 @@
             <sv:value>mgnl:contentNode</sv:value>
           </sv:property>
           <sv:property sv:name="jcr:uuid" sv:type="String">
-            <sv:value>45ce269a-2a6d-40dd-a9b3-388dbc623c15</sv:value>
+            <sv:value>4de59757-7c16-7e75-ac9d-8d9b742f7a95</sv:value>
           </sv:property>
           <sv:property sv:name="jcr:createdBy" sv:type="String">
             <sv:value>admin</sv:value>
@@ -271,7 +271,7 @@
               <sv:value>mgnl:contentNode</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:uuid" sv:type="String">
-              <sv:value>26002d76-a9a8-4d87-964f-e3ad0b653905</sv:value>
+              <sv:value>6d7a5fe4-f9fe-3090-dcf3-334638ce4471</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:createdBy" sv:type="String">
               <sv:value>admin</sv:value>
@@ -299,7 +299,7 @@
           <sv:value>mgnl:contentNode</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>7515ac65-1a27-4d69-a458-83c03133457f</sv:value>
+          <sv:value>52242d3a-5360-bceb-73f9-f2f362ffaa8d</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:createdBy" sv:type="String">
           <sv:value>admin</sv:value>
@@ -324,7 +324,7 @@
             <sv:value>mix:lockable</sv:value>
           </sv:property>
           <sv:property sv:name="jcr:uuid" sv:type="String">
-            <sv:value>f192d61d-fb68-46ec-817a-08152b08c5ca</sv:value>
+            <sv:value>be7d19a3-4919-555f-d446-9e5723075e5a</sv:value>
           </sv:property>
           <sv:property sv:name="appName" sv:type="String">
             <sv:value>ctBrowser</sv:value>
@@ -367,7 +367,7 @@
               <sv:value>mgnl:contentNode</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:uuid" sv:type="String">
-              <sv:value>c4d991f8-e986-47c4-a335-166e26a5a105</sv:value>
+              <sv:value>afed10ec-9cc3-d42c-bdba-d0ca760215b2</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:createdBy" sv:type="String">
               <sv:value>admin</sv:value>
@@ -392,7 +392,7 @@
                 <sv:value>mgnl:contentNode</sv:value>
               </sv:property>
               <sv:property sv:name="jcr:uuid" sv:type="String">
-                <sv:value>b369728d-1f62-4f72-8207-51cbbeeb6ffb</sv:value>
+                <sv:value>7368b0f2-d963-5a3c-8475-8566c36fce88</sv:value>
               </sv:property>
               <sv:property sv:name="jcr:createdBy" sv:type="String">
                 <sv:value>admin</sv:value>
@@ -414,7 +414,7 @@
                   <sv:value>mgnl:contentNode</sv:value>
                 </sv:property>
                 <sv:property sv:name="jcr:uuid" sv:type="String">
-                  <sv:value>722f264d-455c-481f-b7db-c809a8780e4f</sv:value>
+                  <sv:value>60b8068f-ec3e-e8f2-b620-9445289784a9</sv:value>
                 </sv:property>
                 <sv:property sv:name="implementationClass" sv:type="String">
                   <sv:value>info.magnolia.commercetools.integration.app.browser.availability.IsProductRule</sv:value>
@@ -444,7 +444,7 @@
           <sv:value>mgnl:contentNode</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>cf41c418-0ced-4a8e-b9cf-107d4b69aae7</sv:value>
+          <sv:value>9fbff32e-b405-b479-10e5-4adc98500696</sv:value>
         </sv:property>
         <sv:property sv:name="defaultAction" sv:type="String">
           <sv:value>viewDetails</sv:value>
@@ -469,7 +469,7 @@
             <sv:value>mgnl:contentNode</sv:value>
           </sv:property>
           <sv:property sv:name="jcr:uuid" sv:type="String">
-            <sv:value>d74e92d6-0540-433f-b1da-2a942ce1f908</sv:value>
+            <sv:value>cc41260b-8696-bc4d-9723-2d0fdf53ba7d</sv:value>
           </sv:property>
           <sv:property sv:name="jcr:createdBy" sv:type="String">
             <sv:value>admin</sv:value>
@@ -494,7 +494,7 @@
               <sv:value>mix:lockable</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:uuid" sv:type="String">
-              <sv:value>b7cbeda5-9163-4e65-bfec-c88ab1b2bb57</sv:value>
+              <sv:value>33842173-bbeb-5d08-4266-536db3fd3440</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:createdBy" sv:type="String">
               <sv:value>admin</sv:value>
@@ -528,7 +528,7 @@
                 <sv:value>mix:lockable</sv:value>
               </sv:property>
               <sv:property sv:name="jcr:uuid" sv:type="String">
-                <sv:value>a597e43b-a389-49c6-8c80-e1b249478a29</sv:value>
+                <sv:value>1b652528-0bfd-71cf-7791-d022cd42bcb7</sv:value>
               </sv:property>
               <sv:property sv:name="jcr:createdBy" sv:type="String">
                 <sv:value>admin</sv:value>
@@ -559,7 +559,7 @@
                   <sv:value>mgnl:contentNode</sv:value>
                 </sv:property>
                 <sv:property sv:name="jcr:uuid" sv:type="String">
-                  <sv:value>cc77b84a-29b0-400c-bb2c-850795f2f415</sv:value>
+                  <sv:value>331ba20d-bd1f-9d42-b20b-b0c5195dbf71</sv:value>
                 </sv:property>
                 <sv:property sv:name="jcr:createdBy" sv:type="String">
                   <sv:value>admin</sv:value>
@@ -590,7 +590,7 @@
                     <sv:value>mgnl:contentNode</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:uuid" sv:type="String">
-                    <sv:value>af779f6b-c472-4e19-b065-34e6ef7238eb</sv:value>
+                    <sv:value>e929ad42-bc4c-58fd-1028-ae4067c5646e</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:createdBy" sv:type="String">
                     <sv:value>admin</sv:value>
@@ -621,7 +621,7 @@
                       <sv:value>mgnl:contentNode</sv:value>
                     </sv:property>
                     <sv:property sv:name="jcr:uuid" sv:type="String">
-                      <sv:value>821a0bbb-3dbc-48d4-99da-716a01d7a7d0</sv:value>
+                      <sv:value>67926b61-f8af-93ab-2229-853783f4cfae</sv:value>
                     </sv:property>
                     <sv:property sv:name="jcr:createdBy" sv:type="String">
                       <sv:value>admin</sv:value>
@@ -659,7 +659,7 @@
                 <sv:value>mix:lockable</sv:value>
               </sv:property>
               <sv:property sv:name="jcr:uuid" sv:type="String">
-                <sv:value>de55094d-db33-44aa-a5e3-31c93197acce</sv:value>
+                <sv:value>963c7c37-3638-9581-580b-f940394071be</sv:value>
               </sv:property>
               <sv:property sv:name="jcr:createdBy" sv:type="String">
                 <sv:value>admin</sv:value>
@@ -693,7 +693,7 @@
                   <sv:value>mgnl:contentNode</sv:value>
                 </sv:property>
                 <sv:property sv:name="jcr:uuid" sv:type="String">
-                  <sv:value>1227d55a-3e51-4e32-8458-53da1c6d9834</sv:value>
+                  <sv:value>9c57b9c4-5d19-181a-80c5-0aa219da46a8</sv:value>
                 </sv:property>
                 <sv:property sv:name="jcr:createdBy" sv:type="String">
                   <sv:value>admin</sv:value>
@@ -715,7 +715,7 @@
                     <sv:value>mgnl:contentNode</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:uuid" sv:type="String">
-                    <sv:value>9b2d69c5-2180-428c-8b2d-b2ebf0be05c3</sv:value>
+                    <sv:value>346ad4f5-54a2-a12d-862e-1be62794cfac</sv:value>
                   </sv:property>
                   <sv:property sv:name="implementationClass" sv:type="String">
                     <sv:value>info.magnolia.commercetools.integration.app.browser.availability.IsProductRule</sv:value>
@@ -746,7 +746,7 @@
           <sv:value>mgnl:contentNode</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>808aecc0-4f54-48ed-9032-e3b91903ee30</sv:value>
+          <sv:value>756c51c7-cb3c-be5a-8902-85d3f4b238cc</sv:value>
         </sv:property>
         <sv:property sv:name="class" sv:type="String">
           <sv:value>info.magnolia.ui.imageprovider.definition.ConfiguredImageProviderDefinition</sv:value>
@@ -779,7 +779,7 @@
         <sv:value>mix:lockable</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>fe80b2fc-54d7-4798-866f-8220cd66088e</sv:value>
+        <sv:value>ed8ef376-a904-e0a7-1f0b-cdea5a2c150d</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
         <sv:value>info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor</sv:value>
@@ -819,7 +819,7 @@
           <sv:value>mix:lockable</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>15ecdc5e-bb4d-4a07-83cf-7ac20c60ef0d</sv:value>
+          <sv:value>7bd55aae-0651-e34b-d95c-e23a38ff6295</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:createdBy" sv:type="String">
           <sv:value>admin</sv:value>
@@ -853,7 +853,7 @@
             <sv:value>mix:lockable</sv:value>
           </sv:property>
           <sv:property sv:name="jcr:uuid" sv:type="String">
-            <sv:value>25d1db84-fd31-4138-86fe-b13bd44100e3</sv:value>
+            <sv:value>8d63eb2e-8dc9-4324-6070-d3a6ca9a39b4</sv:value>
           </sv:property>
           <sv:property sv:name="jcr:createdBy" sv:type="String">
             <sv:value>admin</sv:value>
@@ -887,7 +887,7 @@
               <sv:value>mix:lockable</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:uuid" sv:type="String">
-              <sv:value>f27a27e1-47c5-4f57-85c7-bacf568a4a11</sv:value>
+              <sv:value>fbd48ff0-1c22-b23a-ae89-926b5ef8ff18</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:createdBy" sv:type="String">
               <sv:value>admin</sv:value>
@@ -921,7 +921,7 @@
                 <sv:value>mix:lockable</sv:value>
               </sv:property>
               <sv:property sv:name="jcr:uuid" sv:type="String">
-                <sv:value>7af060af-34e6-4c43-8e8d-76d4d107aec9</sv:value>
+                <sv:value>5e07a522-107e-0790-bc55-3f84989634c7</sv:value>
               </sv:property>
               <sv:property sv:name="jcr:createdBy" sv:type="String">
                 <sv:value>admin</sv:value>
@@ -955,7 +955,7 @@
                   <sv:value>mix:lockable</sv:value>
                 </sv:property>
                 <sv:property sv:name="jcr:uuid" sv:type="String">
-                  <sv:value>875a62e3-eaa9-4a35-a12c-72a5626215f1</sv:value>
+                  <sv:value>0af47f02-ffde-d38a-5fec-b9cca7aacde3</sv:value>
                 </sv:property>
                 <sv:property sv:name="jcr:createdBy" sv:type="String">
                   <sv:value>admin</sv:value>
@@ -986,7 +986,7 @@
                     <sv:value>mgnl:contentNode</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:uuid" sv:type="String">
-                    <sv:value>d9b8b000-e28d-43fa-af4a-525eca6bfff4</sv:value>
+                    <sv:value>b1dfca47-07a3-91ee-aed9-258bdc8b26f4</sv:value>
                   </sv:property>
                   <sv:property sv:name="class" sv:type="String">
                     <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
@@ -1030,7 +1030,7 @@
                     <sv:value>mgnl:contentNode</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:uuid" sv:type="String">
-                    <sv:value>987ee3ee-f5d6-4ce9-84ee-9146937dd448</sv:value>
+                    <sv:value>227c3397-0775-51ac-4791-49381c165606</sv:value>
                   </sv:property>
                   <sv:property sv:name="class" sv:type="String">
                     <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
@@ -1065,7 +1065,7 @@
                     <sv:value>mgnl:contentNode</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:uuid" sv:type="String">
-                    <sv:value>bd684996-357d-43f2-b336-835a5f0ca5dc</sv:value>
+                    <sv:value>d47f994e-f14c-b100-3fc5-f1708a333549</sv:value>
                   </sv:property>
                   <sv:property sv:name="class" sv:type="String">
                     <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
@@ -1109,7 +1109,7 @@
                     <sv:value>mgnl:contentNode</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:uuid" sv:type="String">
-                    <sv:value>c0f4fb9e-4c22-4a1d-8f9c-008a99cef562</sv:value>
+                    <sv:value>d868f485-2bd1-2bcf-026b-0a3a45f47a2f</sv:value>
                   </sv:property>
                   <sv:property sv:name="class" sv:type="String">
                     <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
@@ -1153,7 +1153,7 @@
                     <sv:value>mgnl:contentNode</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:uuid" sv:type="String">
-                    <sv:value>5299d4a2-404d-4fa6-80e7-7592dfff5c11</sv:value>
+                    <sv:value>911f6e73-3a68-c260-b81c-49a987ea5926</sv:value>
                   </sv:property>
                   <sv:property sv:name="class" sv:type="String">
                     <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
@@ -1197,7 +1197,7 @@
                     <sv:value>mgnl:contentNode</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:uuid" sv:type="String">
-                    <sv:value>e944d951-14b3-4b8f-a1b0-dd263fb0671f</sv:value>
+                    <sv:value>4f6deeba-6047-10f0-4613-39a04987414f</sv:value>
                   </sv:property>
                   <sv:property sv:name="class" sv:type="String">
                     <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
@@ -1241,7 +1241,7 @@
                     <sv:value>mgnl:contentNode</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:uuid" sv:type="String">
-                    <sv:value>a4b8a402-2add-4f9e-a095-e70f651fe94f</sv:value>
+                    <sv:value>8ef2b82c-f22e-a677-263d-503bba2cc6b4</sv:value>
                   </sv:property>
                   <sv:property sv:name="class" sv:type="String">
                     <sv:value>info.magnolia.commercetools.integration.app.detail.fields.CategoriesListFieldFactory$Definition</sv:value>
@@ -1284,7 +1284,7 @@
                       <sv:value>mgnl:contentNode</sv:value>
                     </sv:property>
                     <sv:property sv:name="jcr:uuid" sv:type="String">
-                      <sv:value>381f36d0-69a8-40e3-af22-1f624b2e4caf</sv:value>
+                      <sv:value>ba548561-06a2-2e55-d12c-ed767f0ac8e4</sv:value>
                     </sv:property>
                     <sv:property sv:name="jcr:createdBy" sv:type="String">
                       <sv:value>admin</sv:value>
@@ -1306,7 +1306,7 @@
                         <sv:value>mgnl:contentNode</sv:value>
                       </sv:property>
                       <sv:property sv:name="jcr:uuid" sv:type="String">
-                        <sv:value>fdb53ad3-eb93-4d89-9186-6d4486e95213</sv:value>
+                        <sv:value>2d290f1a-f371-7f7b-3f23-4302f2e9d7ea</sv:value>
                       </sv:property>
                       <sv:property sv:name="class" sv:type="String">
                         <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
@@ -1350,7 +1350,7 @@
                         <sv:value>mgnl:contentNode</sv:value>
                       </sv:property>
                       <sv:property sv:name="jcr:uuid" sv:type="String">
-                        <sv:value>b6d2d784-103f-4cd9-ac3f-83f20fb22f31</sv:value>
+                        <sv:value>7bf29735-c37b-066d-7887-34036fb806d5</sv:value>
                       </sv:property>
                       <sv:property sv:name="class" sv:type="String">
                         <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
@@ -1394,7 +1394,7 @@
                         <sv:value>mgnl:contentNode</sv:value>
                       </sv:property>
                       <sv:property sv:name="jcr:uuid" sv:type="String">
-                        <sv:value>993bb488-e39f-4a36-a36f-1cf47ee50b03</sv:value>
+                        <sv:value>6d9deec0-3d1d-3478-7871-5439902bef8e</sv:value>
                       </sv:property>
                       <sv:property sv:name="class" sv:type="String">
                         <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
@@ -1440,7 +1440,7 @@
                     <sv:value>mgnl:contentNode</sv:value>
                   </sv:property>
                   <sv:property sv:name="jcr:uuid" sv:type="String">
-                    <sv:value>57ddac71-fb3c-42b1-957c-b03e9b8c27de</sv:value>
+                    <sv:value>da4afdd9-c819-742c-0c5b-4159c72ad3fc</sv:value>
                   </sv:property>
                   <sv:property sv:name="class" sv:type="String">
                     <sv:value>info.magnolia.commercetools.integration.app.detail.fields.VariantsListFieldFactory$Definition</sv:value>
@@ -1480,7 +1480,7 @@
                       <sv:value>mgnl:contentNode</sv:value>
                     </sv:property>
                     <sv:property sv:name="jcr:uuid" sv:type="String">
-                      <sv:value>08213e24-c074-4c15-b798-e41bb054a816</sv:value>
+                      <sv:value>b6c9c659-1069-30b4-8fef-17ebffb66904</sv:value>
                     </sv:property>
                     <sv:property sv:name="jcr:createdBy" sv:type="String">
                       <sv:value>admin</sv:value>
@@ -1511,7 +1511,7 @@
                         <sv:value>mgnl:contentNode</sv:value>
                       </sv:property>
                       <sv:property sv:name="jcr:uuid" sv:type="String">
-                        <sv:value>9900b921-755b-486c-86cf-1af84e3a81fe</sv:value>
+                        <sv:value>f7fbee64-5394-21d3-3455-d955e9af6947</sv:value>
                       </sv:property>
                       <sv:property sv:name="class" sv:type="String">
                         <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
@@ -1549,7 +1549,7 @@
                         <sv:value>mgnl:contentNode</sv:value>
                       </sv:property>
                       <sv:property sv:name="jcr:uuid" sv:type="String">
-                        <sv:value>3343a885-a101-4e7a-9f53-ffbab9d92e48</sv:value>
+                        <sv:value>b7a342d1-6e57-d8de-2dda-dd038e7143f7</sv:value>
                       </sv:property>
                       <sv:property sv:name="class" sv:type="String">
                         <sv:value>info.magnolia.commercetools.integration.app.detail.fields.PricesListFieldFactory$Definition</sv:value>
@@ -1589,7 +1589,7 @@
                           <sv:value>mgnl:contentNode</sv:value>
                         </sv:property>
                         <sv:property sv:name="jcr:uuid" sv:type="String">
-                          <sv:value>f901d52c-09b9-4a32-a9b2-010e8d003a25</sv:value>
+                          <sv:value>6e458f5a-b61e-784e-0704-2222db831f5f</sv:value>
                         </sv:property>
                         <sv:property sv:name="jcr:createdBy" sv:type="String">
                           <sv:value>admin</sv:value>
@@ -1611,7 +1611,7 @@
                             <sv:value>mgnl:contentNode</sv:value>
                           </sv:property>
                           <sv:property sv:name="jcr:uuid" sv:type="String">
-                            <sv:value>8bbbcd53-658e-49ea-87b7-e45841466293</sv:value>
+                            <sv:value>3f15eced-7787-6a72-0966-671354456cf3</sv:value>
                           </sv:property>
                           <sv:property sv:name="class" sv:type="String">
                             <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
@@ -1640,7 +1640,7 @@
                             <sv:value>mgnl:contentNode</sv:value>
                           </sv:property>
                           <sv:property sv:name="jcr:uuid" sv:type="String">
-                            <sv:value>19902316-1559-4eac-be93-5a1813cda687</sv:value>
+                            <sv:value>c5c28185-5771-d2d9-bfa1-c668d082de92</sv:value>
                           </sv:property>
                           <sv:property sv:name="class" sv:type="String">
                             <sv:value>info.magnolia.ui.form.field.definition.TextFieldDefinition</sv:value>
@@ -1668,7 +1668,7 @@
                         <sv:value>mgnl:contentNode</sv:value>
                       </sv:property>
                       <sv:property sv:name="jcr:uuid" sv:type="String">
-                        <sv:value>bc864ab1-6451-4da5-8939-cf9a8be4bc6e</sv:value>
+                        <sv:value>8efcb571-2d9e-85b3-bbd4-85afb3cdf1dc</sv:value>
                       </sv:property>
                       <sv:property sv:name="class" sv:type="String">
                         <sv:value>info.magnolia.commercetools.integration.app.detail.fields.CommerceToolsImageFieldDefinition</sv:value>
@@ -1715,7 +1715,7 @@
             <sv:value>mix:lockable</sv:value>
           </sv:property>
           <sv:property sv:name="jcr:uuid" sv:type="String">
-            <sv:value>43247d9b-64eb-458a-b08e-d94706773191</sv:value>
+            <sv:value>d95c0c41-e338-f8eb-e08d-994405a25448</sv:value>
           </sv:property>
           <sv:property sv:name="extends" sv:type="String">
             <sv:value>override</sv:value>
@@ -1752,7 +1752,7 @@
               <sv:value>mix:lockable</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:uuid" sv:type="String">
-              <sv:value>290c47fc-5949-41ee-9b85-2064c744aa77</sv:value>
+              <sv:value>5c6fc7f2-b013-7e22-8601-899adb1b2201</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:createdBy" sv:type="String">
               <sv:value>admin</sv:value>
@@ -1789,7 +1789,7 @@
           <sv:value>mix:lockable</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>e303ac33-d3e9-455c-a3dc-88db44562a5f</sv:value>
+          <sv:value>b453097b-1c48-5e40-f38e-8606c342ee21</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:createdBy" sv:type="String">
           <sv:value>admin</sv:value>
@@ -1823,7 +1823,7 @@
             <sv:value>mix:lockable</sv:value>
           </sv:property>
           <sv:property sv:name="jcr:uuid" sv:type="String">
-            <sv:value>aa3de624-9bfc-480b-acf6-656000713fd2</sv:value>
+            <sv:value>49440595-8bae-53f9-27d1-3c08bd6a9049</sv:value>
           </sv:property>
           <sv:property sv:name="class" sv:type="String">
             <sv:value>info.magnolia.ui.form.action.CancelFormActionDefinition</sv:value>
@@ -1859,7 +1859,7 @@
           <sv:value>mgnl:contentNode</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>b98fbd2a-e912-43d0-8e55-95568cb8b94f</sv:value>
+          <sv:value>4da9f6ab-4f12-0117-073e-4b21f4345169</sv:value>
         </sv:property>
         <sv:property sv:name="extends" sv:type="String">
           <sv:value>../../browser/contentConnector</sv:value>
@@ -1896,7 +1896,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>cc2ca36b-424b-44f7-ae64-b46c6c767c00</sv:value>
+      <sv:value>87d936eb-bcd3-e9a8-ab55-b094b9ecdb4e</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -1918,7 +1918,7 @@
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
       <sv:property sv:name="jcr:uuid" sv:type="String">
-        <sv:value>a63190fb-9c9d-4ac0-9376-f8a64832e75f</sv:value>
+        <sv:value>241041d3-7f7e-c744-9fd6-2e94ecbffad9</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
         <sv:value>info.magnolia.ui.contentapp.field.WorkbenchFieldDefinition</sv:value>
@@ -1943,7 +1943,7 @@
           <sv:value>mgnl:contentNode</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:uuid" sv:type="String">
-          <sv:value>2582abee-61ae-4637-a1fc-ec1a287a1548</sv:value>
+          <sv:value>edea8848-1432-ff13-4f7e-a7e575e03a75</sv:value>
         </sv:property>
         <sv:property sv:name="extends" sv:type="String">
           <sv:value>/modules/commercetools-integration/apps/ctBrowser/subApps/browser/workbench</sv:value>
