@@ -14,15 +14,11 @@
  */
 package info.magnolia.commercetools.integration.app.configuration.field;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
 import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
 import info.magnolia.commercetools.integration.app.configuration.field.LanguageSelectFieldFactory.Definition;
+import info.magnolia.commercetools.integration.service.CommerceToolsServices;
 import info.magnolia.ui.form.field.definition.SelectFieldDefinition;
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
-import io.sphere.sdk.client.BlockingSphereClient;
-import io.sphere.sdk.client.SphereClient;
-import io.sphere.sdk.projects.Project;
-import io.sphere.sdk.projects.queries.ProjectGet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +28,16 @@ import javax.inject.Provider;
 
 import com.vaadin.data.Item;
 
+import io.sphere.sdk.client.SphereClient;
+
 /**
  * Language selection field which reads available languages from the CommerceTools project settings.<br/>
  */
 public class LanguageSelectFieldFactory extends AbstractCommerceToolsFieldFactory<Definition> {
 
     @Inject
-    public LanguageSelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommerceToolsIntegrationModule> provider) {
-        super(definition, relatedFieldItem, provider);
+    public LanguageSelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommerceToolsIntegrationModule> provider, CommerceToolsServices services) {
+        super(definition, relatedFieldItem, provider, services);
     }
 
     @Override
@@ -59,9 +57,7 @@ public class LanguageSelectFieldFactory extends AbstractCommerceToolsFieldFactor
         if (pureAsyncClient == null) {
             return new ArrayList<String>();
         }
-        final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
-        Project project = client.executeBlocking(ProjectGet.of());
-        return project.getLanguages();
+        return getServices().getProjectDetail(pureAsyncClient).getLanguages();
     }
 
     /**

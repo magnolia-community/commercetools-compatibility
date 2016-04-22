@@ -18,6 +18,7 @@ import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
 import info.magnolia.commercetools.integration.CommerceToolsProjectConfiguration;
 import info.magnolia.commercetools.integration.app.configuration.event.ProjectChangedEvent;
 import info.magnolia.commercetools.integration.app.configuration.field.ProjectSelectFieldFactory.Definition;
+import info.magnolia.commercetools.integration.service.CommerceToolsServices;
 import info.magnolia.event.EventBus;
 import info.magnolia.ui.api.app.SubAppEventBus;
 import info.magnolia.ui.form.field.definition.SelectFieldDefinition;
@@ -53,8 +54,8 @@ public class ProjectSelectFieldFactory extends AbstractCommerceToolsFieldFactory
     };
 
     @Inject
-    public ProjectSelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommerceToolsIntegrationModule> provider, @Named(SubAppEventBus.NAME) EventBus eventBus) {
-        super(definition, relatedFieldItem, provider);
+    public ProjectSelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommerceToolsIntegrationModule> provider, @Named(SubAppEventBus.NAME) EventBus eventBus, CommerceToolsServices services) {
+        super(definition, relatedFieldItem, provider, services);
         this.eventBus = eventBus;
     }
 

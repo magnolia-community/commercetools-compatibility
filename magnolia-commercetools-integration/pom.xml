@@ -19,6 +19,16 @@
       <artifactId>magnolia-core</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-rendering</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-templating</artifactId>
+    </dependency>
+
     <!-- UI -->
     <dependency>
       <groupId>info.magnolia.ui</groupId>
