@@ -1,0 +1,34 @@
+dialog: form:formGroupFields
+modelClass: info.magnolia.module.form.templates.components.FormFieldModel
+renderType: freemarker
+templateScript: /form/components/formGroupFields.ftl
+areas:
+  fields:
+    type: list
+    enabled: true
+    templateScript: /form/generic/listArea.ftl
+    availableComponents:
+      formEdit:
+        id: form:components/formEdit
+      formPassword:
+        id: form:components/formPassword
+      formHidden:
+        id: form:components/formHidden
+      formGroupEdit:
+        id: form:components/formGroupEdit
+      formSelection:
+        id: form:components/formSelection
+      formFile:
+        id: form:components/formFile
+      formSubmit:
+        id: form:components/formSubmit
+      formSummary:
+        id: form:components/formSummary
+      formHoneypot:
+        id: form:components/formHoneypot
+      formNumber:
+        id: form:components/formNumber
+      ctShippingMethodsSelection:
+        id: commercetools-templates:components/ctShippingMethodsSelection
+      ctShoppingCartTable:
+        id: commercetools-templates:components/ctShoppingCartTable

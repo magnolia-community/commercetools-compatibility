@@ -33,7 +33,6 @@ import javax.inject.Singleton;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.common.collect.Lists;
 import com.neovisionaries.i18n.CountryCode;
 
 import io.sphere.sdk.carts.Cart;
@@ -50,6 +49,7 @@ import io.sphere.sdk.producttypes.ProductType;
 import io.sphere.sdk.producttypes.ProductTypeLocalRepository;
 import io.sphere.sdk.queries.PagedQueryResult;
 import io.sphere.sdk.search.PagedSearchResult;
+import io.sphere.sdk.shippingmethods.ShippingMethod;
 
 /**
  * Useful functions for templating.
@@ -295,7 +295,7 @@ public class CommerceToolsTemplatingFunctions {
     public List<Map<String, String>> getCategoryListForBreadcrumb(final Category category) {
         List<Map<String, String>> breadcrumbList = new ArrayList<>();
 
-        for (Reference<Category> ancestor : Lists.reverse(category.getAncestors())) {
+        for (Reference<Category> ancestor : category.getAncestors()) {
             breadcrumbList.add(new HashMap<String, String>() {{
                 put(ancestor.getId(), ancestor.getObj().getName().get(getLanguage()));
             }});
@@ -364,5 +364,13 @@ public class CommerceToolsTemplatingFunctions {
         }
 
         return filterBy;
+    }
+
+    public PagedQueryResult<ShippingMethod> getShippingMethodList() {
+        return commerceToolsServices.getShippingMethodList(getProjectClient());
+    }
+
+    public ShippingMethod getShippingMethod(String id) {
+        return commerceToolsServices.getShippingMethod(getProjectClient(), id);
     }
 }

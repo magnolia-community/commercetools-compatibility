@@ -4,6 +4,11 @@ form:
       fields:
         - name: perPage
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: attributeFacets
+          class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+          field:
+            class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+            label: Attribute name
         - name: productDetailPage
           class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
           targetWorkspace: website

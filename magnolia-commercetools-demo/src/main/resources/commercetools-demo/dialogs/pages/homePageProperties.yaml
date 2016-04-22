@@ -1,0 +1,39 @@
+form:
+  tabs:
+    # "inherited" (copied) from "mte/dialogs/pages/pageProperties.yaml"
+    - name: tabMain
+      fields:
+        - name: title
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          i18n: true
+        - name: windowTitle
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          i18n: true
+    # "inherited" (copied) from "mte/dialogs/pages/pageProperties.yaml"
+    - name: tabMeta
+      fields:
+        - name: keywords
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          i18n: true
+          rows: 3
+        - name: description
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          i18n: true
+          rows: 5
+    # commercetools-page specific properties
+    - name: tabCommercetools
+      fields:
+        - name: headerBgImage
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: dam
+          appName: assets
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          contentPreviewDefinition:
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition

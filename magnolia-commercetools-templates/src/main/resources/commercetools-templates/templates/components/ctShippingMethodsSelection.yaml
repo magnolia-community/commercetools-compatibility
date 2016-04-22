@@ -1,0 +1,4 @@
+dialog: commercetools-templates:components/ctShippingMethodsFormSelection
+modelClass: info.magnolia.module.form.templates.components.FormFieldModel
+renderType: freemarker
+templateScript: /commercetools-templates/templates/components/ctShippingMethodsSelection.ftl

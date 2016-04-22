@@ -110,7 +110,10 @@ import io.sphere.sdk.search.FilterExpression;
 import io.sphere.sdk.search.PagedSearchResult;
 import io.sphere.sdk.search.model.RangeTermFacetedSearchSearchModel;
 import io.sphere.sdk.search.model.TermFacetedSearchSearchModel;
+import io.sphere.sdk.shippingmethods.ShippingMethod;
 import io.sphere.sdk.shippingmethods.expansion.ShippingMethodExpansionModel;
+import io.sphere.sdk.shippingmethods.queries.ShippingMethodByIdGet;
+import io.sphere.sdk.shippingmethods.queries.ShippingMethodQuery;
 
 /**
  * Service class containing CommerceTools queries used by several classes.
@@ -540,5 +543,13 @@ public class CommerceToolsServices {
 
     public Customer customerPasswordReset(SphereClient client, String customerTokenValue, String newPassword) {
         return client.execute(CustomerPasswordResetCommand.ofTokenAndPassword(customerTokenValue, newPassword)).toCompletableFuture().join();
+    }
+
+    public ShippingMethod getShippingMethod(SphereClient client, String id) {
+        return client.execute(ShippingMethodByIdGet.of(id)).toCompletableFuture().join();
+    }
+
+    public PagedQueryResult<ShippingMethod> getShippingMethodList(SphereClient client) {
+        return client.execute(ShippingMethodQuery.of().withLimit(MAX_QUERY_LIMIT)).toCompletableFuture().join();
     }
 }

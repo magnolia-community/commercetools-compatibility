@@ -20,7 +20,7 @@
     [#assign products = ctfn.getProducts(categoryId, (currentPage-1)*perPage, perPage, productTypes, attributeFacets, filterBy)!]
     [@breadcrumb ctfn.getCategory(categoryId) cmsfn.link(cmsfn.page(content)) /]
     [#if products.getFacetsResults()?has_content]
-        [@productFilters attributeFacets products.getFacetsResults() productTypes filterBy /]
+        [@productFilters attributeFacets products.getFacetsResults() productTypes filterBy {"categoryId":categoryId} /]
     [/#if]
     [#if products.getResults()?has_content]
         [@productTeaserList products currentPage perPage content.productDetailPage /]

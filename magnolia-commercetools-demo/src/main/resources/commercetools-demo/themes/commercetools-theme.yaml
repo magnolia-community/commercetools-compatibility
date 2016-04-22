@@ -1,0 +1,21 @@
+cssFiles:
+  - name: bootstrap
+    media: all
+    addFingerPrint: true
+    link: /.resources/commercetools-demo/theme/css/bootstrap.min.css
+  - name: normalize
+    media: all
+    addFingerPrint: true
+    link: /.resources/commercetools-demo/theme/css/normalize.css
+  - name: style
+    media: all
+    addFingerPrint: true
+    link: /.resources/commercetools-demo/theme/css/style.css
+jsFiles:
+  - name: jquery
+    link: /.resources/commercetools-demo/theme/js/jquery-1.12.3.min.js
+  - name: script
+    addFingerPrint: true
+    link: /.resources/commercetools-demo/theme/js/script.js
+imaging:
+    class: info.magnolia.imaging.DefaultImagingSupport

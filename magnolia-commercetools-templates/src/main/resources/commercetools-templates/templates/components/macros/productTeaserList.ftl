@@ -15,7 +15,7 @@
             </a>
             <p><a href="${teaserLink}?productId=${product.getId()}">${product.getName().get(ctfn.getLanguage())!""}</a></p>
             <div>
-                [#assign price = ctfn.getPriceToShow(product.getMasterVariant().getPrices()).getValue()!]
+                [#assign price = (ctfn.getPriceToShow(product.getMasterVariant().getPrices()).getValue())!]
                 <span><strong>${(price.getCurrency())!} ${(price.getNumber())!i18n['ctProduct.priceNotSet']}</strong></span>
                 <a class="addToCart" id="${product.getId()}" variantId="${product.getMasterVariant().getId()}" href="#">${i18n['ctProduct.addToCart']}</a>
             </div>
