@@ -103,7 +103,7 @@ public class CommerceToolsContainer extends AbstractContainer implements Contain
             log.warn("No CommerceTools project found. Please fix your configuration.");
             return;
         }
-        List<Category> categories = commerceToolsServices.getCategories(sphereClient, null, context.getLocale());
+        List<Category> categories = commerceToolsServices.getCategories(sphereClient, null, context.getLocale()).getResults();
         for (Category category : categories) {
             CommerceToolsCategoryItem categoryItem = new CommerceToolsCategoryItem(contentConnector.getContentConnectorDefinition().getDefaultProjectId(), (category.getParent() != null ? category.getParent().getId() : ""), category);
             this.items.put(categoryItem.getItemId(), categoryItem);
@@ -139,7 +139,7 @@ public class CommerceToolsContainer extends AbstractContainer implements Contain
         if (childCategories.containsKey(itemId)) {
             result.addAll(childCategories.get(itemId));
         } else {
-            List<Category> categories = commerceToolsServices.getCategories(sphereClient, ctItemId, context.getLocale());
+            List<Category> categories = commerceToolsServices.getCategories(sphereClient, ctItemId, context.getLocale()).getResults();
             if (categories != null) {
                 List<CommerceToolsItemId> children = new ArrayList<>();
                 for (Category category : categories) {
@@ -157,7 +157,7 @@ public class CommerceToolsContainer extends AbstractContainer implements Contain
             products.addAll(childProducts.get(itemId));
         } else {
             // try to load childProducts for a category
-            List<ProductProjection> productItems = commerceToolsServices.getProducts(sphereClient, ctItemId, context.getLocale(), 0, 0);
+            List<ProductProjection> productItems = commerceToolsServices.getProducts(sphereClient, ctItemId, context.getLocale()).getResults();
             if (!productItems.isEmpty()) {
                 for (ProductProjection product : productItems) {
                     CommerceToolsProductItem productItem = new CommerceToolsProductItem(projectId, ctItemId, product);

@@ -2,8 +2,6 @@ form:
   tabs:
     - name: tabMain
       fields:
-        - name: categoryId
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
         - name: perPage
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
         - name: productDetailPage

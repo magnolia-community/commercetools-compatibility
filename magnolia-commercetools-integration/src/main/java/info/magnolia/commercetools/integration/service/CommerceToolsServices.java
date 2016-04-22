@@ -18,9 +18,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
 
-import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.CompletionStage;
 
 import javax.inject.Singleton;
 
@@ -36,18 +34,24 @@ import io.sphere.sdk.products.ProductProjection;
 import io.sphere.sdk.products.expansion.ProductProjectionExpansionModel;
 import io.sphere.sdk.products.queries.ProductProjectionQuery;
 import io.sphere.sdk.products.queries.ProductProjectionQueryModel;
+import io.sphere.sdk.products.search.ProductProjectionSearch;
 import io.sphere.sdk.projects.Project;
 import io.sphere.sdk.projects.queries.ProjectGet;
 import io.sphere.sdk.queries.PagedQueryResult;
-import io.sphere.sdk.queries.QueryExecutionUtils;
 import io.sphere.sdk.queries.QueryPredicate;
 import io.sphere.sdk.queries.QuerySort;
+import io.sphere.sdk.search.PagedSearchResult;
 
 /**
- * Service class used by several model classes.
+ * Service class containing CommerceTools queries used by several classes.
  */
 @Singleton
 public class CommerceToolsServices {
+
+    /**
+     * See documentation for <a href="http://dev.commercetools.com/http-api.html#limit">limit</a>.
+     */
+    private static final int MAX_QUERY_LIMIT = 500;
 
     public Project getProjectDetail(SphereClient sphereClient) {
         final BlockingSphereClient client = BlockingSphereClient.of(sphereClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
@@ -55,10 +59,11 @@ public class CommerceToolsServices {
         return project;
     }
 
-    public List<Category> getCategories(SphereClient pureAsyncClient, String parentId, Locale sortByLocale) {
+    public PagedQueryResult<Category> getCategories(SphereClient pureAsyncClient, String parentId, Locale sortByLocale) {
         final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
         QuerySort<Category> sortBy = CategoryQueryModel.of().name().locale(sortByLocale).sort().asc();
         CategoryQuery searchRequest = CategoryQuery.of()
+                .withLimit(MAX_QUERY_LIMIT)
                 .withSort(sortBy);
 
         if (StringUtils.isNotBlank(parentId)) {
@@ -66,13 +71,24 @@ public class CommerceToolsServices {
             searchRequest = searchRequest.withPredicates(predicateParentId);
         }
 
-        final CompletionStage<List<Category>> categoriesStage = QueryExecutionUtils.queryAll(client, searchRequest);
-
-        return categoriesStage.toCompletableFuture().join();
+        return client.executeBlocking(searchRequest);
     }
 
-    public List<ProductProjection> getProducts(SphereClient pureAsyncClient, String parentId, Locale sortByLocale, int offset, int limit) {
+    public PagedQueryResult<ProductProjection> getProducts(SphereClient pureAsyncClient, String parentId, Locale sortByLocale) {
         final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
+        final ProductProjectionQuery searchRequest = getProductsQuery(parentId,sortByLocale, 0, MAX_QUERY_LIMIT);
+
+        return client.executeBlocking(searchRequest);
+    }
+
+    public PagedQueryResult<ProductProjection> getProductsByOffset(SphereClient pureAsyncClient, String parentId, Locale sortByLocale, int offset, int limit) {
+        final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
+        final ProductProjectionQuery searchRequest = getProductsQuery(parentId, sortByLocale, offset, limit);
+
+        return client.executeBlocking(searchRequest);
+    }
+
+    private ProductProjectionQuery getProductsQuery(String parentId, Locale sortByLocale, int offset, int limit) {
         QueryPredicate<ProductProjection> predicateParentId = ProductProjectionQueryModel.of().categories().id().is(parentId);
         CategoryExpansionModel<ProductProjection> expansionPathContainerFunction = ProductProjectionExpansionModel.of().categories();
         QuerySort<ProductProjection> sortBy = ProductProjectionQueryModel.of().name().locale(sortByLocale).sort().asc();
@@ -85,14 +101,34 @@ public class CommerceToolsServices {
         if (offset != 0) {
             searchRequest = searchRequest.withOffset(offset);
         }
+
+        //default limit is 20
         if (limit != 0) {
             searchRequest = searchRequest.withLimit(limit);
         }
-        if (offset != 0 || limit != 0) {
-            return client.executeBlocking(searchRequest).getResults();
+
+        return searchRequest;
+    }
+
+    public PagedSearchResult<ProductProjection> searchForProducts(SphereClient pureAsyncClient, String queryStr, Locale locale, int offset, int limit) {
+        final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
+        CategoryExpansionModel<ProductProjection> expansionPathContainerFunction = ProductProjectionExpansionModel.of().categories();
+
+        ProductProjectionSearch searchRequest =
+                ProductProjectionSearch.ofCurrent()
+                        .withText(locale, queryStr)
+                        .withExpansionPaths(expansionPathContainerFunction);
+
+        if (offset != 0) {
+            searchRequest = searchRequest.withOffset(offset);
         }
 
-        return QueryExecutionUtils.queryAll(client, searchRequest).toCompletableFuture().join();
+        //default limit is 20
+        if (limit != 0) {
+            searchRequest = searchRequest.withLimit(limit);
+        }
+
+        return client.executeBlocking(searchRequest);
     }
 
     public Category getCategory(SphereClient pureAsyncClient, String categoryId) {

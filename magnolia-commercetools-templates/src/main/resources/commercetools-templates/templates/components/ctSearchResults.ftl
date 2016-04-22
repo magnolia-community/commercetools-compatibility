@@ -1,7 +1,7 @@
 [#-------------- INCLUDES AND ASSIGNMENTS --------------]
 [#include "macros/productTeaserList.ftl"]
 
-[#assign categoryId = (ctx.getParameter("categoryId")?html)!content.categoryId!]
+[#assign queryStr = (ctx.getParameter("queryStr")?html)!""]
 [#assign currentPage = (ctx.getParameter("currentPage")?number)!1]
 [#assign perPage = (content.perPage?number)!20]
 [#if perPage == 0]
@@ -10,9 +10,11 @@
 [/#if]
 
 [#-------------- RENDERING --------------]
-[#if categoryId?has_content]
-    [#assign products = ctfn.getProducts(categoryId, (currentPage-1)*perPage, perPage)!]
+[#if queryStr?has_content]
+    [#assign products = ctfn.searchForProducts(queryStr, (currentPage-1)*perPage, perPage)!]
     [#if products.getResults()?has_content]
         [@productTeaserList products currentPage perPage content.productDetailPage /]
+    [#else]
+        ${i18n['ct.noResultsFound']}
     [/#if]
 [/#if]

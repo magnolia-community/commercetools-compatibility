@@ -11,7 +11,7 @@
     <form >
         <input type="hidden" name="ctAction" value="ctDoLogin"/>
         <input type="hidden" name="mgnlReturnTo" value="${redirectTo}"/>
-        <div>${i18n['ctLogin.login']}</div><div>${i18n['ct.required']}*</div>
+        <div>${i18n['ct.login']}</div><div>${i18n['ct.required']}*</div>
 
         <div>
             <label for="loginEmail">${i18n['ctLogin.loginEmail']}*</label>
