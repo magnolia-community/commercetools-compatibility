@@ -15,6 +15,12 @@
 package info.magnolia.commercetools.integration.setup;
 
 import info.magnolia.module.DefaultModuleVersionHandler;
+import info.magnolia.module.InstallContext;
+import info.magnolia.module.delta.OrderNodeBeforeTask;
+import info.magnolia.module.delta.Task;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Version handler.
@@ -24,4 +30,12 @@ public class CommerceToolsIntegrationModuleVersionHandler extends DefaultModuleV
     public CommerceToolsIntegrationModuleVersionHandler() {
 
     }
+    @Override
+    protected List<Task> getExtraInstallTasks(InstallContext installContext) {
+        List<Task> tasks = new ArrayList<Task>();
+        tasks.addAll(super.getExtraInstallTasks(installContext));
+        tasks.add(new OrderNodeBeforeTask("/server/filters/cms/ctSignupLoginLogout", "modelExecution"));
+        return tasks;
+    }
+
 }

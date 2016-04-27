@@ -13,7 +13,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <magnoliaVersion>5.4.5</magnoliaVersion>
+    <magnoliaVersion>5.4.6</magnoliaVersion>
     <damVersion>2.1</damVersion>
     <javaVersion>1.8</javaVersion>
     <commerceToolsSDKVersion>1.0.0-RC4</commerceToolsSDKVersion>
@@ -64,7 +64,7 @@
       <dependency>
         <groupId>info.magnolia.site</groupId>
         <artifactId>magnolia-site</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
       </dependency>
 
       <!-- COMMERCETOOLS API -->
@@ -158,6 +158,7 @@
 
   <modules>
     <module>magnolia-commercetools-integration</module>
+    <module>magnolia-commercetools-templates</module>
     <module>magnolia-commercetools-demo</module>
     <module>magnolia-commercetools-webapp</module>
   </modules>

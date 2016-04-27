@@ -14,8 +14,7 @@
  */
 package info.magnolia.commercetools.integration;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-
+import info.magnolia.commercetools.integration.service.CommerceToolsServices;
 import info.magnolia.license.EnterpriseLicensedModule;
 import info.magnolia.license.License;
 import info.magnolia.license.LicenseConsts;
@@ -32,11 +31,9 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.sphere.sdk.client.BlockingSphereClient;
 import io.sphere.sdk.client.SphereClient;
 import io.sphere.sdk.client.SphereClientFactory;
 import io.sphere.sdk.json.JsonException;
-import io.sphere.sdk.projects.queries.ProjectGet;
 
 /**
  * Module class.
@@ -47,14 +44,22 @@ public class CommerceToolsIntegrationModule implements EnterpriseLicensedModule,
 
     public static final int DEFAULT_QUERY_TIMEOUT = 122;
 
+    public static final String PROJECT_PARAM_NAME = "ctProject";
+    public static final String LANGUAGE_PARAM_NAME = "ctLanguage";
+    public static final String COUNTRY_PARAM_NAME = "ctCountry";
+    public static final String CURRENCY_PARAM_NAME = "ctCurrency";
+
     final SphereClientFactory factory = SphereClientFactory.of();
 
     private Map<String, CommerceToolsProjectConfiguration> projects = new HashMap<>();
 
     private Map<String, SphereClient> sphereClients = new HashMap<>();
 
+    private final CommerceToolsServices services;
+
     @Inject
-    public CommerceToolsIntegrationModule() {
+    public CommerceToolsIntegrationModule(CommerceToolsServices services) {
+        this.services = services;
     }
 
     @Override
@@ -97,7 +102,7 @@ public class CommerceToolsIntegrationModule implements EnterpriseLicensedModule,
         for (String name : projects.keySet()) {
             SphereClient sphereClient = factory.createClient(projects.get(name).getSphereClientConfig());
             try {
-                BlockingSphereClient.of(sphereClient, DEFAULT_QUERY_TIMEOUT, SECONDS).executeBlocking(ProjectGet.of());
+                services.getProjectDetail(sphereClient);
             } catch (JsonException e) {
                 log.error("Project [/modules/commercetools-integration/config/projects/{}] is not configured properly.", name);
                 sphereClient.close();

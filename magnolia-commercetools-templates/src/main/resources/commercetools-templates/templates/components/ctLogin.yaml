@@ -1,0 +1,3 @@
+dialog: commercetools-templates:components/ctLogin
+renderType: freemarker
+templateScript: /commercetools-templates/templates/components/ctLogin.ftl

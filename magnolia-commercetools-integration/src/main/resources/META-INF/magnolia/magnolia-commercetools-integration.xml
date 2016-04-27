@@ -9,6 +9,20 @@
   <version>${project.version}</version>
 
   <components>
+    <id>main</id>
+    <component>
+      <type>info.magnolia.commercetools.integration.templating.CommerceToolsTemplatingFunctions</type>
+      <implementation>info.magnolia.commercetools.integration.templating.CommerceToolsTemplatingFunctions</implementation>
+      <scope>singleton</scope>
+    </component>
+    <component>
+      <type>info.magnolia.commercetools.integration.service.CommerceToolsServices</type>
+      <implementation>info.magnolia.commercetools.integration.service.CommerceToolsServices</implementation>
+      <scope>singleton</scope>
+    </component>
+  </components>
+
+  <components>
     <id>app-ctBrowser</id>
   </components>
 
@@ -43,11 +57,19 @@
   <dependencies>
     <dependency>
       <name>core</name>
-      <version>5.4.5/*</version>
+      <version>5.4.6/*</version>
+    </dependency>
+    <dependency>
+      <name>rendering</name>
+      <version>5.4.6/*</version>
+    </dependency>
+    <dependency>
+      <name>templating</name>
+      <version>5.4.6/*</version>
     </dependency>
     <dependency>
       <name>ui-framework</name>
-      <version>5.4.5/*</version>
+      <version>5.4.6/*</version>
     </dependency>
     <dependency>
       <name>dam</name>
@@ -59,11 +81,11 @@
     </dependency>
     <dependency>
       <name>site</name>
-      <version>1.0.1/*</version>
+      <version>1.0.6/*</version>
     </dependency>
     <dependency>
       <name>enterprise</name>
-      <version>5.4.5/*</version>
+      <version>5.4.6/*</version>
     </dependency>
   </dependencies>
 </module>

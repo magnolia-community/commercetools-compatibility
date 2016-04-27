@@ -1,0 +1,22 @@
+form:
+  tabs:
+    - name: tabMain
+      fields:
+        - name: categoryId
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: perPage
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: productDetailPage
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          i18n: false
+          required: false
+          targetWorkspace: website
+          appName: pages
+          identifierToPathConverter:
+            class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition

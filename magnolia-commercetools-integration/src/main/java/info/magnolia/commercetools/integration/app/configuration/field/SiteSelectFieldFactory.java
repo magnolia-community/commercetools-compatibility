@@ -17,6 +17,7 @@ package info.magnolia.commercetools.integration.app.configuration.field;
 import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
 import info.magnolia.commercetools.integration.app.configuration.event.SiteChangedEvent;
 import info.magnolia.commercetools.integration.app.configuration.field.SiteSelectFieldFactory.Definition;
+import info.magnolia.commercetools.integration.service.CommerceToolsServices;
 import info.magnolia.event.EventBus;
 import info.magnolia.module.site.Site;
 import info.magnolia.module.site.SiteManager;
@@ -55,8 +56,8 @@ public class SiteSelectFieldFactory extends AbstractCommerceToolsFieldFactory<De
     };
 
     @Inject
-    public SiteSelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommerceToolsIntegrationModule> provider, @Named(SubAppEventBus.NAME) EventBus eventBus, SiteManager siteManager) {
-        super(definition, relatedFieldItem, provider);
+    public SiteSelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommerceToolsIntegrationModule> provider, @Named(SubAppEventBus.NAME) EventBus eventBus, SiteManager siteManager, CommerceToolsServices services) {
+        super(definition, relatedFieldItem, provider, services);
         this.siteManager = siteManager;
         this.eventBus = eventBus;
     }

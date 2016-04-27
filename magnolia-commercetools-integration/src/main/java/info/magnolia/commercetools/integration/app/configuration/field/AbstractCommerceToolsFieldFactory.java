@@ -15,9 +15,12 @@
 package info.magnolia.commercetools.integration.app.configuration.field;
 
 import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
+import info.magnolia.commercetools.integration.service.CommerceToolsServices;
 import info.magnolia.ui.form.field.definition.SelectFieldDefinition;
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
 import info.magnolia.ui.form.field.factory.SelectFieldFactory;
+
+import java.util.Iterator;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -36,11 +39,13 @@ public abstract class AbstractCommerceToolsFieldFactory<T extends SelectFieldDef
     public static final String SITE_SELECT_PROPERTY_NAME = "site";
 
     private final Provider<CommerceToolsIntegrationModule> provider;
+    private final CommerceToolsServices services;
 
     @Inject
-    public AbstractCommerceToolsFieldFactory(T definition, Item relatedFieldItem, Provider<CommerceToolsIntegrationModule> provider) {
+    public AbstractCommerceToolsFieldFactory(T definition, Item relatedFieldItem, Provider<CommerceToolsIntegrationModule> provider, CommerceToolsServices services) {
         super(definition, relatedFieldItem);
         this.provider = provider;
+        this.services = services;
     }
 
     protected String getSelectedProject() {
@@ -48,7 +53,10 @@ public abstract class AbstractCommerceToolsFieldFactory<T extends SelectFieldDef
         if (property != null && property.getValue() != null) {
             return (String) property.getValue();
         }
-        return getProvider().get().getProjects().keySet().iterator().next();
+
+        Iterator<String> projects = getProvider().get().getProjects().keySet().iterator();
+
+        return projects.hasNext() ? projects.next() : null;
     }
 
     @Override
@@ -69,6 +77,10 @@ public abstract class AbstractCommerceToolsFieldFactory<T extends SelectFieldDef
 
     protected Provider<CommerceToolsIntegrationModule> getProvider() {
         return provider;
+    }
+
+    protected CommerceToolsServices getServices() {
+        return services;
     }
 }
 
