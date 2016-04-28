@@ -17,6 +17,7 @@
     <damVersion>2.1</damVersion>
     <javaVersion>1.8</javaVersion>
     <commerceToolsSDKVersion>1.0.0-RC4</commerceToolsSDKVersion>
+    <resteasyVersion>3.0.4.Final</resteasyVersion>
   </properties>
 
   <issueManagement>
@@ -65,6 +66,42 @@
         <groupId>info.magnolia.site</groupId>
         <artifactId>magnolia-site</artifactId>
         <version>1.0.6</version>
+      </dependency>
+
+      <!-- FORM -->
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-module-form</artifactId>
+        <version>2.3.5</version>
+      </dependency>
+
+      <!-- REST -->
+      <dependency>
+        <groupId>info.magnolia.rest</groupId>
+        <artifactId>magnolia-rest-services</artifactId>
+        <version>1.1.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson-provider</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.rest</groupId>
+        <artifactId>magnolia-rest-integration</artifactId>
+        <version>1.1.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson-provider</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.resteasy</groupId>
+        <artifactId>resteasy-jackson2-provider</artifactId>
+        <version>${resteasyVersion}</version>
       </dependency>
 
       <!-- COMMERCETOOLS API -->

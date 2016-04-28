@@ -4,7 +4,8 @@
 [#assign categories = ctfn.getCategories(null).getResults()]
 [#assign siteRootLink = cmsfn.link(cmsfn.siteRoot(content))]
 [#assign homePageContent = cmsfn.siteRoot(content)]
-[#assign customer = (ctx.getAttribute("ctCustomer"))!""]
+[#assign customer = (ctx.getAttribute("ctCustomerId"))!""]
+[#assign cartItemNum = ctfn.getNumberOfItemsInCart()]
 
 [#-------------- RENDERING --------------]
 <!-- Navigation-->
@@ -25,6 +26,6 @@
         [#if !customer?has_content || cmsfn.editMode]
             <li><a href="${cmsfn.link("website", homePageContent.authenticationPage!"")!"#"}">${i18n['ct.login']} </a></li>
         [/#if]
-        <li><a href="#">My cart (0) items</a></li>
+        <li><a href="${cmsfn.link("website", homePageContent.cartPage!"")!"#"}">My cart (<span id="cartItemNum">${cartItemNum}</span>) items</a></li>
     </ul>
 </nav>

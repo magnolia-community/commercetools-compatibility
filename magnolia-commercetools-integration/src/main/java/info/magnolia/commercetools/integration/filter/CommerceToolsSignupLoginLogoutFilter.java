@@ -18,13 +18,12 @@ import info.magnolia.cms.filters.AbstractMgnlFilter;
 import info.magnolia.cms.security.auth.login.FormLogin;
 import info.magnolia.cms.util.RequestDispatchUtil;
 import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
+import info.magnolia.commercetools.integration.service.CommerceToolsServices;
 import info.magnolia.context.Context;
 import info.magnolia.context.WebContext;
 import info.magnolia.module.site.SiteManager;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
@@ -43,11 +42,9 @@ import org.slf4j.LoggerFactory;
 import io.sphere.sdk.client.ErrorResponseException;
 import io.sphere.sdk.client.SphereClient;
 import io.sphere.sdk.customers.CustomerDraft;
-import io.sphere.sdk.customers.CustomerDraftBuilder;
 import io.sphere.sdk.customers.CustomerSignInResult;
 import io.sphere.sdk.customers.commands.CustomerCreateCommand;
 import io.sphere.sdk.customers.commands.CustomerSignInCommand;
-import io.sphere.sdk.models.Address;
 
 /**
  * Filter that handles guest or user signUp or login/logout for CommerceTools.
@@ -58,26 +55,6 @@ public class CommerceToolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
 
     private static final String ATTRIBUTE_LOGIN_ERROR = "ctLoginError";
     private static final String ATTRIBUTE_SIGNUP_ERROR = "ctSignupError";
-
-    private static final String CT_CUSTOMER = "ctCustomer";
-    private static final String CT_CUSTOMER_NUMBER = "ctCustomerNumber";
-    private static final String CT_CUSTOMER_EMAIL = "ctCustomerEmail";
-    private static final String CT_CUSTOMER_PASSWORD = "ctCustomerPassword";
-    private static final String CT_CUSTOMER_FIRST_NAME = "ctCustomerFirstName";
-    private static final String CT_CUSTOMER_LAST_NAME = "ctCustomerLastName";
-    private static final String CT_CUSTOMER_MIDDLE_NAME = "ctCustomerMiddleName";
-    private static final String CT_CUSTOMER_TITLE = "ctCustomerTitle";
-    private static final String CT_CART_ID = "ctCartId";
-    private static final String CT_CUSTOMER_EXTERNAL_ID = "ctCustomerExternalId";
-    private static final String CT_CUSTOMER_DATE_OF_BIRTH = "ctCustomerDateOfBirth";
-    private static final String CT_CUSTOMER_COMPANY_NAME = "ctCustomerCompanyName";
-    private static final String CT_CUSTOMER_VAT_ID = "ctCustomerVatId";
-    private static final String CT_CUSTOMER_IS_EMAIL_VERIFIED = "ctCustomerIsEmailVerified";
-    private static final String CT_CUSTOMER_GROUP = "ctCustomerGroup";
-    private static final String CT_CUSTOMER_ADRESSES = "ctCustomerAdresses";
-    private static final String CT_CUSTOMER_DEFAULT_BILLING_ADDRESS = "ctDefaultBillingAddress";
-    private static final String CT_CUSTOMER_DEFAULT_SHIPPING_ADDRESS = "ctDefaultShippingAddress";
-    private static final String CT_CUSTOMER_CUSTOM = "ctCustomerCustom";
 
     private static final String PARAMETER_ACTION = "ctAction";
 
@@ -90,12 +67,14 @@ public class CommerceToolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
     private final Provider<WebContext> webContextProvider;
     private final Provider<CommerceToolsIntegrationModule> commerceToolsModuleProvider;
     private final SiteManager siteManager;
+    private final CommerceToolsServices commerceToolsServices;
 
     @Inject
-    public CommerceToolsSignupLoginLogoutFilter(Provider<CommerceToolsIntegrationModule> commerceToolsModuleProvider, Provider<WebContext> webContextProvider, final SiteManager siteManager) {
+    public CommerceToolsSignupLoginLogoutFilter(Provider<CommerceToolsIntegrationModule> commerceToolsModuleProvider, Provider<WebContext> webContextProvider, final SiteManager siteManager, final CommerceToolsServices commerceToolsServices) {
         this.commerceToolsModuleProvider = commerceToolsModuleProvider;
         this.webContextProvider = webContextProvider;
         this.siteManager = siteManager;
+        this.commerceToolsServices = commerceToolsServices;
     }
 
     @Override
@@ -104,7 +83,7 @@ public class CommerceToolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
         final String action = webContextProvider.get().getParameter(PARAMETER_ACTION);
         if (StringUtils.isNotBlank(action)) {
             if (ACTION_DO_LOGIN.equals(action)) {
-                if (webContextProvider.get().getAttribute(CT_CUSTOMER, Context.SESSION_SCOPE) == null) {
+                if (webContextProvider.get().getAttribute(CommerceToolsServices.CT_CUSTOMER_ID, Context.SESSION_SCOPE) == null) {
                     processLogIn();
                 }
             } else if (ACTION_DO_LOGOUT.equals(action)) {
@@ -141,7 +120,8 @@ public class CommerceToolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
                 .thenApplyAsync(new Function<CustomerSignInResult, Object>() {
                     @Override
                     public Object apply(CustomerSignInResult result) {
-                        webContext.setAttribute(CT_CUSTOMER, result.getCustomer().getId(), Context.SESSION_SCOPE);
+                        webContext.setAttribute(CommerceToolsServices.CT_CUSTOMER_ID, result.getCustomer().getId(), Context.SESSION_SCOPE);
+                        webContext.setAttribute(CommerceToolsServices.CT_CART_ID, result.getCart().getId(), Context.SESSION_SCOPE);
                         webContext.setAttribute(RESULT, true, Context.LOCAL_SCOPE);
                         return null;
                     }
@@ -163,7 +143,7 @@ public class CommerceToolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
                 .thenApplyAsync(new Function<CustomerSignInResult, Object>() {
                     @Override
                     public Object apply(CustomerSignInResult result) {
-                        webContext.setAttribute(CT_CUSTOMER, result.getCustomer().getId(), Context.SESSION_SCOPE);
+                        webContext.setAttribute(CommerceToolsServices.CT_CUSTOMER_ID, result.getCustomer().getId(), Context.SESSION_SCOPE);
                         webContext.setAttribute(RESULT, true, Context.LOCAL_SCOPE);
                         return null;
                     }
@@ -179,40 +159,20 @@ public class CommerceToolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
     }
 
     public void processLogOut() {
-        webContextProvider.get().removeAttribute(CT_CUSTOMER, Context.SESSION_SCOPE);
-        webContextProvider.get().removeAttribute(CT_CART_ID, Context.SESSION_SCOPE);
+        webContextProvider.get().removeAttribute(CommerceToolsServices.CT_CUSTOMER_ID, Context.SESSION_SCOPE);
+        webContextProvider.get().removeAttribute(CommerceToolsServices.CT_CART_ID, Context.SESSION_SCOPE);
     }
 
     private CompletionStage<CustomerSignInResult> logIn() {
-        final String username = webContextProvider.get().getAttribute(CT_CUSTOMER_EMAIL);
-        final String password = webContextProvider.get().getAttribute(CT_CUSTOMER_PASSWORD);
-        final String anonymousCartId = webContextProvider.get().getAttribute(CT_CART_ID);
+        final String username = webContextProvider.get().getAttribute(CommerceToolsServices.CT_CUSTOMER_EMAIL);
+        final String password = webContextProvider.get().getAttribute(CommerceToolsServices.CT_CUSTOMER_PASSWORD);
+        final String anonymousCartId = webContextProvider.get().getAttribute(CommerceToolsServices.CT_CART_ID);
         final CustomerSignInCommand signInCommand = CustomerSignInCommand.of(username, password, anonymousCartId);
         return getProjectClient().execute(signInCommand);
     }
 
     private CompletionStage<CustomerSignInResult> signUp() {
-        final WebContext webContext = webContextProvider.get();
-
-        final CustomerDraft customerDraft = CustomerDraftBuilder.of(webContext.getAttribute(CT_CUSTOMER_EMAIL), webContext.getAttribute(CT_CUSTOMER_PASSWORD))
-                .customerNumber(webContext.getAttribute(CT_CUSTOMER_NUMBER))
-                .firstName((String) webContext.getOrDefault(CT_CUSTOMER_FIRST_NAME, ""))
-                .lastName((String) webContext.getOrDefault(CT_CUSTOMER_LAST_NAME, ""))
-                .middleName(webContext.getAttribute(CT_CUSTOMER_MIDDLE_NAME))
-                .title(webContext.getAttribute(CT_CUSTOMER_TITLE))
-                .anonymousCartId(webContext.getAttribute(CT_CART_ID))
-                .externalId(webContext.getAttribute(CT_CUSTOMER_EXTERNAL_ID))
-                .dateOfBirth(webContext.getAttribute(CT_CUSTOMER_DATE_OF_BIRTH))
-                .companyName(webContext.getAttribute(CT_CUSTOMER_COMPANY_NAME))
-                .vatId(webContext.getAttribute(CT_CUSTOMER_VAT_ID))
-                .isEmailVerified(webContext.getAttribute(CT_CUSTOMER_IS_EMAIL_VERIFIED))
-                .customerGroup(webContext.getAttribute(CT_CUSTOMER_GROUP))
-                .addresses((List<Address>) webContext.getOrDefault(CT_CUSTOMER_ADRESSES, new ArrayList<Address>()))
-                .defaultBillingAddress(webContext.getAttribute(CT_CUSTOMER_DEFAULT_BILLING_ADDRESS))
-                .defaultShippingAddress(webContext.getAttribute(CT_CUSTOMER_DEFAULT_SHIPPING_ADDRESS))
-                .custom(webContext.getAttribute(CT_CUSTOMER_CUSTOM))
-                .build();
-
+        final CustomerDraft customerDraft = commerceToolsServices.getCustomerDraft();
         final CustomerCreateCommand customerCreateCommand = CustomerCreateCommand.of(customerDraft);
         return getProjectClient().execute(customerCreateCommand);
     }
