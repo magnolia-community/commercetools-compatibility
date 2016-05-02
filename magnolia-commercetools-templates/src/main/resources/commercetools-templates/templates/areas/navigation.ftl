@@ -1,7 +1,7 @@
 [#-------------- INCLUDES AND ASSIGNMENTS --------------]
 [#include "../components/macros/menuCategoryList.ftl"]
 
-[#assign categories = ctfn.getCategories(null)]
+[#assign categories = ctfn.getCategories(null).getResults()]
 [#assign siteRootLink = cmsfn.link(cmsfn.siteRoot(content))]
 [#assign homePageContent = cmsfn.siteRoot(content)]
 [#assign customer = (ctx.getAttribute("ctCustomer"))!""]
@@ -12,26 +12,18 @@
     [@menuCategoryList categories siteRootLink homePageContent.maxCategoriesDepth/]
     <ul>
         <li>
-            <form id="navbar-form" class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default">
-                                <span class="glyphicon glyphicon-search">
-                                    <span class="sr-only">Search...</span>
-                                </span>
-                            </button>
-                        </span>
-                </div>
+            <form id="navbar-form" role="search" action="${cmsfn.link("website", homePageContent.searchResultPage!"")}">
+                <input type="text" name="queryStr">
+                <button type="submit">${i18n['ct.search']}</button>
             </form>
         </li>
     </ul>
     <ul>
         [#if customer?has_content || cmsfn.editMode]
-            <li><a href="${cmsfn.link("website", homePageContent.authenticationPage!"")!cmsfn.link(homePageContent)}?ctAction=ctDoLogout">Logout </a></li>
+            <li><a href="${cmsfn.link("website", homePageContent.authenticationPage!"")!cmsfn.link(homePageContent)}?ctAction=ctDoLogout">${i18n['ct.logout']} </a></li>
         [/#if]
         [#if !customer?has_content || cmsfn.editMode]
-            <li><a href="${cmsfn.link("website", homePageContent.authenticationPage!"")!"#"}">Login </a></li>
+            <li><a href="${cmsfn.link("website", homePageContent.authenticationPage!"")!"#"}">${i18n['ct.login']} </a></li>
         [/#if]
         <li><a href="#">My cart (0) items</a></li>
     </ul>

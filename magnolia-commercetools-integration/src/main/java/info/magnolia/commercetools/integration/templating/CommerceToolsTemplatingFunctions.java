@@ -14,6 +14,7 @@
  */
 package info.magnolia.commercetools.integration.templating;
 
+import info.magnolia.cms.core.AggregationState;
 import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
 import info.magnolia.commercetools.integration.service.CommerceToolsServices;
 import info.magnolia.module.site.SiteManager;
@@ -27,6 +28,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.javamoney.moneta.FastMoney;
 
@@ -34,6 +36,8 @@ import io.sphere.sdk.categories.Category;
 import io.sphere.sdk.client.SphereClient;
 import io.sphere.sdk.products.Price;
 import io.sphere.sdk.products.ProductProjection;
+import io.sphere.sdk.queries.PagedQueryResult;
+import io.sphere.sdk.search.PagedSearchResult;
 
 /**
  * Useful functions for templating.
@@ -44,12 +48,16 @@ public class CommerceToolsTemplatingFunctions {
     private final Provider<CommerceToolsIntegrationModule> moduleProvider;
     private final CommerceToolsServices commerceToolsServices;
     private final SiteManager siteManager;
+    private final Provider<AggregationState> aggregationStateProvider;
+
+    private static final String PARAMETER_CURRENT_PAGE = "currentPage";
 
     @Inject
-    public CommerceToolsTemplatingFunctions(final Provider<CommerceToolsIntegrationModule> moduleProvider, final CommerceToolsServices commerceToolsServices, final SiteManager siteManager) {
+    public CommerceToolsTemplatingFunctions(final Provider<CommerceToolsIntegrationModule> moduleProvider, final CommerceToolsServices commerceToolsServices, final SiteManager siteManager, final Provider<AggregationState> aggregationStateProvider) {
         this.moduleProvider = moduleProvider;
         this.commerceToolsServices = commerceToolsServices;
         this.siteManager = siteManager;
+        this.aggregationStateProvider = aggregationStateProvider;
     }
 
     public ProductProjection getProduct(String productId) {
@@ -60,12 +68,16 @@ public class CommerceToolsTemplatingFunctions {
         return commerceToolsServices.getCategory(getProjectClient(), categoryId);
     }
 
-    public List<ProductProjection> getProducts(String parentId, int offset, int limit) {
-        return commerceToolsServices.getProducts(getProjectClient(), parentId, getLanguage(), offset, limit);
+    public PagedQueryResult<ProductProjection> getProducts(String parentId, int offset, int limit) {
+        return commerceToolsServices.getProductsByOffset(getProjectClient(), parentId, getLanguage(), offset, limit);
     }
 
-    public List<Category> getCategories(String parentId) {
+    public PagedQueryResult<Category> getCategories(String parentId) {
         return commerceToolsServices.getCategories(getProjectClient(), parentId, getLanguage());
+    }
+
+    public PagedSearchResult<ProductProjection> searchForProducts(String queryStr, int offset, int limit) {
+        return commerceToolsServices.searchForProducts(getProjectClient(), queryStr, getLanguage(), offset, limit);
     }
 
     /**
@@ -108,7 +120,7 @@ public class CommerceToolsTemplatingFunctions {
 
     /**
      * List of price scope priority.
-     * 
+     *
      * currency should always match
      * country, customer group and channel.
      * customer group and channel
@@ -215,5 +227,46 @@ public class CommerceToolsTemplatingFunctions {
         }
 
         return result;
+    }
+
+    /**
+     * Returns a link the n-th page.
+     */
+    public String getPageLink(int targetPageNumber) {
+        final String current = String.format("%s=", PARAMETER_CURRENT_PAGE);
+        final String currentUrl = aggregationStateProvider.get().getOriginalURL();
+
+        if (currentUrl.indexOf('?') > 0) {
+            final String queryString = StringUtils.substringAfter(currentUrl, "?");
+            final StringBuilder newQueryString = new StringBuilder("?");
+            final String[] params = queryString.split("&amp;");
+            boolean pageSet = false;
+            int count = 0;
+
+            for (String param : params) {
+                if (param.startsWith(current)) {
+                    newQueryString.append(current).append(targetPageNumber);
+                    pageSet = true;
+                } else {
+                    newQueryString.append(StringEscapeUtils.escapeHtml4(param)); // Without this escaping possible XSS
+                }
+                count++;
+                if (count < params.length) {
+                    newQueryString.append("&");
+                }
+            }
+
+            if (!pageSet) {
+                if (newQueryString.length() > 1) {
+                    newQueryString.append("&");
+                }
+                newQueryString.append(current).append(targetPageNumber);
+
+            }
+
+            return StringUtils.substringBefore(currentUrl, "?") + newQueryString.toString();
+        } else {
+            return currentUrl + "?" + current + targetPageNumber;
+        }
     }
 }
