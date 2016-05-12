@@ -1,7 +1,7 @@
 [#-------------- ASSIGNMENTS --------------]
 [#assign redirectTo = cmsfn.link("website", content.mgnlReturnTo!"")!cmsfn.link(cmsfn.page(content))!"#"]
 [#assign authenticationError = (ctx.getAttribute("ctLoginError"))!""]
-[#assign customer = (ctx.getAttribute("ctCustomer"))!""]
+[#assign customer = (ctx.getAttribute("ctCustomerId"))!""]
 
 [#-------------- RENDERING --------------]
 [#if customer?has_content || cmsfn.editMode]

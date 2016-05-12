@@ -2,6 +2,7 @@
     [#-------------- INCLUDES AND ASSIGNMENTS --------------]
     [#include "./productPager.ftl"]
     [#assign teaserLink = cmsfn.link("website", productDetailPage)]
+    [#assign cartId = ctx.getAttribute("ctCartId")!""]
 
     [#-------------- RENDERING --------------]
     <!-- Pagination -->
@@ -15,8 +16,34 @@
             <p><a href="${teaserLink}?productId=${product.getId()}">${product.getName().get(ctfn.getLanguage())!""}</a></p>
             <div>
                 <span><strong>${ctfn.getPriceToShow(product.getMasterVariant().getPrices())!i18n['ctProduct.priceNotSet']}</strong></span>
-                <a href="#">${i18n['ctProduct.addToCart']}</a>
+                <a class="addToCart" id="${product.getId()}" variantId="${product.getMasterVariant().getId()}" href="#">${i18n['ctProduct.addToCart']}</a>
             </div>
         </div>
     [/#list]
+
+    <script>
+        (function () {
+            var cartId = "${cartId}";
+
+            $(".addToCart").on("click", function (e) {
+                e.preventDefault();
+                var productElement = this;
+                $.ajax({
+                    url: "${ctx.contextPath}/.rest/ctCart/${ctfn.getProjectName()}/${ctfn.getCountryCode()}/${ctfn.getCurrencyCode()}/" + productElement.id + "/" + productElement.getAttribute("variantId") + (cartId === "" ? "" : "?ctCartId=" + cartId),
+                    data: {
+                        format: "json"
+                    },
+                    error: function () {
+                        console.log("error while retrieving cart");
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#cartItemNum').html((data.lineItems.length + data.customLineItems.length));
+                        cartId = data.id;
+                    },
+                    type: 'PUT'
+                });
+            });
+        })();
+    </script>
 [/#macro]

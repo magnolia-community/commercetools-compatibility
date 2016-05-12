@@ -14,9 +14,9 @@
  */
 package info.magnolia.commercetools.integration.templating;
 
-import info.magnolia.cms.core.AggregationState;
 import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
 import info.magnolia.commercetools.integration.service.CommerceToolsServices;
+import info.magnolia.context.WebContext;
 import info.magnolia.module.site.SiteManager;
 
 import java.util.ArrayList;
@@ -32,6 +32,9 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.javamoney.moneta.FastMoney;
 
+import com.neovisionaries.i18n.CountryCode;
+
+import io.sphere.sdk.carts.Cart;
 import io.sphere.sdk.categories.Category;
 import io.sphere.sdk.client.SphereClient;
 import io.sphere.sdk.products.Price;
@@ -48,16 +51,16 @@ public class CommerceToolsTemplatingFunctions {
     private final Provider<CommerceToolsIntegrationModule> moduleProvider;
     private final CommerceToolsServices commerceToolsServices;
     private final SiteManager siteManager;
-    private final Provider<AggregationState> aggregationStateProvider;
+    private final Provider<WebContext> webContextProvider;
 
     private static final String PARAMETER_CURRENT_PAGE = "currentPage";
 
     @Inject
-    public CommerceToolsTemplatingFunctions(final Provider<CommerceToolsIntegrationModule> moduleProvider, final CommerceToolsServices commerceToolsServices, final SiteManager siteManager, final Provider<AggregationState> aggregationStateProvider) {
+    public CommerceToolsTemplatingFunctions(final Provider<CommerceToolsIntegrationModule> moduleProvider, final CommerceToolsServices commerceToolsServices, final SiteManager siteManager, final Provider<WebContext> webContextProvider) {
         this.moduleProvider = moduleProvider;
         this.commerceToolsServices = commerceToolsServices;
         this.siteManager = siteManager;
-        this.aggregationStateProvider = aggregationStateProvider;
+        this.webContextProvider = webContextProvider;
     }
 
     public ProductProjection getProduct(String productId) {
@@ -160,14 +163,14 @@ public class CommerceToolsTemplatingFunctions {
         return result;
     }
 
-    private SphereClient getProjectClient() {
+    public SphereClient getProjectClient() {
         return moduleProvider.get().getSphereClient(getProjectName());
     }
 
     /**
      * Returns {@value CommerceToolsIntegrationModule#PROJECT_PARAM_NAME} for the current site.
      */
-    private String getProjectName() {
+    public String getProjectName() {
         Map<String, Object> params = siteManager.getCurrentSite().getParameters();
         if (params.containsKey(CommerceToolsIntegrationModule.PROJECT_PARAM_NAME)) {
             return String.valueOf(params.get(CommerceToolsIntegrationModule.PROJECT_PARAM_NAME));
@@ -189,7 +192,7 @@ public class CommerceToolsTemplatingFunctions {
     /**
      * Returns {@value CommerceToolsIntegrationModule#COUNTRY_PARAM_NAME} for the current site.
      */
-    private String getCountryCode() {
+    public String getCountryCode() {
         Map<String, Object> params = siteManager.getCurrentSite().getParameters();
         if (params.containsKey(CommerceToolsIntegrationModule.COUNTRY_PARAM_NAME)) {
             return String.valueOf(params.get(CommerceToolsIntegrationModule.COUNTRY_PARAM_NAME));
@@ -200,7 +203,7 @@ public class CommerceToolsTemplatingFunctions {
     /**
      * Returns {@value CommerceToolsIntegrationModule#CURRENCY_PARAM_NAME} for the current site.
      */
-    private String getCurrencyCode() {
+    public String getCurrencyCode() {
         Map<String, Object> params = siteManager.getCurrentSite().getParameters();
         if (params.containsKey(CommerceToolsIntegrationModule.CURRENCY_PARAM_NAME)) {
             return String.valueOf(params.get(CommerceToolsIntegrationModule.CURRENCY_PARAM_NAME));
@@ -234,7 +237,7 @@ public class CommerceToolsTemplatingFunctions {
      */
     public String getPageLink(int targetPageNumber) {
         final String current = String.format("%s=", PARAMETER_CURRENT_PAGE);
-        final String currentUrl = aggregationStateProvider.get().getOriginalURL();
+        final String currentUrl = webContextProvider.get().getAggregationState().getOriginalURL();
 
         if (currentUrl.indexOf('?') > 0) {
             final String queryString = StringUtils.substringAfter(currentUrl, "?");
@@ -268,5 +271,15 @@ public class CommerceToolsTemplatingFunctions {
         } else {
             return currentUrl + "?" + current + targetPageNumber;
         }
+    }
+
+    public Cart getCart() {
+        return commerceToolsServices.getOrCreateCart(getProjectClient(), webContextProvider.get().getAttribute(CommerceToolsServices.CT_CUSTOMER_ID), webContextProvider.get().getAttribute(CommerceToolsServices.CT_CART_ID), CountryCode.getByCode(getCountryCode()), getCurrencyCode());
+    }
+
+    public int getNumberOfItemsInCart() {
+        Cart cart = getCart();
+
+        return cart.getLineItems().size() + cart.getCustomLineItems().size();
     }
 }

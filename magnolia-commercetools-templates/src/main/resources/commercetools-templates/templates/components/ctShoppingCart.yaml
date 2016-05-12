@@ -1,0 +1,32 @@
+dialog: form:form
+renderType: freemarker
+templateScript: /form/components/form.ftl
+modelClass: info.magnolia.module.form.templates.components.FormModel
+class: info.magnolia.module.form.templates.components.FormParagraph
+formProcessors:
+  - name: sendContactEMail
+    enabled: false
+    class: info.magnolia.module.form.processors.SendContactEMailProcessor
+  - name: sendConfirmationEMail
+    enabled: true
+    class: info.magnolia.module.form.processors.SendConfirmationEMailProcessor
+  - name: trackEMail
+    loggerName: log-form
+    class: info.magnolia.module.form.processors.TrackEmailProcessor
+  - name: commerceToolsCartProcessor
+    enabled: true
+    class: info.magnolia.commercetools.integration.form.CommerceToolsCartProcessor
+parameters:
+  formEnctype: multipart/form-data
+areas:
+  fieldsets:
+    enabled: true
+    description: areas.components.form.fieldsets.description
+    title: areas.components.form.fieldsets.title
+    type: list
+    templateScript: /form/generic/listArea.ftl
+    availableComponents:
+      formGroupFields:
+        id: form:components/formGroupFields
+      shoppingCartTable:
+        id: commercetools-templates:components/ctShoppingCartTable

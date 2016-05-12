@@ -16,6 +16,7 @@ package info.magnolia.commercetools.integration.setup;
 
 import info.magnolia.module.DefaultModuleVersionHandler;
 import info.magnolia.module.InstallContext;
+import info.magnolia.module.delta.AddURIPermissionTask;
 import info.magnolia.module.delta.OrderNodeBeforeTask;
 import info.magnolia.module.delta.Task;
 
@@ -35,6 +36,7 @@ public class CommerceToolsIntegrationModuleVersionHandler extends DefaultModuleV
         List<Task> tasks = new ArrayList<Task>();
         tasks.addAll(super.getExtraInstallTasks(installContext));
         tasks.add(new OrderNodeBeforeTask("/server/filters/cms/ctSignupLoginLogout", "modelExecution"));
+        tasks.add(new AddURIPermissionTask("Add permition to anonymous user access ctCart rest endpoint.", "rest", "/.rest/ctCart*", AddURIPermissionTask.GET_POST));
         return tasks;
     }
 
