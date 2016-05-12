@@ -16,7 +16,7 @@
     <magnoliaVersion>5.4.6</magnoliaVersion>
     <damVersion>2.1</damVersion>
     <javaVersion>1.8</javaVersion>
-    <commerceToolsSDKVersion>1.0.0-RC4</commerceToolsSDKVersion>
+    <commerceToolsSDKVersion>1.0.0-RC8</commerceToolsSDKVersion>
     <resteasyVersion>3.0.4.Final</resteasyVersion>
   </properties>
 

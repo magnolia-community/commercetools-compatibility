@@ -1,2 +1,3 @@
+dialog: commercetools-templates:components/ctProductDetail
 renderType: freemarker
 templateScript: /commercetools-templates/templates/components/ctProductDetail.ftl

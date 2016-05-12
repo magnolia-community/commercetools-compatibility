@@ -36,8 +36,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import io.sphere.sdk.client.ErrorResponseException;
 import io.sphere.sdk.client.SphereClient;
@@ -50,8 +48,6 @@ import io.sphere.sdk.customers.commands.CustomerSignInCommand;
  * Filter that handles guest or user signUp or login/logout for CommerceTools.
  */
 public class CommerceToolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
-
-    private static final Logger log = LoggerFactory.getLogger(CommerceToolsSignupLoginLogoutFilter.class);
 
     private static final String ATTRIBUTE_LOGIN_ERROR = "ctLoginError";
     private static final String ATTRIBUTE_SIGNUP_ERROR = "ctSignupError";
@@ -91,7 +87,6 @@ public class CommerceToolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
             } else if (ACTION_DO_SIGNUP.equals(action)) {
                 processSignUp();
             } else {
-                log.warn("Unknown action: {}", action);
                 chain.doFilter(request, response);
                 return;
             }

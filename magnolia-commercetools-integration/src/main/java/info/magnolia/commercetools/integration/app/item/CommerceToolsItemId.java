@@ -45,7 +45,7 @@ public class CommerceToolsItemId {
 
     private static final String DELIMITER = "--";
 
-    private static final Pattern ITEM_KEY_PATTERN = Pattern.compile("^(.+)" + DELIMITER + "(category|product)" + DELIMITER + "([A-Fa-f0-9]+-){4}([A-Fa-f0-9]+)" + DELIMITER + "([A-Fa-f0-9]+-){4}([A-Fa-f0-9]+)$");
+    private static final Pattern ITEM_KEY_PATTERN = Pattern.compile("^(.+)" + DELIMITER + "(category|product)" + DELIMITER + "(?:([A-Fa-f0-9]+-){4}([A-Fa-f0-9]+))?" + DELIMITER + "([A-Fa-f0-9]+-){4}([A-Fa-f0-9]+)$");
 
     private ItemType type;
 
@@ -92,7 +92,7 @@ public class CommerceToolsItemId {
         if (!ITEM_KEY_PATTERN.matcher(itemId).matches()) {
             throw new InvalidItemIdException("Key does not match required pattern");
         }
-        String[] arr = StringUtils.splitByWholeSeparator(itemId, DELIMITER);
+        String[] arr = StringUtils.splitByWholeSeparatorPreserveAllTokens(itemId, DELIMITER);
         String projectId = arr[0];
         ItemType type = ItemType.valueOf(arr[1].toUpperCase());
         String parentId = arr[2];

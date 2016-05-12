@@ -21,12 +21,16 @@ import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
 import info.magnolia.context.Context;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -37,6 +41,7 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.money.Monetary;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.neovisionaries.i18n.CountryCode;
@@ -56,26 +61,55 @@ import io.sphere.sdk.carts.expansion.CartExpansionModel;
 import io.sphere.sdk.carts.queries.CartByCustomerIdGet;
 import io.sphere.sdk.carts.queries.CartByIdGet;
 import io.sphere.sdk.categories.Category;
+import io.sphere.sdk.categories.CategoryTree;
 import io.sphere.sdk.categories.expansion.CategoryExpansionModel;
 import io.sphere.sdk.categories.queries.CategoryQuery;
 import io.sphere.sdk.categories.queries.CategoryQueryModel;
 import io.sphere.sdk.client.BlockingSphereClient;
 import io.sphere.sdk.client.ErrorResponseException;
 import io.sphere.sdk.client.SphereClient;
+import io.sphere.sdk.customers.Customer;
 import io.sphere.sdk.customers.CustomerDraft;
 import io.sphere.sdk.customers.CustomerDraftBuilder;
+import io.sphere.sdk.customers.CustomerToken;
+import io.sphere.sdk.customers.commands.CustomerCreatePasswordTokenCommand;
+import io.sphere.sdk.customers.commands.CustomerPasswordResetCommand;
 import io.sphere.sdk.models.Address;
 import io.sphere.sdk.products.ProductProjection;
+import io.sphere.sdk.products.ProductVariant;
+import io.sphere.sdk.products.attributes.AttributeDefinition;
+import io.sphere.sdk.products.attributes.AttributeType;
+import io.sphere.sdk.products.attributes.BooleanAttributeType;
+import io.sphere.sdk.products.attributes.DateAttributeType;
+import io.sphere.sdk.products.attributes.DateTimeAttributeType;
+import io.sphere.sdk.products.attributes.EnumAttributeType;
+import io.sphere.sdk.products.attributes.LocalizedEnumAttributeType;
+import io.sphere.sdk.products.attributes.LocalizedStringAttributeType;
+import io.sphere.sdk.products.attributes.MoneyAttributeType;
+import io.sphere.sdk.products.attributes.NumberAttributeType;
+import io.sphere.sdk.products.attributes.ReferenceAttributeType;
+import io.sphere.sdk.products.attributes.StringAttributeType;
+import io.sphere.sdk.products.attributes.TimeAttributeType;
 import io.sphere.sdk.products.expansion.ProductProjectionExpansionModel;
 import io.sphere.sdk.products.queries.ProductProjectionQuery;
 import io.sphere.sdk.products.queries.ProductProjectionQueryModel;
+import io.sphere.sdk.products.search.ProductAttributeFacetSearchModel;
+import io.sphere.sdk.products.search.ProductAttributeFacetedSearchSearchModel;
+import io.sphere.sdk.products.search.ProductProjectionFilterSearchModel;
 import io.sphere.sdk.products.search.ProductProjectionSearch;
+import io.sphere.sdk.products.search.ProductProjectionSearchModel;
+import io.sphere.sdk.producttypes.ProductType;
+import io.sphere.sdk.producttypes.ProductTypeLocalRepository;
+import io.sphere.sdk.producttypes.queries.ProductTypeQuery;
 import io.sphere.sdk.projects.Project;
 import io.sphere.sdk.projects.queries.ProjectGet;
 import io.sphere.sdk.queries.PagedQueryResult;
 import io.sphere.sdk.queries.QueryPredicate;
 import io.sphere.sdk.queries.QuerySort;
+import io.sphere.sdk.search.FilterExpression;
 import io.sphere.sdk.search.PagedSearchResult;
+import io.sphere.sdk.search.model.RangeTermFacetedSearchSearchModel;
+import io.sphere.sdk.search.model.TermFacetedSearchSearchModel;
 import io.sphere.sdk.shippingmethods.expansion.ShippingMethodExpansionModel;
 
 /**
@@ -131,43 +165,106 @@ public class CommerceToolsServices {
 
     public PagedQueryResult<Category> getCategories(SphereClient pureAsyncClient, String parentId, Locale sortByLocale) {
         final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
-        QuerySort<Category> sortBy = CategoryQueryModel.of().name().locale(sortByLocale).sort().asc();
         CategoryQuery searchRequest = CategoryQuery.of()
-                .withLimit(MAX_QUERY_LIMIT)
-                .withSort(sortBy);
+                .withLimit(MAX_QUERY_LIMIT);
 
         if (StringUtils.isNotBlank(parentId)) {
             QueryPredicate<Category> predicateParentId = CategoryQueryModel.of().parent().id().is(parentId);
             searchRequest = searchRequest.withPredicates(predicateParentId);
         }
+        if (sortByLocale != null) {
+            QuerySort<Category> sortBy = CategoryQueryModel.of().name().locale(sortByLocale).sort().asc();
+            searchRequest = searchRequest.withSort(sortBy);
+        }
 
         return client.executeBlocking(searchRequest);
     }
 
-    public PagedQueryResult<ProductProjection> getProducts(SphereClient pureAsyncClient, String parentId, Locale sortByLocale) {
+    public CategoryTree getCategoryTree(SphereClient pureAsyncClient) {
+        return CategoryTree.of(sortCategories(getCategories(pureAsyncClient, null, null).getResults()));
+    }
+
+    private static List<Category> sortCategories(final List<Category> categories) {
+        Collections.sort(categories, new Comparator<Category>() {
+            @Override
+            public int compare(Category c1, Category c2) {
+                return ObjectUtils.compare(c1.getOrderHint(), c2.getOrderHint());
+            }
+        });
+
+        return categories;
+    }
+
+    public ProductTypeLocalRepository getProductTypes(SphereClient pureAsyncClient) {
         final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
-        final ProductProjectionQuery searchRequest = getProductsQuery(parentId, sortByLocale, 0, MAX_QUERY_LIMIT);
 
-        return client.executeBlocking(searchRequest);
+        return ProductTypeLocalRepository.of(client.execute(ProductTypeQuery.of().toQuery()).toCompletableFuture().join().getResults());
     }
 
-    public PagedQueryResult<ProductProjection> getProductsByOffset(SphereClient pureAsyncClient, String parentId, Locale sortByLocale, int offset, int limit) {
+    private Map<String, List<AttributeType>> getAttributeNameTypeMap(ProductTypeLocalRepository productTypes, List<String> attributeFacets) {
+        Map<String, List<AttributeType>> attributeNameTypeMap = new HashMap<>();
+        for (String attributeName : attributeFacets) {
+            for (ProductType productType : productTypes.getAll()) {
+                productType.findAttribute(attributeName).ifPresent(new Consumer<AttributeDefinition>() {
+                    @Override
+                    public void accept(AttributeDefinition attributeDefinition) {
+                        attributeNameTypeMap.putIfAbsent(attributeName, new ArrayList<>());
+                        attributeNameTypeMap.get(attributeName).add(attributeDefinition.getAttributeType());
+                    }
+                });
+
+            }
+        }
+
+        return attributeNameTypeMap;
+    }
+
+    public PagedSearchResult<ProductProjection> getProducts(SphereClient pureAsyncClient, String parentId, Locale sortByLocale) {
         final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
-        final ProductProjectionQuery searchRequest = getProductsQuery(parentId, sortByLocale, offset, limit);
+        final ProductProjectionSearch searchRequest = getProductsQuery(parentId, false, sortByLocale, 0, MAX_QUERY_LIMIT, null, null, null, null);
 
         return client.executeBlocking(searchRequest);
     }
 
-    private ProductProjectionQuery getProductsQuery(String parentId, Locale sortByLocale, int offset, int limit) {
-        QueryPredicate<ProductProjection> predicateParentId = ProductProjectionQueryModel.of().categories().id().is(parentId);
-        CategoryExpansionModel<ProductProjection> expansionPathContainerFunction = ProductProjectionExpansionModel.of().categories();
-        QuerySort<ProductProjection> sortBy = ProductProjectionQueryModel.of().name().locale(sortByLocale).sort().asc();
+    public PagedSearchResult<ProductProjection> getProductsByOffset(SphereClient pureAsyncClient, String parentId, Locale sortByLocale, int offset, int limit, ProductTypeLocalRepository productTypes, List<String> attributeFacets, Map<String, List<String>> filterBy) {
+        final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
+        final ProductProjectionSearch searchRequest = getProductsQuery(parentId, true, sortByLocale, offset, limit, productTypes, attributeFacets, filterBy, null);
 
-        ProductProjectionQuery searchRequest =
-                ProductProjectionQuery.ofCurrent()
-                        .withPredicates(predicateParentId)
-                        .withExpansionPaths(expansionPathContainerFunction)
-                        .withSort(sortBy);
+        return client.executeBlocking(searchRequest);
+    }
+
+    public PagedSearchResult<ProductProjection> searchForProducts(SphereClient pureAsyncClient, String queryStr, Locale sortByLocale, int offset, int limit, ProductTypeLocalRepository productTypes, List<String> attributeFacets, Map<String, List<String>> filterBy) {
+        final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
+        final ProductProjectionSearch searchRequest = getProductsQuery(null, false, sortByLocale, offset, limit, productTypes, attributeFacets, filterBy, queryStr);
+
+        return client.executeBlocking(searchRequest);
+    }
+
+    private ProductProjectionSearch getProductsQuery(String parentId, boolean includeSubtree, Locale locale, int offset, int limit, ProductTypeLocalRepository productTypes, List<String> attributeFacets, Map<String, List<String>> filterBy, String queryStr) {
+
+        ProductProjectionSearch searchRequest =
+                ProductProjectionSearch.ofCurrent()
+                        .withExpansionPaths(ProductProjectionExpansionModel.of().categories())
+                        .withSort(ProductProjectionSearchModel.of().sort().name().locale(locale).asc());
+
+        if (parentId != null) {
+            if (includeSubtree) {
+                searchRequest = searchRequest.withQueryFilters(new Function<ProductProjectionFilterSearchModel, List<FilterExpression<ProductProjection>>>() {
+                    @Override
+                    public List<FilterExpression<ProductProjection>> apply(ProductProjectionFilterSearchModel productProjectionFilterSearchModel) {
+                        return productProjectionFilterSearchModel.categories().id().isInSubtree(parentId);
+                    }
+                });
+            } else {
+                searchRequest = searchRequest.withQueryFilters(new Function<ProductProjectionFilterSearchModel, List<FilterExpression<ProductProjection>>>() {
+                    @Override
+                    public List<FilterExpression<ProductProjection>> apply(ProductProjectionFilterSearchModel productProjectionFilterSearchModel) {
+                        return productProjectionFilterSearchModel.categories().id().is(parentId);
+                    }
+                });
+            }
+        }
+
         if (offset != 0) {
             searchRequest = searchRequest.withOffset(offset);
         }
@@ -175,38 +272,80 @@ public class CommerceToolsServices {
         //default limit is 20
         if (limit != 0) {
             searchRequest = searchRequest.withLimit(limit);
+        }
+
+        final ProductAttributeFacetSearchModel attributeFacetModel = ProductProjectionSearchModel.of().facet().allVariants().attribute();
+
+        if (attributeFacets != null && productTypes != null) {
+            Map<String, List<AttributeType>> attributeNameTypeMap = getAttributeNameTypeMap(productTypes, attributeFacets);
+            for (String attributeName : attributeFacets) {
+                for (AttributeType attributeType : attributeNameTypeMap.get(attributeName)) {
+                    if (attributeType instanceof LocalizedStringAttributeType) {
+                        searchRequest = searchRequest.plusFacets(attributeFacetModel.ofLocalizedString(attributeName).locale(locale).allTerms());
+                    } else if (attributeType instanceof EnumAttributeType) {
+                        searchRequest = searchRequest.plusFacets(attributeFacetModel.ofEnum(attributeName).label().allTerms());
+                    } else if (attributeType instanceof LocalizedEnumAttributeType) {
+                        searchRequest = searchRequest.plusFacets(attributeFacetModel.ofLocalizedEnum(attributeName).label().locale(locale).allTerms());
+                    } else {
+                        searchRequest = searchRequest.plusFacets(attributeFacetModel.ofString(attributeName).allTerms());
+                    }
+                }
+            }
+
+            final ProductAttributeFacetedSearchSearchModel attributeSearchModel = ProductProjectionSearchModel.of().facetedSearch().allVariants().attribute();
+            if (filterBy != null) {
+                for (String facet : filterBy.keySet()) {
+                    TermFacetedSearchSearchModel<ProductProjection> searchModel = null;
+                    RangeTermFacetedSearchSearchModel<ProductProjection> rangeSearchModel = null;
+                    for (AttributeType attributeType : attributeNameTypeMap.get(facet)) {
+                        if (attributeType instanceof StringAttributeType) {
+                            searchModel = attributeSearchModel.ofString(facet);
+                        } else if (attributeType instanceof LocalizedStringAttributeType) {
+                            searchModel = attributeSearchModel.ofLocalizedString(facet).locale(locale);
+                        } else if (attributeType instanceof EnumAttributeType) {
+                            searchModel = attributeSearchModel.ofEnum(facet).label();
+                        } else if (attributeType instanceof LocalizedEnumAttributeType) {
+                            searchModel = attributeSearchModel.ofLocalizedEnum(facet).label().locale(locale);
+                        } else if (attributeType instanceof BooleanAttributeType) {
+                            searchModel = attributeSearchModel.ofBoolean(facet);
+                        } else if (attributeType instanceof DateAttributeType) {
+                            rangeSearchModel = attributeSearchModel.ofDate(facet);
+                        } else if (attributeType instanceof TimeAttributeType) {
+                            rangeSearchModel = attributeSearchModel.ofTime(facet);
+                        } else if (attributeType instanceof MoneyAttributeType) {
+                            rangeSearchModel = attributeSearchModel.ofMoney(facet).centAmount();
+                        } else if (attributeType instanceof NumberAttributeType) {
+                            rangeSearchModel = attributeSearchModel.ofNumber(facet);
+                        } else if (attributeType instanceof ReferenceAttributeType) {
+                            searchModel = attributeSearchModel.ofReference(facet).id();
+                        } else if (attributeType instanceof DateTimeAttributeType) {
+                            rangeSearchModel = attributeSearchModel.ofNumber(facet);
+                        }
+                    }
+                    if (searchModel != null) {
+                        searchRequest = searchRequest.plusResultFilters(searchModel.isIn(filterBy.get(facet)).filterExpressions());
+                    } else if (rangeSearchModel != null) {
+                        searchRequest = searchRequest.plusResultFilters(rangeSearchModel.isIn(filterBy.get(facet)).filterExpressions());
+                    }
+                }
+            }
+        }
+
+        if (StringUtils.isNotBlank(queryStr)) {
+            searchRequest = searchRequest.withText(locale, queryStr);
         }
 
         return searchRequest;
     }
 
-    public PagedSearchResult<ProductProjection> searchForProducts(SphereClient pureAsyncClient, String queryStr, Locale locale, int offset, int limit) {
-        final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
-        CategoryExpansionModel<ProductProjection> expansionPathContainerFunction = ProductProjectionExpansionModel.of().categories();
-
-        ProductProjectionSearch searchRequest =
-                ProductProjectionSearch.ofCurrent()
-                        .withText(locale, queryStr)
-                        .withExpansionPaths(expansionPathContainerFunction);
-
-        if (offset != 0) {
-            searchRequest = searchRequest.withOffset(offset);
-        }
-
-        //default limit is 20
-        if (limit != 0) {
-            searchRequest = searchRequest.withLimit(limit);
-        }
-
-        return client.executeBlocking(searchRequest);
-    }
-
     public Category getCategory(SphereClient pureAsyncClient, String categoryId) {
         final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
         QueryPredicate<Category> predicateId = CategoryQueryModel.of().id().is(categoryId);
+        CategoryExpansionModel<Category> expansionPathContainerFunction = CategoryExpansionModel.of().ancestors();
 
         final CategoryQuery searchRequest = CategoryQuery.of()
                 .withPredicates(predicateId)
+                .withExpansionPaths(expansionPathContainerFunction)
                 .withLimit(1);
         final PagedQueryResult<Category> queryResult = client.executeBlocking(searchRequest);
 
@@ -216,7 +355,7 @@ public class CommerceToolsServices {
     public ProductProjection getProduct(SphereClient pureAsyncClient, String productId) {
         final BlockingSphereClient client = BlockingSphereClient.of(pureAsyncClient, CommerceToolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
         QueryPredicate<ProductProjection> predicateId = ProductProjectionQueryModel.of().id().is(productId);
-        CategoryExpansionModel<ProductProjection> expansionPathContainerFunction = ProductProjectionExpansionModel.of().categories();
+        CategoryExpansionModel<ProductProjection> expansionPathContainerFunction = ProductProjectionExpansionModel.of().categories().ancestors();
 
         final ProductProjectionQuery searchRequest =
                 ProductProjectionQuery.ofCurrent()
@@ -387,5 +526,19 @@ public class CommerceToolsServices {
                 .defaultShippingAddress(context.getAttribute(CT_CUSTOMER_DEFAULT_SHIPPING_ADDRESS))
                 .custom(context.getAttribute(CT_CUSTOMER_CUSTOM))
                 .build();
+    }
+
+    public ProductVariant getVariant(SphereClient pureAsyncClient, String productId, String variantId) {
+        final ProductProjection productProjection = getProduct(pureAsyncClient, productId);
+
+        return productProjection.getVariant(Integer.parseInt(variantId));
+    }
+
+    public CustomerToken getCustomerPasswordToken(SphereClient client, String customerEmail) {
+        return client.execute(CustomerCreatePasswordTokenCommand.of(customerEmail)).toCompletableFuture().join();
+    }
+
+    public Customer customerPasswordReset(SphereClient client, String customerTokenValue, String newPassword) {
+        return client.execute(CustomerPasswordResetCommand.ofTokenAndPassword(customerTokenValue, newPassword)).toCompletableFuture().join();
     }
 }
