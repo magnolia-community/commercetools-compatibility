@@ -20,7 +20,8 @@
                      alt="${product.getName().get(ctfn.getLanguage())!""}" class="img-responsive img-thumbnail" alt="">
             </a>
             <h4>${product.getName().get(ctfn.getLanguage())!""}</h4>
-            <h5>${product.getProductSlug()!""}</h5>
+            <h5>SLUG: ${product.getProductSlug().get(ctfn.getLanguage())!""}</h5>
+            <h5>SKU: ${product.getVariant().getSku()!""}</h5>
         </div>
         <input class="quantity" productId="${product.getId()}" value="${product.getQuantity()}" min="1" max="50" class="text-center pull-right">
         <p><span>${product.getPrice().getValue().getCurrency()}&nbsp;</span>${product.getPrice().getValue().getNumber()}</p>

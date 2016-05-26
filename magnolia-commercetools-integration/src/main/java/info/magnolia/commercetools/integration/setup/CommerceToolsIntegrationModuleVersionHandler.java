@@ -37,6 +37,7 @@ public class CommerceToolsIntegrationModuleVersionHandler extends DefaultModuleV
         tasks.addAll(super.getExtraInstallTasks(installContext));
         tasks.add(new OrderNodeBeforeTask("/server/filters/cms/ctSignupLoginLogout", "modelExecution"));
         tasks.add(new AddURIPermissionTask("Add permition to anonymous user access ctCart rest endpoint.", "rest", "/.rest/ctCart*", AddURIPermissionTask.GET_POST));
+        tasks.add(new AddURIPermissionTask("Add permition to anonymous user access ctCart rest endpoint.", "rest", "/.rest/ctVariant*", AddURIPermissionTask.GET_POST));
         return tasks;
     }
 

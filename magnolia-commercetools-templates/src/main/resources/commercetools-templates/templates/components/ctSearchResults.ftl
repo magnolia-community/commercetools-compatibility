@@ -1,5 +1,6 @@
 [#-------------- INCLUDES AND ASSIGNMENTS --------------]
 [#include "macros/productTeaserList.ftl"]
+[#include "macros/productFilters.ftl"]
 
 [#assign queryStr = (ctx.getParameter("queryStr")?html)!""]
 [#assign currentPage = (ctx.getParameter("currentPage")?number)!1]
@@ -8,11 +9,17 @@
     [#-- set max limit value--]
     [#assign perPage = 500]
 [/#if]
+[#assign productTypes = ctfn.getProductTypes()]
+[#assign attributeFacets = (content.attributeFacets)![]]
+[#assign filterBy = ctfn.getFilterBy(attributeFacets)]
 
 [#-------------- RENDERING --------------]
 [#if queryStr?has_content]
-    [#assign products = ctfn.searchForProducts(queryStr, (currentPage-1)*perPage, perPage)!]
+    [#assign products = ctfn.searchForProducts(queryStr, (currentPage-1)*perPage, perPage, productTypes, attributeFacets, filterBy)!]
     [#if products.getResults()?has_content]
+        [#if products.getFacetsResults()?has_content]
+            [@productFilters attributeFacets products.getFacetsResults() productTypes filterBy /]
+        [/#if]
         [@productTeaserList products currentPage perPage content.productDetailPage /]
     [#else]
         ${i18n['ct.noResultsFound']}

@@ -28,7 +28,11 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.jcr.Node;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.sphere.sdk.carts.Cart;
+import io.sphere.sdk.models.SphereException;
 import io.sphere.sdk.orders.Order;
 import io.sphere.sdk.orders.OrderFromCartDraft;
 import io.sphere.sdk.orders.PaymentState;
@@ -38,6 +42,8 @@ import io.sphere.sdk.orders.commands.OrderFromCartCreateCommand;
  * Create order from cart.
  */
 public class CommerceToolsCartProcessor extends AbstractFormProcessor {
+
+    private static final Logger log = LoggerFactory.getLogger(CommerceToolsCartProcessor.class);
 
     private final Provider<WebContext> webContextProvider;
     private final CommerceToolsTemplatingFunctions commerceToolsTemplatingFunctions;
@@ -52,14 +58,19 @@ public class CommerceToolsCartProcessor extends AbstractFormProcessor {
     public void internalProcess(Node content, Map<String, Object> parameters) throws FormProcessorFailedException {
         final WebContext webContext = webContextProvider.get();
         final Cart cart = commerceToolsTemplatingFunctions.getCart();
-        commerceToolsTemplatingFunctions.getProjectClient().execute(OrderFromCartCreateCommand.of(OrderFromCartDraft.of(cart, null, PaymentState.BALANCE_DUE)))
-                .thenApplyAsync(new Function<Order, Object>() {
-                    @Override
-                    public Object apply(Order order) {
-                        webContext.setAttribute(CommerceToolsServices.CT_LAST_ORDER_ID, order.getId(), Context.LOCAL_SCOPE);
-                        webContext.removeAttribute(CommerceToolsServices.CT_CART_ID,Context.SESSION_SCOPE);
-                        return null;
-                    }
-                }).toCompletableFuture().join();
+        try {
+            commerceToolsTemplatingFunctions.getProjectClient().execute(OrderFromCartCreateCommand.of(OrderFromCartDraft.of(cart, null, PaymentState.BALANCE_DUE)))
+                    .thenApplyAsync(new Function<Order, Object>() {
+                        @Override
+                        public Object apply(Order order) {
+                            webContext.setAttribute(CommerceToolsServices.CT_LAST_ORDER_ID, order.getId(), Context.LOCAL_SCOPE);
+                            webContext.removeAttribute(CommerceToolsServices.CT_CART_ID, Context.SESSION_SCOPE);
+                            return null;
+                        }
+                    }).toCompletableFuture().join();
+        } catch (SphereException e) {
+            log.error("Order creation.", e);
+            throw new FormProcessorFailedException(e.getMessage());
+        }
     }
 }

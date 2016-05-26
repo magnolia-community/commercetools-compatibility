@@ -20,9 +20,11 @@ import info.magnolia.context.WebContext;
 import info.magnolia.module.site.SiteManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -32,13 +34,21 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.javamoney.moneta.FastMoney;
 
+import com.google.common.collect.Lists;
 import com.neovisionaries.i18n.CountryCode;
 
 import io.sphere.sdk.carts.Cart;
 import io.sphere.sdk.categories.Category;
 import io.sphere.sdk.client.SphereClient;
+import io.sphere.sdk.customers.Customer;
+import io.sphere.sdk.customers.CustomerToken;
+import io.sphere.sdk.models.Reference;
 import io.sphere.sdk.products.Price;
 import io.sphere.sdk.products.ProductProjection;
+import io.sphere.sdk.products.ProductVariant;
+import io.sphere.sdk.products.attributes.AttributeDefinition;
+import io.sphere.sdk.producttypes.ProductType;
+import io.sphere.sdk.producttypes.ProductTypeLocalRepository;
 import io.sphere.sdk.queries.PagedQueryResult;
 import io.sphere.sdk.search.PagedSearchResult;
 
@@ -63,24 +73,24 @@ public class CommerceToolsTemplatingFunctions {
         this.webContextProvider = webContextProvider;
     }
 
-    public ProductProjection getProduct(String productId) {
-        return commerceToolsServices.getProduct(getProjectClient(), productId);
-    }
-
     public Category getCategory(String categoryId) {
         return commerceToolsServices.getCategory(getProjectClient(), categoryId);
-    }
-
-    public PagedQueryResult<ProductProjection> getProducts(String parentId, int offset, int limit) {
-        return commerceToolsServices.getProductsByOffset(getProjectClient(), parentId, getLanguage(), offset, limit);
     }
 
     public PagedQueryResult<Category> getCategories(String parentId) {
         return commerceToolsServices.getCategories(getProjectClient(), parentId, getLanguage());
     }
 
-    public PagedSearchResult<ProductProjection> searchForProducts(String queryStr, int offset, int limit) {
-        return commerceToolsServices.searchForProducts(getProjectClient(), queryStr, getLanguage(), offset, limit);
+    public ProductProjection getProduct(String productId) {
+        return commerceToolsServices.getProduct(getProjectClient(), productId);
+    }
+
+    public PagedSearchResult<ProductProjection> getProducts(String parentId, int offset, int limit, ProductTypeLocalRepository productTypes, List<String> attributeFacets, Map<String, List<String>> filterBy) {
+        return commerceToolsServices.getProductsByOffset(getProjectClient(), parentId, getLanguage(), offset, limit, productTypes, attributeFacets, filterBy);
+    }
+
+    public PagedSearchResult<ProductProjection> searchForProducts(String queryStr, int offset, int limit, ProductTypeLocalRepository productTypes, List<String> attributeFacets, Map<String, List<String>> filterBy) {
+        return commerceToolsServices.searchForProducts(getProjectClient(), queryStr, getLanguage(), offset, limit, productTypes, attributeFacets, filterBy);
     }
 
     /**
@@ -281,5 +291,79 @@ public class CommerceToolsTemplatingFunctions {
         Cart cart = getCart();
 
         return cart.getLineItems().size() + cart.getCustomLineItems().size();
+    }
+
+    public List<Map<String, String>> getCategoryListForBreadcrumb(final Category category) {
+        List<Map<String, String>> breadcrumbList = new ArrayList<>();
+
+        for (Reference<Category> ancestor : Lists.reverse(category.getAncestors())) {
+            breadcrumbList.add(new HashMap<String, String>() {{
+                put(ancestor.getId(), ancestor.getObj().getName().get(getLanguage()));
+            }});
+        }
+
+        breadcrumbList.add(new HashMap<String, String>() {{
+            put(category.getId(), category.getName().get(getLanguage()));
+        }});
+
+
+        return breadcrumbList;
+    }
+
+    public List<Map<String, String>> getListOfAttributeValuesFromProductVariants(final ProductProjection product, final String attributeName) {
+        List<Map<String, String>> result = new ArrayList<>();
+        for (ProductVariant variant : product.getAllVariants()) {
+            result.add(new HashMap<String, String>() {{
+                put(variant.getId().toString(), variant.getAttribute(attributeName).getValueAsString());
+            }});
+        }
+
+        return result;
+    }
+
+    public ProductVariant getVariantOrMaster(final ProductProjection product, final int variantId) {
+        return product.getVariantOrMaster(variantId);
+    }
+
+    public CustomerToken getCustomerPasswordToken(final String customerEmail) {
+        return commerceToolsServices.getCustomerPasswordToken(getProjectClient(), customerEmail);
+    }
+
+    public Customer customerPasswordReset(final String customerTokenValue, final String newPassword) {
+        return commerceToolsServices.customerPasswordReset(getProjectClient(), customerTokenValue, newPassword);
+    }
+
+    public ProductTypeLocalRepository getProductTypes() {
+        return commerceToolsServices.getProductTypes(getProjectClient());
+    }
+
+    public List<String> getLocalizedAttributeName(ProductTypeLocalRepository productTypes, String attributeName) {
+        List<String> localizedName = new ArrayList<>();
+        for (ProductType productType : productTypes.getAll()) {
+            productType.findAttribute(attributeName).ifPresent(new Consumer<AttributeDefinition>() {
+                @Override
+                public void accept(AttributeDefinition attributeDefinition) {
+                    localizedName.add(attributeDefinition.getLabel().get(getLanguage()));
+                }
+            });
+
+        }
+
+        return localizedName;
+    }
+
+    public Map<String, List<String>> getFilterBy(List<String> attributeFacets) {
+        Map<String, List<String>> filterBy = new HashMap<>();
+        WebContext webContext = webContextProvider.get();
+        for (String facet : attributeFacets) {
+            if (StringUtils.isNotBlank(webContext.getParameter(facet))) {
+                for (String paramValue : webContext.getParameterValues(facet)) {
+                    filterBy.putIfAbsent(facet, new ArrayList<>());
+                    filterBy.get(facet).add(paramValue);
+                }
+            }
+        }
+
+        return filterBy;
     }
 }
