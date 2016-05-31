@@ -1,0 +1,16 @@
+form:
+  tabs:
+    - name: tabMain
+      fields:
+        - name: searchResultPage
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: website
+          appName: pages
+          identifierToPathConverter:
+            class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition

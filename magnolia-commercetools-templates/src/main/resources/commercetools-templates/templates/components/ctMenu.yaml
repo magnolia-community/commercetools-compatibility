@@ -1,0 +1,3 @@
+dialog: commercetools-templates:components/ctMenu
+renderType: freemarker
+templateScript: /commercetools-templates/templates/components/ctMenu.ftl

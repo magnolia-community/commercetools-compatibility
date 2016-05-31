@@ -1,0 +1,3 @@
+dialog: commercetools-templates:components/ctCartLink
+renderType: freemarker
+templateScript: /commercetools-templates/templates/components/ctCartLink.ftl
