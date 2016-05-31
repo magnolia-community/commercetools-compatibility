@@ -1,0 +1,3 @@
+dialog: commercetools-templates:components/ctSearchInputField
+renderType: freemarker
+templateScript: /commercetools-templates/templates/components/ctSearchInputField.ftl

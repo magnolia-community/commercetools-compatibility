@@ -4,8 +4,8 @@
         <ul>
             [#list childCategories as childCategory]
                 <li><a href="${siteRootLink}?categoryId=${childCategory.getId()}">${childCategory.getName().get(ctfn.getLanguage())}</a>
-                    [#if categoriesDepth<0 || categoriesDepth-1>0]
-                        [@menuCategoryList categories siteRootLink categoriesDepth-1 childCategory.getId() /]
+                    [#if categoriesDepth?number<0 || categoriesDepth?number-1>0]
+                        [@menuCategoryList categories siteRootLink categoriesDepth?number-1 childCategory.getId() /]
                     [/#if]
                 </li>
             [/#list]
