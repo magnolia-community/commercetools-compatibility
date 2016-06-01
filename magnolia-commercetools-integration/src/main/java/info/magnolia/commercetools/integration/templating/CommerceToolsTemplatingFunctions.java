@@ -32,7 +32,6 @@ import javax.inject.Singleton;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.javamoney.moneta.FastMoney;
 
 import com.google.common.collect.Lists;
 import com.neovisionaries.i18n.CountryCode;
@@ -96,7 +95,7 @@ public class CommerceToolsTemplatingFunctions {
     /**
      * Returns List of prices dependent on currency, country customer group and channel.
      */
-    public String getPriceToShow(List<Price> prices) {
+    public Price getPriceToShow(List<Price> prices) {
         if (prices.isEmpty()) {
             return null;
         }
@@ -125,7 +124,7 @@ public class CommerceToolsTemplatingFunctions {
         }
 
         if (result != null) {
-            return FastMoney.of(result.getValue().getNumber(), result.getValue().getCurrency()).toString();
+            return result;
         }
 
         return null;

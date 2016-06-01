@@ -1,0 +1,34 @@
+form:
+  tabs:
+    - name: tabMain
+      fields:
+        - name: productId
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          appName: ctBrowser
+          required: true
+        - name: productDetailPage
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: website
+          appName: pages
+          identifierToPathConverter:
+            class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+        - name: divClass
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        - name: productImage
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: dam
+          appName: assets
+          label: Select image
+          description: Background image of the header area
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          contentPreviewDefinition:
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+        - name: productDescription
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          rows: 5
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition

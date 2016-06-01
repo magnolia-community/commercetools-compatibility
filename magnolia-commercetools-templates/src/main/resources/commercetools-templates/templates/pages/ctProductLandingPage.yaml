@@ -1,0 +1,46 @@
+# move to commercetools-demo
+
+dialog: mte:pages/pageProperties
+class: info.magnolia.templating.definition.PageTemplateDefinition
+
+renderType: site
+type: feature
+areas:
+  main:
+    templateScript: /travel-demo/templates/pages/areas/contentContainer.ftl
+    type: list
+    parameters:
+      cssClass: container
+    availableComponents:
+      textImage:
+        id: travel-demo:components/textImage
+      jumbotron:
+        id: travel-demo:components/jumbotron
+      linkList:
+        id: travel-demo:components/linkList
+      teaser:
+        id: travel-demo:components/teaser
+      carousel:
+        id: travel-demo:components/carousel
+      video:
+        id: mtk:components/video
+      social:
+        id: travel-demo:components/social
+      columnLayout:
+        id: travel-demo:components/columnLayout
+      html:
+        id: mtk:components/html
+      form:
+        id: travel-demo:components/form
+      formStep:
+        id: form:components/formStep
+      productTeaser:
+        id: commercetools-templates:components/ctProductTeaser
+      productDetail:
+        id: commercetools-templates:components/ctProductDetail
+      productCart:
+        id: commercetools-templates:components/ctShoppingCart
+      productCart:
+        id: commercetools-templates:components/ctCartLink
+  footer:
+    editable: false
