@@ -4,12 +4,25 @@
   <name>commercetools-templates</name>
   <displayName>${project.name}</displayName>
   <description>${project.description}</description>
+  <versionHandler>info.magnolia.commercetools.templates.setup.CommerceToolsTemplatesModuleVersionHandler</versionHandler>
   <version>${project.version}</version>
 
   <dependencies>
     <dependency>
       <name>commercetools-integration</name>
       <version>1.0/*</version>
+    </dependency>
+
+    <dependency>
+      <name>travel-demo</name>
+      <version>0.11/*</version>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <name>multisite</name>
+      <version>1.2.3/*</version>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 </module>

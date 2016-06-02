@@ -24,10 +24,10 @@
         <aside>
             <h3>${product.getName().get(ctfn.getLanguage())!""}</h3>
             <h4>
-                [#assign price = ctfn.getPriceToShow(ctfn.getVariantOrMaster(product, variantId?number).getPrices())?split(" ")]
+                [#assign price = ctfn.getPriceToShow(ctfn.getVariantOrMaster(product, variantId?number).getPrices()).getValue()!]
                 [#if price?has_content]
-                    <span>${price[1]}</span>
-                    <span>${price[0]}</span>
+                    <span>${price.getCurrency()}</span>
+                    <span>${price.getNumber()}</span>
                 [/#if]
             </h4>
             <div>
@@ -89,7 +89,10 @@
                     },
                     dataType: 'json',
                     success: function (data) {
-                        $('#cartItemNum').html((data.lineItems.length + data.customLineItems.length));
+                        var cartItemNum = $('#cartItemNum');
+                        if(typeof cartItemNum !== 'undefined') {
+                            cartItemNum.html((data.lineItems.length + data.customLineItems.length));
+                        }
                         cartId = data.id;
                     },
                     type: 'PUT'

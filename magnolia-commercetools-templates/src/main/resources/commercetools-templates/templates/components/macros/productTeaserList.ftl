@@ -15,7 +15,8 @@
             </a>
             <p><a href="${teaserLink}?productId=${product.getId()}">${product.getName().get(ctfn.getLanguage())!""}</a></p>
             <div>
-                <span><strong>${ctfn.getPriceToShow(product.getMasterVariant().getPrices())!i18n['ctProduct.priceNotSet']}</strong></span>
+                [#assign price = ctfn.getPriceToShow(product.getMasterVariant().getPrices()).getValue()!]
+                <span><strong>${(price.getCurrency())!} ${(price.getNumber())!i18n['ctProduct.priceNotSet']}</strong></span>
                 <a class="addToCart" id="${product.getId()}" variantId="${product.getMasterVariant().getId()}" href="#">${i18n['ctProduct.addToCart']}</a>
             </div>
         </div>
@@ -38,7 +39,10 @@
                     },
                     dataType: 'json',
                     success: function (data) {
-                        $('#cartItemNum').html((data.lineItems.length + data.customLineItems.length));
+                        var cartItemNum = $('#cartItemNum');
+                        if(typeof cartItemNum !== 'undefined') {
+                            cartItemNum.html((data.lineItems.length + data.customLineItems.length));
+                        }
                         cartId = data.id;
                     },
                     type: 'PUT'
