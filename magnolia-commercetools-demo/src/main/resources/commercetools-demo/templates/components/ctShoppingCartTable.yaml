@@ -1,0 +1,4 @@
+dialog: commercetools-templates:components/ctShoppingCartTable
+modelClass: info.magnolia.module.form.templates.components.FormFieldModel
+renderType: freemarker
+templateScript: /commercetools-demo/templates/components/ctShoppingCartTable.ftl

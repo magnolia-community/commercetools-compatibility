@@ -27,6 +27,4 @@ areas:
     templateScript: /form/generic/listArea.ftl
     availableComponents:
       formGroupFields:
-        id: form:components/formGroupFields
-      shoppingCartTable:
-        id: commercetools-templates:components/ctShoppingCartTable
+        id: commercetools-templates:components/formGroupFields

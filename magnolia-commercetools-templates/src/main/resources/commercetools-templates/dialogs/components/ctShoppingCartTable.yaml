@@ -2,6 +2,9 @@ form:
   tabs:
     - name: tabMain
       fields:
+        - name: changesEnabled
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          defaultValue: true
         - name: productDetailPage
           class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
           targetWorkspace: website

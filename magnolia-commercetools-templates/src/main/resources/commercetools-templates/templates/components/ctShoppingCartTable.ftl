@@ -1,6 +1,7 @@
 [#-------------- ASSIGNMENTS --------------]
 [#assign shoppingCart = ctfn.getCart()!]
 [#assign teaserLink = cmsfn.link("website", content.productDetailPage!"")!""]
+[#assign changesEnabled = content.changesEnabled!false]
 
 [#-------------- RENDERING --------------]
 <div ${model.style!} >
@@ -23,9 +24,9 @@
             <h5>SLUG: ${product.getProductSlug().get(ctfn.getLanguage())!""}</h5>
             <h5>SKU: ${product.getVariant().getSku()!""}</h5>
         </div>
-        <input class="quantity" productId="${product.getId()}" value="${product.getQuantity()}" min="1" max="50" class="text-center pull-right">
+        <input class="quantity" productId="${product.getId()}" value="${product.getQuantity()}" min="1" max="50" class="text-center pull-right" [#if !changesEnabled]disabled[/#if]>
         <p><span>${product.getPrice().getValue().getCurrency()}&nbsp;</span>${product.getPrice().getValue().getNumber()}</p>
-        <p><span>${product.getTotalPrice().getCurrency()}&nbsp;</span><span class="item-total">${product.getTotalPrice().getNumber()}</span><span><a productId="${product.getId()}" href="#" class="remove pull-right">&#10005</a></span>
+        <p><span>${product.getTotalPrice().getCurrency()}&nbsp;</span><span class="item-total">${product.getTotalPrice().getNumber()}</span><span>[#if changesEnabled]<a productId="${product.getId()}" href="#" class="remove pull-right">&#10005</a>[#else]&nbsp;[/#if]</span>
         </p>
     </div>
 [/#list]

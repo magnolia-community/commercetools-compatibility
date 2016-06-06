@@ -1,7 +1,10 @@
-[#macro productFilters attributeFacets facetResults productTypes filterBy]
+[#macro productFilters attributeFacets facetResults productTypes filterBy params={}]
     [#-------------- RENDERING --------------]
     [#assign keys = facetResults?keys]
     <form>
+        [#list params?keys as key]
+            <input type="hidden" name="${key}" value="${params[key]}">
+        [/#list]
         <fieldset><legend>FILTERS</legend></fieldset>
         [#list keys as key]
             <div>

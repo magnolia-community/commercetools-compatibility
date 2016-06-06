@@ -1,0 +1,50 @@
+dialog: commercetools-demo:pages/homePageProperties
+class: info.magnolia.templating.definition.PageTemplateDefinition
+
+renderType: site
+type: home
+templateScript: /commercetools-demo/templates/pages/main.ftl
+areas:
+  htmlHead:
+    templateScript: /commercetools-demo/templates/areas/htmlHead.ftl
+    inheritance:
+      enabled: true
+  navigation:
+    inheritance:
+      enabled: true
+      components: all
+    templateScript: /commercetools-demo/templates/areas/navigation.ftl
+    areas:
+      navigation-left:
+        inheritance:
+          enabled: true
+          components: all
+        templateScript: /commercetools-demo/templates/areas/navigation-left.ftl
+        availableComponents:
+          menu:
+            id: commercetools-demo:components/ctMenu
+          searchInputField:
+            id: commercetools-demo:components/ctSearchInputField
+      navigation-right:
+        inheritance:
+          enabled: true
+          components: all
+        templateScript: /commercetools-demo/templates/areas/navigation-right.ftl
+        availableComponents:
+          loginLink:
+            id: commercetools-demo:components/ctLoginLink
+          cartLink:
+            id: commercetools-demo:components/ctCartLink
+  header:
+    templateScript: /commercetools-demo/templates/areas/header.ftl
+  main:
+    renderType: freemarker
+    type: single
+    autoGeneration:
+      content:
+        products:
+          nodeType: mgnl:component
+          templateId: commercetools-demo:components/ctProducts
+      generatorClass: info.magnolia.rendering.generator.CopyGenerator
+  footer:
+    templateScript: /commercetools-demo/templates/areas/footer.ftl

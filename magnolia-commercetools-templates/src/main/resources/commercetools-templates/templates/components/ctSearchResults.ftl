@@ -18,7 +18,7 @@
     [#assign products = ctfn.searchForProducts(queryStr, (currentPage-1)*perPage, perPage, productTypes, attributeFacets, filterBy)!]
     [#if products.getResults()?has_content]
         [#if products.getFacetsResults()?has_content]
-            [@productFilters attributeFacets products.getFacetsResults() productTypes filterBy /]
+            [@productFilters attributeFacets products.getFacetsResults() productTypes filterBy {"queryStr":queryStr} /]
         [/#if]
         [@productTeaserList products currentPage perPage content.productDetailPage /]
     [#else]

@@ -1,0 +1,3 @@
+dialog: commercetools-templates:components/ctSearchResults
+renderType: freemarker
+templateScript: /commercetools-demo/templates/components/ctSearchResults.ftl

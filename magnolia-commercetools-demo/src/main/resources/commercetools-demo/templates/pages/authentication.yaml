@@ -1,0 +1,36 @@
+dialog: mte:pages/pageProperties
+class: info.magnolia.templating.definition.PageTemplateDefinition
+
+renderType: site
+type: feature
+templateScript: /commercetools-demo/templates/pages/main.ftl
+areas:
+  htmlHead:
+    templateScript: /commercetools-demo/templates/areas/htmlHead.ftl
+    inheritance:
+      enabled: true
+  navigation:
+    inheritance:
+      enabled: true
+      components: all
+    templateScript: /commercetools-demo/templates/areas/navigation.ftl
+    areas:
+      navigation-left:
+        inheritance:
+          enabled: true
+          components: all
+        templateScript: /commercetools-demo/templates/areas/navigation-left.ftl
+      navigation-right:
+        inheritance:
+          enabled: true
+          components: all
+        templateScript: /commercetools-demo/templates/areas/navigation-right.ftl
+  main:
+    templateScript: /commercetools-demo/templates/areas/authentication.ftl
+    availableComponents:
+      ctLogin:
+        id: commercetools-demo:components/ctLogin
+      ctSignup:
+        id: commercetools-demo:components/ctSignup
+  footer:
+    templateScript: /commercetools-demo/templates/areas/footer.ftl
