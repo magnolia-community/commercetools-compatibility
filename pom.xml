@@ -9,7 +9,7 @@
   <groupId>info.magnolia.commercetools</groupId>
   <artifactId>magnolia-commercetools</artifactId>
   <name>Commercetools Parent</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -30,7 +30,7 @@
     <connection>scm:git:ssh://git@git.magnolia-cms.com/integration/commercetools.git</connection>
     <developerConnection>scm:git:ssh://git@git.magnolia-cms.com/integration/commercetools.git</developerConnection>
     <url>https://git.magnolia-cms.com/projects/INTEGRATION/repos/commercetools</url>
-    <tag>HEAD</tag>
+    <tag>magnolia-commercetools-1.0</tag>
   </scm>
 
   <dependencyManagement>
