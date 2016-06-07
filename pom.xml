@@ -27,9 +27,9 @@
 
   <!-- Fill the following in, so you can use the release plugin -->
   <scm>
-    <connection>scm:git:ssh://git.magnolia-cms.com/integration/magnolia-commercetools</connection>
-    <developerConnection>scm:git:ssh://git.magnolia-cms.com/integration/magnolia-commercetools</developerConnection>
-    <url>https://git.magnolia-cms.com/integration/magnolia-commercetools</url>
+    <connection>scm:git:ssh://git@git.magnolia-cms.com/integration/commercetools.git</connection>
+    <developerConnection>scm:git:ssh://git@git.magnolia-cms.com/integration/commercetools.git</developerConnection>
+    <url>https://git.magnolia-cms.com/projects/INTEGRATION/repos/commercetools</url>
     <tag>HEAD</tag>
   </scm>
 
