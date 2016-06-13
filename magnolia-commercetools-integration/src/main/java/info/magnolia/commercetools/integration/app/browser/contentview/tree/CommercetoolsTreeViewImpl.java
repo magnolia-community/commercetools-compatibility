@@ -12,14 +12,21 @@
  * intact.
  *
  */
-package info.magnolia.commercetools.integration.app.item;
+package info.magnolia.commercetools.integration.app.browser.contentview.tree;
+
+import info.magnolia.ui.workbench.tree.TreeViewImpl;
+
+import java.util.List;
 
 /**
- * Exception that is thrown when item id does not match the required {@link CommercetoolsItemId} pattern.
+ * View implementation that de-selects item if no item id is passed.
  */
-public class InvalidItemIdException extends RuntimeException {
+public class CommercetoolsTreeViewImpl extends TreeViewImpl {
 
-    public InvalidItemIdException(final String message) {
-        super(message);
+    @Override
+    public void select(List<Object> itemIds) {
+        asVaadinComponent().setValue(null);
+        super.select(itemIds);
     }
+
 }

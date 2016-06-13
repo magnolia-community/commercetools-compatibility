@@ -14,9 +14,9 @@
  */
 package info.magnolia.commercetools.integration.app.configuration.field;
 
-import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
+import info.magnolia.commercetools.integration.CommercetoolsIntegrationModule;
 import info.magnolia.commercetools.integration.app.configuration.field.CurrencySelectFieldFactory.Definition;
-import info.magnolia.commercetools.integration.service.CommerceToolsServices;
+import info.magnolia.commercetools.integration.service.CommercetoolsServices;
 import info.magnolia.ui.form.field.definition.SelectFieldDefinition;
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
 
@@ -31,12 +31,12 @@ import com.vaadin.data.Item;
 import io.sphere.sdk.client.SphereClient;
 
 /**
- * Currency selection field which reads available currencies from the CommerceTools project settings.<br/>
+ * Currency selection field which reads available currencies from the commercetools project settings.<br/>
  */
-public class CurrencySelectFieldFactory extends AbstractCommerceToolsFieldFactory<Definition> {
+public class CurrencySelectFieldFactory extends AbstractCommercetoolsFieldFactory<Definition> {
 
     @Inject
-    public CurrencySelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommerceToolsIntegrationModule> provider, CommerceToolsServices services) {
+    public CurrencySelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommercetoolsIntegrationModule> provider, CommercetoolsServices services) {
         super(definition, relatedFieldItem, provider, services);
     }
 

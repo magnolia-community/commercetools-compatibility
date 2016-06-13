@@ -88,7 +88,7 @@
           <sv:value>e44d7a72-a5d9-954f-e768-94778dcc6978</sv:value>
         </sv:property>
         <sv:property sv:name="class" sv:type="String">
-          <sv:value>info.magnolia.commercetools.integration.app.contentconnector.CommerceToolsContentConnectorDefinition</sv:value>
+          <sv:value>info.magnolia.commercetools.integration.app.contentconnector.CommercetoolsContentConnectorDefinition</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:createdBy" sv:type="String">
           <sv:value>admin</sv:value>
@@ -170,7 +170,7 @@
               <sv:value>info.magnolia.ui.workbench.tree.TreePresenterDefinition</sv:value>
             </sv:property>
             <sv:property sv:name="implementationClass" sv:type="String">
-              <sv:value>info.magnolia.commercetools.integration.app.browser.contentview.tree.CommerceToolsTreePresenter</sv:value>
+              <sv:value>info.magnolia.commercetools.integration.app.browser.contentview.tree.CommercetoolsTreePresenter</sv:value>
             </sv:property>
             <sv:property sv:name="jcr:createdBy" sv:type="String">
               <sv:value>admin</sv:value>
@@ -752,7 +752,7 @@
           <sv:value>info.magnolia.ui.imageprovider.definition.ConfiguredImageProviderDefinition</sv:value>
         </sv:property>
         <sv:property sv:name="imageProviderClass" sv:type="String">
-          <sv:value>info.magnolia.commercetools.integration.app.imageProvider.CommerceToolsImageProvider</sv:value>
+          <sv:value>info.magnolia.commercetools.integration.app.imageProvider.CommercetoolsImageProvider</sv:value>
         </sv:property>
         <sv:property sv:name="jcr:createdBy" sv:type="String">
           <sv:value>admin</sv:value>
@@ -1671,7 +1671,7 @@
                         <sv:value>8efcb571-2d9e-85b3-bbd4-85afb3cdf1dc</sv:value>
                       </sv:property>
                       <sv:property sv:name="class" sv:type="String">
-                        <sv:value>info.magnolia.commercetools.integration.app.detail.fields.CommerceToolsImageFieldDefinition</sv:value>
+                        <sv:value>info.magnolia.commercetools.integration.app.detail.fields.CommercetoolsImageFieldDefinition</sv:value>
                       </sv:property>
                       <sv:property sv:name="jcr:createdBy" sv:type="String">
                         <sv:value>admin</sv:value>

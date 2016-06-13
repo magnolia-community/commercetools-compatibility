@@ -41,7 +41,7 @@ import io.sphere.sdk.products.Price;
 import io.sphere.sdk.products.ProductVariant;
 
 /**
- * Field that displays CommerceTools prices in product category variant.
+ * Field that displays commercetools prices in product category variant.
  */
 public class PricesListField extends AbstractCustomMultiField<PricesListFieldFactory.Definition, PropertysetItem> {
 

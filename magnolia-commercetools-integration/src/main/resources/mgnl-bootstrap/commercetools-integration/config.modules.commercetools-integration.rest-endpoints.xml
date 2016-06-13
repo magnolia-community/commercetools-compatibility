@@ -32,7 +32,7 @@
       <sv:value>info.magnolia.rest.registry.ConfiguredEndpointDefinition</sv:value>
     </sv:property>
     <sv:property sv:name="implementationClass" sv:type="String">
-      <sv:value>info.magnolia.commercetools.integration.rest.CommerceToolsCartEndPoint</sv:value>
+      <sv:value>info.magnolia.commercetools.integration.rest.CommercetoolsCartEndPoint</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -61,7 +61,7 @@
       <sv:value>info.magnolia.rest.registry.ConfiguredEndpointDefinition</sv:value>
     </sv:property>
     <sv:property sv:name="implementationClass" sv:type="String">
-      <sv:value>info.magnolia.commercetools.integration.rest.CommerceToolsVariantEndPoint</sv:value>
+      <sv:value>info.magnolia.commercetools.integration.rest.CommercetoolsVariantEndPoint</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>

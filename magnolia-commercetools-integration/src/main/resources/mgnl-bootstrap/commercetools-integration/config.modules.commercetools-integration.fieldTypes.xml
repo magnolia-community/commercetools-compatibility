@@ -298,7 +298,7 @@
       <sv:value>superuser</sv:value>
     </sv:property>
   </sv:node>
-  <sv:node sv:name="commerceToolsImageField">
+  <sv:node sv:name="commercetoolsImageField">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
@@ -306,10 +306,10 @@
       <sv:value>48aaf751-9747-a145-59fc-4add0a6b2204</sv:value>
     </sv:property>
     <sv:property sv:name="definitionClass" sv:type="String">
-      <sv:value>info.magnolia.commercetools.integration.app.detail.fields.CommerceToolsImageFieldDefinition</sv:value>
+      <sv:value>info.magnolia.commercetools.integration.app.detail.fields.CommercetoolsImageFieldDefinition</sv:value>
     </sv:property>
     <sv:property sv:name="factoryClass" sv:type="String">
-      <sv:value>info.magnolia.commercetools.integration.app.detail.fields.CommerceToolsImageFieldFactory</sv:value>
+      <sv:value>info.magnolia.commercetools.integration.app.detail.fields.CommercetoolsImageFieldFactory</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>

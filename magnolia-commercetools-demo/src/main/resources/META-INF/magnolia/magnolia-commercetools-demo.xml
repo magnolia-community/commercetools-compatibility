@@ -4,7 +4,7 @@
   <name>commercetools-demo</name>
   <displayName>${project.name}</displayName>
   <description>${project.description}</description>
-  <versionHandler>info.magnolia.commercetools.demo.setup.CommerceToolsDemoModuleVersionHandler</versionHandler>
+  <versionHandler>info.magnolia.commercetools.demo.setup.CommercetoolsDemoModuleVersionHandler</versionHandler>
   <version>${project.version}</version>
 
   <dependencies>

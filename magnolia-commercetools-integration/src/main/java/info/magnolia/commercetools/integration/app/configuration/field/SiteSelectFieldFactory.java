@@ -14,10 +14,10 @@
  */
 package info.magnolia.commercetools.integration.app.configuration.field;
 
-import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
+import info.magnolia.commercetools.integration.CommercetoolsIntegrationModule;
 import info.magnolia.commercetools.integration.app.configuration.event.SiteChangedEvent;
 import info.magnolia.commercetools.integration.app.configuration.field.SiteSelectFieldFactory.Definition;
-import info.magnolia.commercetools.integration.service.CommerceToolsServices;
+import info.magnolia.commercetools.integration.service.CommercetoolsServices;
 import info.magnolia.event.EventBus;
 import info.magnolia.module.site.Site;
 import info.magnolia.module.site.SiteManager;
@@ -42,7 +42,7 @@ import com.vaadin.ui.AbstractSelect;
  * Selection field which reads options from the {@link SiteManager}.<br/>
  * Event {@link SiteChangedEvent} is fired when value in the select field changes.
  */
-public class SiteSelectFieldFactory extends AbstractCommerceToolsFieldFactory<Definition> {
+public class SiteSelectFieldFactory extends AbstractCommercetoolsFieldFactory<Definition> {
 
     private final SiteManager siteManager;
     private final EventBus eventBus;
@@ -56,7 +56,7 @@ public class SiteSelectFieldFactory extends AbstractCommerceToolsFieldFactory<De
     };
 
     @Inject
-    public SiteSelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommerceToolsIntegrationModule> provider, @Named(SubAppEventBus.NAME) EventBus eventBus, SiteManager siteManager, CommerceToolsServices services) {
+    public SiteSelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommercetoolsIntegrationModule> provider, @Named(SubAppEventBus.NAME) EventBus eventBus, SiteManager siteManager, CommercetoolsServices services) {
         super(definition, relatedFieldItem, provider, services);
         this.siteManager = siteManager;
         this.eventBus = eventBus;

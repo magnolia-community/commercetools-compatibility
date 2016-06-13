@@ -7,7 +7,7 @@
     <sv:value>c82cb5da-a147-4d27-a92b-9a69bbcbfe82</sv:value>
   </sv:property>
   <sv:property sv:name="componentClass" sv:type="String">
-    <sv:value>info.magnolia.commercetools.integration.templating.CommerceToolsTemplatingFunctions</sv:value>
+    <sv:value>info.magnolia.commercetools.integration.templating.CommercetoolsTemplatingFunctions</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>

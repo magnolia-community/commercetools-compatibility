@@ -4,20 +4,20 @@
   <name>commercetools-integration</name>
   <displayName>${project.name}</displayName>
   <description>${project.description}</description>
-  <class>info.magnolia.commercetools.integration.CommerceToolsIntegrationModule</class>
-  <versionHandler>info.magnolia.commercetools.integration.setup.CommerceToolsIntegrationModuleVersionHandler</versionHandler>
+  <class>info.magnolia.commercetools.integration.CommercetoolsIntegrationModule</class>
+  <versionHandler>info.magnolia.commercetools.integration.setup.CommercetoolsIntegrationModuleVersionHandler</versionHandler>
   <version>${project.version}</version>
 
   <components>
     <id>main</id>
     <component>
-      <type>info.magnolia.commercetools.integration.templating.CommerceToolsTemplatingFunctions</type>
-      <implementation>info.magnolia.commercetools.integration.templating.CommerceToolsTemplatingFunctions</implementation>
+      <type>info.magnolia.commercetools.integration.templating.CommercetoolsTemplatingFunctions</type>
+      <implementation>info.magnolia.commercetools.integration.templating.CommercetoolsTemplatingFunctions</implementation>
       <scope>singleton</scope>
     </component>
     <component>
-      <type>info.magnolia.commercetools.integration.service.CommerceToolsServices</type>
-      <implementation>info.magnolia.commercetools.integration.service.CommerceToolsServices</implementation>
+      <type>info.magnolia.commercetools.integration.service.CommercetoolsServices</type>
+      <implementation>info.magnolia.commercetools.integration.service.CommercetoolsServices</implementation>
       <scope>singleton</scope>
     </component>
   </components>
@@ -30,7 +30,7 @@
     <id>app-ctBrowser-browser</id>
     <component>
       <type>info.magnolia.ui.workbench.tree.TreeView</type>
-      <implementation>info.magnolia.commercetools.integration.app.browser.contentview.tree.CommerceToolsTreeViewImpl</implementation>
+      <implementation>info.magnolia.commercetools.integration.app.browser.contentview.tree.CommercetoolsTreeViewImpl</implementation>
     </component>
   </components>
 
@@ -41,16 +41,16 @@
   <components>
     <id>app-ctSetup-main</id>
     <component>
-      <type>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationSubApp</type>
-      <implementation>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationSubApp</implementation>
+      <type>info.magnolia.commercetools.integration.app.configuration.CommercetoolsConfigurationSubApp</type>
+      <implementation>info.magnolia.commercetools.integration.app.configuration.CommercetoolsConfigurationSubApp</implementation>
     </component>
     <component>
-      <type>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationView</type>
-      <implementation>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationViewImpl</implementation>
+      <type>info.magnolia.commercetools.integration.app.configuration.CommercetoolsConfigurationView</type>
+      <implementation>info.magnolia.commercetools.integration.app.configuration.CommercetoolsConfigurationViewImpl</implementation>
     </component>
     <component>
-      <type>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationPresenter</type>
-      <implementation>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationPresenter</implementation>
+      <type>info.magnolia.commercetools.integration.app.configuration.CommercetoolsConfigurationPresenter</type>
+      <implementation>info.magnolia.commercetools.integration.app.configuration.CommercetoolsConfigurationPresenter</implementation>
     </component>
   </components>
 

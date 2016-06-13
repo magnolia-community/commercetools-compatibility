@@ -12,14 +12,15 @@
  * intact.
  *
  */
-package info.magnolia.commercetools.integration.app.item;
+package info.magnolia.commercetools.integration.app.configuration;
+
+import info.magnolia.ui.vaadin.layout.SmallAppLayout;
+
+import com.vaadin.annotations.StyleSheet;
 
 /**
- * Exception that is thrown when item id does not match the required {@link CommercetoolsItemId} pattern.
+ * Layout for commercetools Config App. Attaches a CSS file to fix layout issues.
  */
-public class InvalidItemIdException extends RuntimeException {
-
-    public InvalidItemIdException(final String message) {
-        super(message);
-    }
+@StyleSheet("ctSetup.css")
+public class CommercetoolsSmallAppLayout extends SmallAppLayout {
 }

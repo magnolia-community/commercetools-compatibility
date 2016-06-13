@@ -14,9 +14,9 @@
  */
 package info.magnolia.commercetools.integration.app.configuration.field;
 
-import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
+import info.magnolia.commercetools.integration.CommercetoolsIntegrationModule;
 import info.magnolia.commercetools.integration.app.configuration.field.LanguageSelectFieldFactory.Definition;
-import info.magnolia.commercetools.integration.service.CommerceToolsServices;
+import info.magnolia.commercetools.integration.service.CommercetoolsServices;
 import info.magnolia.ui.form.field.definition.SelectFieldDefinition;
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
 
@@ -31,12 +31,12 @@ import com.vaadin.data.Item;
 import io.sphere.sdk.client.SphereClient;
 
 /**
- * Language selection field which reads available languages from the CommerceTools project settings.<br/>
+ * Language selection field which reads available languages from the commercetools project settings.<br/>
  */
-public class LanguageSelectFieldFactory extends AbstractCommerceToolsFieldFactory<Definition> {
+public class LanguageSelectFieldFactory extends AbstractCommercetoolsFieldFactory<Definition> {
 
     @Inject
-    public LanguageSelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommerceToolsIntegrationModule> provider, CommerceToolsServices services) {
+    public LanguageSelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommercetoolsIntegrationModule> provider, CommercetoolsServices services) {
         super(definition, relatedFieldItem, provider, services);
     }
 

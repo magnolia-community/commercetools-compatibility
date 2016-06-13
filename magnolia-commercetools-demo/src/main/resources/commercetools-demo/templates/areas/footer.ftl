@@ -1,3 +1,3 @@
 <footer class="text-center">
-    CommerceTools demo
+    commercetools demo
 </footer>

@@ -14,9 +14,9 @@
  */
 package info.magnolia.commercetools.integration.app.configuration.field;
 
-import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
+import info.magnolia.commercetools.integration.CommercetoolsIntegrationModule;
 import info.magnolia.commercetools.integration.app.configuration.field.CountrySelectFieldFactory.Definition;
-import info.magnolia.commercetools.integration.service.CommerceToolsServices;
+import info.magnolia.commercetools.integration.service.CommercetoolsServices;
 import info.magnolia.ui.form.field.definition.SelectFieldDefinition;
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
 
@@ -32,12 +32,12 @@ import com.vaadin.data.Item;
 import io.sphere.sdk.client.SphereClient;
 
 /**
- * Country selection field which reads available countries from the CommerceTools project settings.<br/>
+ * Country selection field which reads available countries from the commercetools project settings.<br/>
  */
-public class CountrySelectFieldFactory extends AbstractCommerceToolsFieldFactory<Definition> {
+public class CountrySelectFieldFactory extends AbstractCommercetoolsFieldFactory<Definition> {
 
     @Inject
-    public CountrySelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommerceToolsIntegrationModule> provider, CommerceToolsServices services) {
+    public CountrySelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommercetoolsIntegrationModule> provider, CommercetoolsServices services) {
         super(definition, relatedFieldItem, provider, services);
     }
 

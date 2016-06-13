@@ -14,7 +14,7 @@
  */
 package info.magnolia.commercetools.integration.app.detail.fields;
 
-import info.magnolia.commercetools.integration.app.item.CommerceToolsProductItem;
+import info.magnolia.commercetools.integration.app.item.CommercetoolsProductItem;
 import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.ui.api.i18n.I18NAuthoringSupport;
 import info.magnolia.ui.form.field.AbstractCustomMultiField;
@@ -42,7 +42,7 @@ import com.vaadin.ui.VerticalLayout;
 import io.sphere.sdk.products.ProductVariant;
 
 /**
- * Field that displays CommerceTools variants of product category.
+ * Field that displays commercetools variants of product category.
  * MasterVariant as first.
  */
 public class VariantsListField extends AbstractCustomMultiField<VariantsListFieldFactory.Definition, PropertysetItem> {
@@ -69,7 +69,7 @@ public class VariantsListField extends AbstractCustomMultiField<VariantsListFiel
     @Override
     protected void initFields(PropertysetItem fieldValues) {
         root.removeAllComponents();
-        for (ProductVariant productVariant : ((CommerceToolsProductItem) relatedFieldItem).getBean().getAllVariants()) {
+        for (ProductVariant productVariant : ((CommercetoolsProductItem) relatedFieldItem).getBean().getAllVariants()) {
             AbstractOrderedLayout categoryFieldRoot = new VerticalLayout();
 
             for (ConfiguredFieldDefinition fieldDefinition : definition.getFields()) {
