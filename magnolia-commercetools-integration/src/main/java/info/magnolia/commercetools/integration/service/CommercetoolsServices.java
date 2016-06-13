@@ -371,14 +371,14 @@ public class CommercetoolsServices {
     }
 
 
-    public Cart getOrCreateCart(SphereClient pureAsyncClient, String customerId, String cartId, CountryCode contextCountryCode, String currencyCode) {
+    public Cart getOrCreateCart(SphereClient pureAsyncClient, String projectName, String customerId, String cartId, CountryCode contextCountryCode, String currencyCode) {
         final Context context = contextProvider.get();
 
         return fetchCart(pureAsyncClient, customerId, cartId, contextCountryCode, currencyCode)
                 .thenComposeAsync(new Function<Cart, CompletionStage<Cart>>() {
                     @Override
                     public CompletionStage<Cart> apply(Cart cart) {
-                        overwriteCartSessionData(cart, context);
+                        overwriteCartSessionData(cart, projectName, context);
                         final boolean hasDifferentCountry = !contextCountryCode.equals(cart.getCountry());
                         return hasDifferentCountry ? updateCartCountry(pureAsyncClient, cart, contextCountryCode) : CompletableFuture.completedFuture(cart);
                     }
@@ -480,31 +480,34 @@ public class CommercetoolsServices {
         return pureAsyncClient.execute(updateCommand);
     }
 
-    private void overwriteCartSessionData(@Nullable final Cart cart, final Context context) {
+    private void overwriteCartSessionData(@Nullable final Cart cart, final String projectName, final Context context) {
         if (cart != null) {
             final String id = cart.getId();
-            context.setAttribute(CT_CART_ID, id, Context.SESSION_SCOPE);
+            context.setAttribute(projectName + "_" + CT_CART_ID, id, Context.SESSION_SCOPE);
         } else {
-            context.removeAttribute(CT_CART_ID, Context.SESSION_SCOPE);
+            context.removeAttribute(projectName + "_" + CT_CART_ID, Context.SESSION_SCOPE);
         }
     }
 
     public Cart addItemToCart(Map<String, String> map, SphereClient client) throws ErrorResponseException {
         final String cartId = map.get(CT_CART_ID);
-        final Cart cart = getOrCreateCart(client, null, cartId, CountryCode.getByCode(map.get(CT_COUNTRY_CODE)), map.get(CT_CURRENCY_CODE));
+        final String projectName = map.get(CommercetoolsIntegrationModule.PROJECT_PARAM_NAME);
+        final Cart cart = getOrCreateCart(client, projectName, null, cartId, CountryCode.getByCode(map.get(CT_COUNTRY_CODE)), map.get(CT_CURRENCY_CODE));
         final AddLineItem updateAction = AddLineItem.of(map.get(CT_PRODUCT_ID), Integer.parseInt(map.get(CT_VARIANT_ID)), Long.parseLong(map.get(CT_PRODUCT_QUANTITY)));
         return client.execute(CartUpdateCommand.of(cart, updateAction)).toCompletableFuture().join();
     }
 
     public Cart editItemInCart(Map<String, String> map, SphereClient client) throws ErrorResponseException {
         final String cartId = map.get(CT_CART_ID);
-        final Cart cart = getOrCreateCart(client, null, cartId, CountryCode.getByCode(map.get(CT_COUNTRY_CODE)), map.get(CT_CURRENCY_CODE));
+        final String projectName = map.get(CommercetoolsIntegrationModule.PROJECT_PARAM_NAME);
+        final Cart cart = getOrCreateCart(client, projectName, null, cartId, CountryCode.getByCode(map.get(CT_COUNTRY_CODE)), map.get(CT_CURRENCY_CODE));
         return client.execute(CartUpdateCommand.of(cart, ChangeLineItemQuantity.of(map.get(CT_LINE_ITEM_ID), Long.parseLong(map.get(CT_PRODUCT_QUANTITY))))).toCompletableFuture().join();
     }
 
     public Cart removeItemFromCart(Map<String, String> map, SphereClient client) throws ErrorResponseException {
         final String cartId = map.get(CT_CART_ID);
-        final Cart cart = getOrCreateCart(client, null, cartId, CountryCode.getByCode(map.get(CT_COUNTRY_CODE)), map.get(CT_CURRENCY_CODE));
+        final String projectName = map.get(CommercetoolsIntegrationModule.PROJECT_PARAM_NAME);
+        final Cart cart = getOrCreateCart(client, projectName, null, cartId, CountryCode.getByCode(map.get(CT_COUNTRY_CODE)), map.get(CT_CURRENCY_CODE));
         return client.execute(CartUpdateCommand.of(cart, RemoveLineItem.of(map.get(CT_LINE_ITEM_ID)))).toCompletableFuture().join();
     }
 

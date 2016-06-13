@@ -1,6 +1,6 @@
 [#-------------- INCLUDES AND ASSIGNMENTS --------------]
 [#assign homePageContent = cmsfn.siteRoot(content)]
-[#assign customer = (ctx.getAttribute("ctCustomerId"))!""]
+[#assign customer = (ctx.getAttribute(ctfn.getProjectName() + "_ctCustomerId"))!""]
 
 [#-------------- RENDERING --------------]
 <ul>

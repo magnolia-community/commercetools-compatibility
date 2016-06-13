@@ -237,7 +237,7 @@ public class CommercetoolsContainer extends AbstractContainer implements Contain
             }
             if (CommercetoolsItemId.ItemType.CATEGORY.equals(ctType)) {
                 Category category = commercetoolsServices.getCategory(sphereClient, ctItemId);
-                item = new CommercetoolsCategoryItem(ctProjectId, category.getParent().getId(), category);
+                item = new CommercetoolsCategoryItem(ctProjectId, ctParentId, category);
             } else if (CommercetoolsItemId.ItemType.PRODUCT.equals(ctType)) {
                 ProductProjection product = commercetoolsServices.getProduct(sphereClient, ctItemId);
                 item = new CommercetoolsProductItem(ctProjectId, ctParentId, product);

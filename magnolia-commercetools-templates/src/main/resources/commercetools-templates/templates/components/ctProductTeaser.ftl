@@ -1,6 +1,6 @@
 [#-------------- INCLUDES AND ASSIGNMENTS --------------]
 [#assign detailPageLink = cmsfn.link("website", content.productDetailPage!)!]
-[#assign cartId = ctx.getAttribute("ctCartId")!""]
+[#assign cartId = ctx.getAttribute(ctfn.getProjectName() + "_ctCartId")!""]
 [#if ((content.productId?split("--")?reverse[2])!"") == "product"]
     [#assign product = (ctfn.getProduct(content.productId?split("--")?reverse[0]!""))!]
 [/#if]
@@ -8,7 +8,6 @@
 [#if content.productImage?has_content]
     [#assign productImageUrl = (damfn.getRendition(content.productImage!"", "original").getLink())!]
 [/#if]
-[#assign cartId = ctx.getAttribute("ctCartId")!""]
 
 
 [#-------------- RENDERING --------------]

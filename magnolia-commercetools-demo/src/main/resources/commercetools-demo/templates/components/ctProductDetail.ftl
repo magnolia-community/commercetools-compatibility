@@ -2,7 +2,7 @@
 [#include "macros/breadcrumb.ftl"]
 [#assign productId = (ctx.getParameter("productId")?html)!""]
 [#assign variantId = (ctx.getParameter("variantId")?html)!0]
-[#assign cartId = ctx.getAttribute("ctCartId")!""]
+[#assign cartId = ctx.getAttribute(ctfn.getProjectName() + "_ctCartId")!""]
 
 [#-------------- RENDERING --------------]
 

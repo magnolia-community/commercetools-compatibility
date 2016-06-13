@@ -93,7 +93,7 @@ public class CommercetoolsCartEndPoint extends AbstractEndpoint<ConfiguredEndpoi
             @QueryParam(CommercetoolsServices.CT_CUSTOMER_ID) String customer,
             @QueryParam(CommercetoolsServices.CT_CART_ID) String cartId) throws RepositoryException {
 
-        final Cart response = commercetoolsServices.getOrCreateCart(getProjectClient(projectName), customer, cartId, CountryCode.getByCode(countryCode), currencyCode);
+        final Cart response = commercetoolsServices.getOrCreateCart(getProjectClient(projectName), projectName, customer, cartId, CountryCode.getByCode(countryCode), currencyCode);
 
         log.debug("Returned cart [{}]", response.getId());
 
@@ -121,6 +121,7 @@ public class CommercetoolsCartEndPoint extends AbstractEndpoint<ConfiguredEndpoi
             @QueryParam(CommercetoolsServices.CT_PRODUCT_QUANTITY) @DefaultValue("1") String quantity) throws RepositoryException {
 
         Map<String, String> parameters = new HashMap<>();
+        parameters.put(CommercetoolsIntegrationModule.PROJECT_PARAM_NAME, projectName);
         parameters.put(CommercetoolsServices.CT_PRODUCT_ID, productId);
         parameters.put(CommercetoolsServices.CT_VARIANT_ID, variantId);
         parameters.put(CommercetoolsServices.CT_PRODUCT_QUANTITY, quantity);
@@ -155,6 +156,7 @@ public class CommercetoolsCartEndPoint extends AbstractEndpoint<ConfiguredEndpoi
             @PathParam(CommercetoolsServices.CT_PRODUCT_QUANTITY) String quantity) throws RepositoryException {
 
         Map<String, String> parameters = new HashMap<>();
+        parameters.put(CommercetoolsIntegrationModule.PROJECT_PARAM_NAME, projectName);
         parameters.put(CommercetoolsServices.CT_CART_ID, cartId);
         parameters.put(CommercetoolsServices.CT_LINE_ITEM_ID, lineItemId);
         parameters.put(CommercetoolsServices.CT_PRODUCT_QUANTITY, quantity);
@@ -187,6 +189,7 @@ public class CommercetoolsCartEndPoint extends AbstractEndpoint<ConfiguredEndpoi
             @PathParam(CommercetoolsIntegrationModule.CURRENCY_PARAM_NAME) String currencyCode) throws RepositoryException {
 
         Map<String, String> parameters = new HashMap<>();
+        parameters.put(CommercetoolsIntegrationModule.PROJECT_PARAM_NAME, projectName);
         parameters.put(CommercetoolsServices.CT_CART_ID, cartId);
         parameters.put(CommercetoolsServices.CT_LINE_ITEM_ID, lineItemId);
         parameters.put(CommercetoolsServices.CT_COUNTRY_CODE, countryCode);

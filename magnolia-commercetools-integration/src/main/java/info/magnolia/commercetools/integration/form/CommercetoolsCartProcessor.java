@@ -83,7 +83,7 @@ public class CommercetoolsCartProcessor extends AbstractFormProcessor {
                             @Override
                             public Object apply(Order order) {
                                 webContext.setAttribute(CommercetoolsServices.CT_LAST_ORDER_ID, order.getId(), Context.LOCAL_SCOPE);
-                                webContext.removeAttribute(CommercetoolsServices.CT_CART_ID, Context.SESSION_SCOPE);
+                                webContext.removeAttribute(commercetoolsTemplatingFunctions.getProjectName() + "_" + CommercetoolsServices.CT_CART_ID, Context.SESSION_SCOPE);
                                 return null;
                             }
                         }).toCompletableFuture().join();
