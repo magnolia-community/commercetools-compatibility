@@ -12,7 +12,7 @@
                     <div class="col-lg-12">
                         <div class="intro-message">
                             <div>
-                                <!-- <h1>CommerceTools demo shop</h1> -->
+                                <!-- <h1>commercetools demo shop</h1> -->
                             </div>
                         </div>
                     </div>

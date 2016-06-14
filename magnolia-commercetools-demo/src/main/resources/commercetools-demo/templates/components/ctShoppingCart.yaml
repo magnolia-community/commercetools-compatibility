@@ -13,9 +13,9 @@ formProcessors:
   - name: trackEMail
     loggerName: log-form
     class: info.magnolia.module.form.processors.TrackEmailProcessor
-  - name: commerceToolsCartProcessor
+  - name: commercetoolsCartProcessor
     enabled: true
-    class: info.magnolia.commercetools.integration.form.CommerceToolsCartProcessor
+    class: info.magnolia.commercetools.integration.form.CommercetoolsCartProcessor
 parameters:
   formEnctype: multipart/form-data
   divClass: container

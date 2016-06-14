@@ -14,7 +14,7 @@
  */
 package info.magnolia.commercetools.integration.app.browser.availability;
 
-import info.magnolia.commercetools.integration.app.item.CommerceToolsItemId;
+import info.magnolia.commercetools.integration.app.item.CommercetoolsItemId;
 import info.magnolia.ui.api.availability.AbstractAvailabilityRule;
 
 /**
@@ -24,8 +24,8 @@ public class IsProductRule extends AbstractAvailabilityRule {
 
     @Override
     protected boolean isAvailableForItem(final Object itemId) {
-        if (itemId != null && itemId instanceof CommerceToolsItemId) {
-            return CommerceToolsItemId.ItemType.PRODUCT.equals(((CommerceToolsItemId) itemId).getType());
+        if (itemId != null && itemId instanceof CommercetoolsItemId) {
+            return CommercetoolsItemId.ItemType.PRODUCT.equals(((CommercetoolsItemId) itemId).getType());
         }
         return false;
     }

@@ -15,7 +15,7 @@
 package info.magnolia.commercetools.integration.app.item;
 
 /**
- * Exception that is thrown when item id does not match the required {@link CommerceToolsItemId} pattern.
+ * Exception that is thrown when item id does not match the required {@link CommercetoolsItemId} pattern.
  */
 public class InvalidItemIdException extends RuntimeException {
 

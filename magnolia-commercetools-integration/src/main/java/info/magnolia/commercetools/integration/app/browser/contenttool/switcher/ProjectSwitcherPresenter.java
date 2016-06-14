@@ -14,11 +14,11 @@
  */
 package info.magnolia.commercetools.integration.app.browser.contenttool.switcher;
 
-import info.magnolia.commercetools.integration.CommerceToolsIntegrationModule;
-import info.magnolia.commercetools.integration.CommerceToolsProjectConfiguration;
+import info.magnolia.commercetools.integration.CommercetoolsIntegrationModule;
+import info.magnolia.commercetools.integration.CommercetoolsProjectConfiguration;
 import info.magnolia.commercetools.integration.app.browser.event.ProjectIdChangedEvent;
-import info.magnolia.commercetools.integration.app.container.CommerceToolsContainer;
-import info.magnolia.commercetools.integration.app.contentconnector.CommerceToolsContentConnector;
+import info.magnolia.commercetools.integration.app.container.CommercetoolsContainer;
+import info.magnolia.commercetools.integration.app.contentconnector.CommercetoolsContentConnector;
 import info.magnolia.event.EventBus;
 import info.magnolia.i18nsystem.SimpleTranslator;
 import info.magnolia.ui.api.app.SubAppEventBus;
@@ -44,14 +44,14 @@ import com.vaadin.ui.Label;
  */
 public class ProjectSwitcherPresenter implements ContentToolPresenter {
 
-    private final CommerceToolsIntegrationModule module;
+    private final CommercetoolsIntegrationModule module;
     private final SimpleTranslator i18n;
     private final EventBus eventBus;
     private final WorkbenchPresenter workbenchPresenter;
     private final ContentConnector contentConnector;
 
     @Inject
-    public ProjectSwitcherPresenter(final CommerceToolsIntegrationModule module, final SimpleTranslator i18n, final @Named(SubAppEventBus.NAME) EventBus eventBus, final WorkbenchPresenter workbenchPresenter, final ContentConnector contentConnector) {
+    public ProjectSwitcherPresenter(final CommercetoolsIntegrationModule module, final SimpleTranslator i18n, final @Named(SubAppEventBus.NAME) EventBus eventBus, final WorkbenchPresenter workbenchPresenter, final ContentConnector contentConnector) {
         this.module = module;
         this.i18n = i18n;
         this.eventBus = eventBus;
@@ -70,8 +70,8 @@ public class ProjectSwitcherPresenter implements ContentToolPresenter {
         comboBox.setNewItemsAllowed(false);
         comboBox.setImmediate(true);
 
-        Map<String, CommerceToolsProjectConfiguration> projects = module.getProjects();
-        for (Map.Entry<String, CommerceToolsProjectConfiguration> entry : projects.entrySet()) {
+        Map<String, CommercetoolsProjectConfiguration> projects = module.getProjects();
+        for (Map.Entry<String, CommercetoolsProjectConfiguration> entry : projects.entrySet()) {
             String id = entry.getKey();
             String name = entry.getValue().getName();
             comboBox.addItem(id);
@@ -79,7 +79,7 @@ public class ProjectSwitcherPresenter implements ContentToolPresenter {
         }
 
         // preselect first value
-        CommerceToolsContainer container = (CommerceToolsContainer) ((CommerceToolsContentConnector) contentConnector).getContainer();
+        CommercetoolsContainer container = (CommercetoolsContainer) ((CommercetoolsContentConnector) contentConnector).getContainer();
         comboBox.select(container.getContentConnectorDefinition().getDefaultProjectId());
 
         comboBox.addValueChangeListener(new Property.ValueChangeListener() {

@@ -14,7 +14,7 @@
  */
 package info.magnolia.commercetools.integration.app.detail.fields;
 
-import info.magnolia.commercetools.integration.app.item.CommerceToolsProductItem;
+import info.magnolia.commercetools.integration.app.item.CommercetoolsProductItem;
 import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.ui.api.i18n.I18NAuthoringSupport;
 import info.magnolia.ui.form.field.AbstractCustomMultiField;
@@ -42,7 +42,7 @@ import io.sphere.sdk.categories.Category;
 import io.sphere.sdk.models.Reference;
 
 /**
- * Field that displays CommerceTools product categories.
+ * Field that displays commercetools product categories.
  */
 public class CategoriesListField extends AbstractCustomMultiField<CategoriesListFieldFactory.Definition, PropertysetItem> {
 
@@ -68,7 +68,7 @@ public class CategoriesListField extends AbstractCustomMultiField<CategoriesList
     @Override
     protected void initFields(PropertysetItem fieldValues) {
         root.removeAllComponents();
-        for (Reference<Category> reference : ((CommerceToolsProductItem) relatedFieldItem).getBean().getCategories()) {
+        for (Reference<Category> reference : ((CommercetoolsProductItem) relatedFieldItem).getBean().getCategories()) {
             AbstractOrderedLayout categoryFieldRoot = new VerticalLayout();
 
             for (ConfiguredFieldDefinition fieldDefinition : definition.getFields()) {

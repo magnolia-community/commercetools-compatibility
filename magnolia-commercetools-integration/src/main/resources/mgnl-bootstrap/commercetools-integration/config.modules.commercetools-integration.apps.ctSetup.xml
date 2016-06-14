@@ -63,7 +63,7 @@
         <sv:value>cfc91c30-63a6-28db-b77a-47ee741c08ca</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
-        <sv:value>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationSubAppDescriptor</sv:value>
+        <sv:value>info.magnolia.commercetools.integration.app.configuration.CommercetoolsConfigurationSubAppDescriptor</sv:value>
       </sv:property>
       <sv:property sv:name="closable" sv:type="String">
         <sv:value>false</sv:value>
@@ -84,7 +84,7 @@
         <sv:value>superuser</sv:value>
       </sv:property>
       <sv:property sv:name="subAppClass" sv:type="String">
-        <sv:value>info.magnolia.commercetools.integration.app.configuration.CommerceToolsConfigurationSubApp</sv:value>
+        <sv:value>info.magnolia.commercetools.integration.app.configuration.CommercetoolsConfigurationSubApp</sv:value>
       </sv:property>
       <sv:node sv:name="formDefinition">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">

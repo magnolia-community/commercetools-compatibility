@@ -4,18 +4,18 @@
   <name>commercetools-demo</name>
   <displayName>${project.name}</displayName>
   <description>${project.description}</description>
-  <versionHandler>info.magnolia.commercetools.demo.setup.CommerceToolsDemoModuleVersionHandler</versionHandler>
+  <versionHandler>info.magnolia.commercetools.demo.setup.CommercetoolsDemoModuleVersionHandler</versionHandler>
   <version>${project.version}</version>
 
   <dependencies>
     <dependency>
       <name>commercetools-integration</name>
-      <version>1.0/*</version>
+      <version>${project.version}/*</version>
     </dependency>
 
     <dependency>
       <name>commercetools-templates</name>
-      <version>1.0/*</version>
+      <version>${project.version}/*</version>
     </dependency>
 
     <dependency>

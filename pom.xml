@@ -16,7 +16,7 @@
     <magnoliaVersion>5.4.6</magnoliaVersion>
     <damVersion>2.1</damVersion>
     <javaVersion>1.8</javaVersion>
-    <commerceToolsSDKVersion>1.0.0</commerceToolsSDKVersion>
+    <commercetoolsSDKVersion>1.0.0</commercetoolsSDKVersion>
     <resteasyVersion>3.0.4.Final</resteasyVersion>
   </properties>
 
@@ -108,17 +108,17 @@
       <dependency>
         <groupId>com.commercetools.sdk.jvm.core</groupId>
         <artifactId>commercetools-models</artifactId>
-        <version>${commerceToolsSDKVersion}</version>
+        <version>${commercetoolsSDKVersion}</version>
       </dependency>
       <dependency>
         <groupId>com.commercetools.sdk.jvm.core</groupId>
         <artifactId>commercetools-java-client</artifactId>
-        <version>${commerceToolsSDKVersion}</version>
+        <version>${commercetoolsSDKVersion}</version>
       </dependency>
       <dependency>
         <groupId>com.commercetools.sdk.jvm.core</groupId>
         <artifactId>commercetools-convenience</artifactId>
-        <version>${commerceToolsSDKVersion}</version>
+        <version>${commercetoolsSDKVersion}</version>
       </dependency>
 
       <!-- COMMONS CONFIGURATION -->
