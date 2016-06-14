@@ -9,7 +9,7 @@
   <dependencies>
     <dependency>
       <name>commercetools-integration</name>
-      <version>1.0/*</version>
+      <version>${project.version}/*</version>
     </dependency>
   </dependencies>
 </module>
