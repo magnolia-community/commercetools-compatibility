@@ -313,7 +313,9 @@ public class CommercetoolsTemplatingFunctions {
         List<Map<String, String>> result = new ArrayList<>();
         for (ProductVariant variant : product.getAllVariants()) {
             result.add(new HashMap<String, String>() {{
-                put(variant.getId().toString(), variant.getAttribute(attributeName).getValueAsString());
+                if(variant.hasAttribute(attributeName)) {
+                    put(variant.getId().toString(), variant.getAttribute(attributeName).getValueAsString());
+                }
             }});
         }
 

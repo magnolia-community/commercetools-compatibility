@@ -352,7 +352,7 @@ public class CommercetoolsServices {
                 .withLimit(1);
         final PagedQueryResult<Category> queryResult = client.executeBlocking(searchRequest);
 
-        return queryResult.getResults().get(0);
+        return queryResult.getResults().isEmpty() ? null : queryResult.getResults().get(0);
     }
 
     public ProductProjection getProduct(SphereClient pureAsyncClient, String productId) {
@@ -367,7 +367,7 @@ public class CommercetoolsServices {
                         .withLimit(1);
         final PagedQueryResult<ProductProjection> queryResult = client.executeBlocking(searchRequest);
 
-        return queryResult.getResults().get(0);
+        return queryResult.getResults().isEmpty() ? null : queryResult.getResults().get(0);
     }
 
 

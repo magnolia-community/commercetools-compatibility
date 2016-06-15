@@ -68,6 +68,8 @@ public class CommercetoolsCartProcessor extends AbstractFormProcessor {
     public void internalProcess(Node content, Map<String, Object> parameters) throws FormProcessorFailedException {
         final WebContext webContext = webContextProvider.get();
         final Cart cart = commercetoolsTemplatingFunctions.getCart();
+        final String projectName = commercetoolsTemplatingFunctions.getProjectName();
+
         if (StringUtils.equals(parameters.get(CT_ACTION_PARAM).toString(), CT_ACTION_SET_SHIPPING)){
             final ShippingMethod selectedShippingMethod = commercetoolsTemplatingFunctions.getShippingMethod(parameters.get(CT_SHIPPING_METHOD_PARAM).toString());
             try {
@@ -83,7 +85,7 @@ public class CommercetoolsCartProcessor extends AbstractFormProcessor {
                             @Override
                             public Object apply(Order order) {
                                 webContext.setAttribute(CommercetoolsServices.CT_LAST_ORDER_ID, order.getId(), Context.LOCAL_SCOPE);
-                                webContext.removeAttribute(commercetoolsTemplatingFunctions.getProjectName() + "_" + CommercetoolsServices.CT_CART_ID, Context.SESSION_SCOPE);
+                                webContext.removeAttribute(projectName + "_" + CommercetoolsServices.CT_CART_ID, Context.SESSION_SCOPE);
                                 return null;
                             }
                         }).toCompletableFuture().join();
