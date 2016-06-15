@@ -1,7 +1,7 @@
 [#-------------- ASSIGNMENTS --------------]
 [#assign redirectTo = cmsfn.link("website", content.mgnlReturnTo!"")!cmsfn.link(cmsfn.page(content))!"#"]
 [#assign authenticationError = (ctx.getAttribute("ctLoginError"))!""]
-[#assign customer = (ctx.getAttribute("ctCustomerId"))!""]
+[#assign customer = (ctx.getAttribute(ctfn.getProjectName() + "_ctCustomerId"))!""]
 [#assign forgotYourPasswordLink = cmsfn.link("website", content.forgotYourPasswordPage!"")!"#"]
 
 [#-------------- RENDERING --------------]

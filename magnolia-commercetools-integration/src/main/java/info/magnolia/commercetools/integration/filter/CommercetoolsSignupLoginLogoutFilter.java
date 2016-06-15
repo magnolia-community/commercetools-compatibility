@@ -79,7 +79,7 @@ public class CommercetoolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
         final String action = webContextProvider.get().getParameter(PARAMETER_ACTION);
         if (StringUtils.isNotBlank(action)) {
             if (ACTION_DO_LOGIN.equals(action)) {
-                if (webContextProvider.get().getAttribute(CommercetoolsServices.CT_CUSTOMER_ID, Context.SESSION_SCOPE) == null) {
+                if (webContextProvider.get().getAttribute(getProjectName() + "_" + CommercetoolsServices.CT_CUSTOMER_ID, Context.SESSION_SCOPE) == null) {
                     processLogIn();
                 }
             } else if (ACTION_DO_LOGOUT.equals(action)) {
@@ -110,13 +110,14 @@ public class CommercetoolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
 
     public void processLogIn() {
         final WebContext webContext = webContextProvider.get();
+        final String projectName = getProjectName();
 
         logIn()
                 .thenApplyAsync(new Function<CustomerSignInResult, Object>() {
                     @Override
                     public Object apply(CustomerSignInResult result) {
-                        webContext.setAttribute(CommercetoolsServices.CT_CUSTOMER_ID, result.getCustomer().getId(), Context.SESSION_SCOPE);
-                        webContext.setAttribute(CommercetoolsServices.CT_CART_ID, result.getCart().getId(), Context.SESSION_SCOPE);
+                        webContext.setAttribute(projectName + "_" + CommercetoolsServices.CT_CUSTOMER_ID, result.getCustomer().getId(), Context.SESSION_SCOPE);
+                        webContext.setAttribute(projectName + "_" + CommercetoolsServices.CT_CART_ID, result.getCart().getId(), Context.SESSION_SCOPE);
                         webContext.setAttribute(RESULT, true, Context.LOCAL_SCOPE);
                         return null;
                     }
@@ -133,12 +134,13 @@ public class CommercetoolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
 
     public void processSignUp() {
         final WebContext webContext = webContextProvider.get();
+        final String projectName = getProjectName();
 
         signUp()
                 .thenApplyAsync(new Function<CustomerSignInResult, Object>() {
                     @Override
                     public Object apply(CustomerSignInResult result) {
-                        webContext.setAttribute(CommercetoolsServices.CT_CUSTOMER_ID, result.getCustomer().getId(), Context.SESSION_SCOPE);
+                        webContext.setAttribute(projectName + "_" + CommercetoolsServices.CT_CUSTOMER_ID, result.getCustomer().getId(), Context.SESSION_SCOPE);
                         webContext.setAttribute(RESULT, true, Context.LOCAL_SCOPE);
                         return null;
                     }
@@ -154,14 +156,14 @@ public class CommercetoolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
     }
 
     public void processLogOut() {
-        webContextProvider.get().removeAttribute(CommercetoolsServices.CT_CUSTOMER_ID, Context.SESSION_SCOPE);
-        webContextProvider.get().removeAttribute(CommercetoolsServices.CT_CART_ID, Context.SESSION_SCOPE);
+        webContextProvider.get().removeAttribute(getProjectName() + "_" + CommercetoolsServices.CT_CUSTOMER_ID, Context.SESSION_SCOPE);
+        webContextProvider.get().removeAttribute(getProjectName() + "_" + CommercetoolsServices.CT_CART_ID, Context.SESSION_SCOPE);
     }
 
     private CompletionStage<CustomerSignInResult> logIn() {
         final String username = webContextProvider.get().getAttribute(CommercetoolsServices.CT_CUSTOMER_EMAIL);
         final String password = webContextProvider.get().getAttribute(CommercetoolsServices.CT_CUSTOMER_PASSWORD);
-        final String anonymousCartId = webContextProvider.get().getAttribute(CommercetoolsServices.CT_CART_ID);
+        final String anonymousCartId = webContextProvider.get().getAttribute(getProjectName() + "_" + CommercetoolsServices.CT_CART_ID);
         final CustomerSignInCommand signInCommand = CustomerSignInCommand.of(username, password, anonymousCartId);
         return getProjectClient().execute(signInCommand);
     }
@@ -172,11 +174,15 @@ public class CommercetoolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
         return getProjectClient().execute(customerCreateCommand);
     }
 
-    private SphereClient getProjectClient() {
+    private String getProjectName() {
         Map<String, Object> params = siteManager.getCurrentSite().getParameters();
         if (params.containsKey(CommercetoolsIntegrationModule.PROJECT_PARAM_NAME)) {
-            return commercetoolsModuleProvider.get().getSphereClient(String.valueOf(params.get(CommercetoolsIntegrationModule.PROJECT_PARAM_NAME)));
+            return String.valueOf(params.get(CommercetoolsIntegrationModule.PROJECT_PARAM_NAME));
         }
         throw new RuntimeException("No project name configured for site " + siteManager.getCurrentSite());
+    }
+
+    private SphereClient getProjectClient() {
+        return commercetoolsModuleProvider.get().getSphereClient(getProjectName());
     }
 }

@@ -283,7 +283,7 @@ public class CommercetoolsTemplatingFunctions {
     }
 
     public Cart getCart() {
-        return commercetoolsServices.getOrCreateCart(getProjectClient(), webContextProvider.get().getAttribute(CommercetoolsServices.CT_CUSTOMER_ID), webContextProvider.get().getAttribute(CommercetoolsServices.CT_CART_ID), CountryCode.getByCode(getCountryCode()), getCurrencyCode());
+        return commercetoolsServices.getOrCreateCart(getProjectClient(), getProjectName(), webContextProvider.get().getAttribute(getProjectName() + "_" + CommercetoolsServices.CT_CUSTOMER_ID), webContextProvider.get().getAttribute(getProjectName() + "_" + CommercetoolsServices.CT_CART_ID), CountryCode.getByCode(getCountryCode()), getCurrencyCode());
     }
 
     public int getNumberOfItemsInCart() {

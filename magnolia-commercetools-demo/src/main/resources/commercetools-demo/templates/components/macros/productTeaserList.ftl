@@ -1,7 +1,7 @@
 [#macro productTeaserList products productDetailPage=""]
     [#-------------- INCLUDES AND ASSIGNMENTS --------------]
     [#assign teaserLink = cmsfn.link("website", productDetailPage)]
-    [#assign cartId = ctx.getAttribute("ctCartId")!""]
+    [#assign cartId = ctx.getAttribute(ctfn.getProjectName() + "_ctCartId")!""]
 
     [#-------------- RENDERING --------------]
     [#list products.getResults() as product]

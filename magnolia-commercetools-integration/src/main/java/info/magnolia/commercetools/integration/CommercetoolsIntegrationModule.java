@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import io.sphere.sdk.client.SphereClient;
 import io.sphere.sdk.client.SphereClientFactory;
-import io.sphere.sdk.json.JsonException;
+import io.sphere.sdk.models.SphereException;
 
 /**
  * Module class.
@@ -103,7 +103,7 @@ public class CommercetoolsIntegrationModule implements EnterpriseLicensedModule,
             SphereClient sphereClient = factory.createClient(projects.get(name).getSphereClientConfig());
             try {
                 services.getProjectDetail(sphereClient);
-            } catch (JsonException e) {
+            } catch (SphereException e) {
                 log.error("Project [/modules/commercetools-integration/config/projects/{}] is not configured properly.", name);
                 sphereClient.close();
             }
