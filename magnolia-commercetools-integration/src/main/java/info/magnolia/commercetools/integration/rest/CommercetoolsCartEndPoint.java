@@ -52,8 +52,8 @@ import io.sphere.sdk.client.SphereClient;
 /**
  * REST service for executing cart operations.
  */
-@Api(value = "/ctCart", description = "The commercetools cart API")
-@Path("/ctCart")
+@Api(value = "/commercetools/cart", description = "The commercetools cart API")
+@Path("/commercetools/cart")
 public class CommercetoolsCartEndPoint extends AbstractEndpoint<ConfiguredEndpointDefinition> {
 
     private static final String STATUS_MESSAGE_OK = "OK";

@@ -27,7 +27,7 @@
                 e.preventDefault();
                 var productElement = this;
                 $.ajax({
-                    url: "${ctx.contextPath}/.rest/ctCart/${ctfn.getProjectName()}/${ctfn.getCountryCode()}/${ctfn.getCurrencyCode()}/" + productElement.id + "/" + productElement.getAttribute("variantId") + (cartId === "" ? "" : "?ctCartId=" + cartId),
+                    url: "${ctx.contextPath}/.rest/commercetools/cart/${ctfn.getProjectName()}/${ctfn.getCountryCode()}/${ctfn.getCurrencyCode()}/" + productElement.id + "/" + productElement.getAttribute("variantId") + (cartId === "" ? "" : "?ctCartId=" + cartId),
                     data: {
                         format: "json"
                     },

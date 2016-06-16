@@ -44,8 +44,8 @@ import io.sphere.sdk.products.ProductVariant;
 /**
  * REST service for changing variant in product detail.
  */
-@Api(value = "/ctVariant", description = "The commercetools variant API")
-@Path("/ctVariant")
+@Api(value = "/commercetools/variant", description = "The commercetools variant API")
+@Path("/commercetools/variant")
 public class CommercetoolsVariantEndPoint extends AbstractEndpoint<ConfiguredEndpointDefinition> {
 
     private static final String STATUS_MESSAGE_OK = "OK";
