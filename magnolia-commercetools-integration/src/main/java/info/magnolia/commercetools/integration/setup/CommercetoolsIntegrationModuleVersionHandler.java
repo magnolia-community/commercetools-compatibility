@@ -14,6 +14,7 @@
  */
 package info.magnolia.commercetools.integration.setup;
 
+import info.magnolia.cms.security.UserManager;
 import info.magnolia.commercetools.integration.app.browser.contentview.tree.CommercetoolsTreePresenter;
 import info.magnolia.commercetools.integration.app.configuration.CommercetoolsConfigurationSubApp;
 import info.magnolia.commercetools.integration.app.configuration.CommercetoolsConfigurationSubAppDescriptor;
@@ -27,11 +28,14 @@ import info.magnolia.commercetools.integration.rest.CommercetoolsVariantEndPoint
 import info.magnolia.commercetools.integration.templating.CommercetoolsTemplatingFunctions;
 import info.magnolia.module.DefaultModuleVersionHandler;
 import info.magnolia.module.InstallContext;
+import info.magnolia.module.delta.AddRoleToGroupTask;
+import info.magnolia.module.delta.AddRoleToUserTask;
 import info.magnolia.module.delta.AddURIPermissionTask;
 import info.magnolia.module.delta.ArrayDelegateTask;
 import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.DeltaBuilder;
+import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
 import info.magnolia.module.delta.OrderNodeBeforeTask;
 import info.magnolia.module.delta.RemovePermissionTask;
 import info.magnolia.module.delta.RenameNodeTask;
@@ -45,6 +49,16 @@ import java.util.List;
  * Version handler.
  */
 public class CommercetoolsIntegrationModuleVersionHandler extends DefaultModuleVersionHandler {
+
+    private Task assignCommercetoolsRestRoleTask = new ArrayDelegateTask("Assign commercetools-rest role.", "Assign commercetools-rest role.",
+            new AddRoleToUserTask("Add commercetools-rest role to anonymous user.", UserManager.ANONYMOUS_USER, "commercetools-rest"),
+            new IsModuleInstalledOrRegistered("Add commercetools-rest role to travel-demo editors and publishers if demo is installed", "travel-demo",
+                    new ArrayDelegateTask("Add commercetools-rest role to travel-demo editors and publishers", "Add commercetools-rest role to travel-demo editors and publishers",
+                            new AddRoleToGroupTask("Add commercetools-rest to travel-demo-editors group.", "commercetools-rest", "travel-demo-editors"),
+                            new AddRoleToGroupTask("Add commercetools-rest to travel-demo-publishers group.", "commercetools-rest", "travel-demo-publishers")
+                    )
+            )
+    );
 
     public CommercetoolsIntegrationModuleVersionHandler() {
         register(DeltaBuilder.update("1.1", "")
@@ -72,10 +86,11 @@ public class CommercetoolsIntegrationModuleVersionHandler extends DefaultModuleV
                         )
                         .addTask(new ArrayDelegateTask("Change permissions respecting moving commercetools rest endpoints under one parent and exclude it from caching.",
                                         new BootstrapSingleResource("Exclude commercetools rest calls from caching.", "Exclude commercetools rest calls from caching.", "/mgnl-bootstrap/commercetools-integration/config.modules.cache.config.contentCaching.defaultPageCache.cachePolicy.shouldBypassVoters.urls.excludes.restCommercetools.xml"),
-                                        new RemovePermissionTask("Remove permission to anonymous user access ctCart rest endpoint.", "rest", "uri", "/.rest/ctCart*", AddURIPermissionTask.GET_POST),
-                                        new RemovePermissionTask("Remove permission to anonymous user access ctCart rest endpoint.", "rest", "uri", "/.rest/ctVariant*", AddURIPermissionTask.GET_POST),
-                                        new AddURIPermissionTask("Add permission to anonymous user access ctCart rest endpoint.", "rest", "/.rest/commercetools*", AddURIPermissionTask.GET_POST)
-                                )
+                                        new RemovePermissionTask("Remove permission from rest group that allows access ctCart rest endpoint.", "rest", "uri", "/.rest/ctCart*", AddURIPermissionTask.GET_POST),
+                                        new RemovePermissionTask("Remove permission from rest group that allows access ctVariant rest endpoint.", "rest", "uri", "/.rest/ctVariant*", AddURIPermissionTask.GET_POST),
+                                        new BootstrapSingleResource("Add role that allow access to commercetools rest end-point.", "Add role that allow access to commercetools rest end-point.", "/mgnl-bootstrap/commercetools-integration/userroles.commercetools-rest.xml"),
+                                        assignCommercetoolsRestRoleTask
+                                        )
                         )
         );
     }
@@ -85,7 +100,7 @@ public class CommercetoolsIntegrationModuleVersionHandler extends DefaultModuleV
         List<Task> tasks = new ArrayList<Task>();
         tasks.addAll(super.getExtraInstallTasks(installContext));
         tasks.add(new OrderNodeBeforeTask("/server/filters/cms/ctSignupLoginLogout", "modelExecution"));
-        tasks.add(new AddURIPermissionTask("Add permission to anonymous user access commercetools rest endpoints.", "rest", "/.rest/commercetools*", AddURIPermissionTask.GET_POST));
+        tasks.add(assignCommercetoolsRestRoleTask);
         return tasks;
     }
 
