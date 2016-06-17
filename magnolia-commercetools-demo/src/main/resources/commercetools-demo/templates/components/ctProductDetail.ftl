@@ -80,7 +80,7 @@
                 e.preventDefault();
                 var productElement = this;
                 $.ajax({
-                    url: "${ctx.contextPath}/.rest/ctVariant/${ctfn.getProjectName()}/${productId}/" + productElement.getAttribute("variantId"),
+                    url: "${ctx.contextPath}/.rest/commercetools/variant/${ctfn.getProjectName()}/${productId}/" + productElement.getAttribute("variantId"),
                     data: {
                         format: "json"
                     },
@@ -103,7 +103,7 @@
                 e.preventDefault();
                 var productElement = this;
                 $.ajax({
-                    url: "${ctx.contextPath}/.rest/ctCart/${ctfn.getProjectName()}/${ctfn.getCountryCode()}/${ctfn.getCurrencyCode()}/${productId}/" + variantId + "?ctProductQuantity=" + ($('#quantity').val() === "" ? "1" : $('#quantity').val()) + (cartId === "" ? "" : "&ctCartId=" + cartId),
+                    url: "${ctx.contextPath}/.rest/commercetools/cart/${ctfn.getProjectName()}/${ctfn.getCountryCode()}/${ctfn.getCurrencyCode()}/${productId}/" + variantId + "?ctProductQuantity=" + ($('#quantity').val() === "" ? "1" : $('#quantity').val()) + (cartId === "" ? "" : "&ctCartId=" + cartId),
                     data: {
                         format: "json"
                     },

@@ -29,9 +29,11 @@ import info.magnolia.module.DefaultModuleVersionHandler;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.AddURIPermissionTask;
 import info.magnolia.module.delta.ArrayDelegateTask;
+import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.DeltaBuilder;
 import info.magnolia.module.delta.OrderNodeBeforeTask;
+import info.magnolia.module.delta.RemovePermissionTask;
 import info.magnolia.module.delta.RenameNodeTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.repository.RepositoryConstants;
@@ -68,6 +70,13 @@ public class CommercetoolsIntegrationModuleVersionHandler extends DefaultModuleV
                                         new CheckAndModifyPropertyValueTask("/server/filters/cms/ctSignupLoginLogout", "class", "info.magnolia.commercetools.integration.filter.CommerceToolsSignupLoginLogoutFilter", CommercetoolsSignupLoginLogoutFilter.class.getName())
                                 )
                         )
+                        .addTask(new ArrayDelegateTask("Change permissions respecting moving commercetools rest endpoints under one parent and exclude it from caching.",
+                                        new BootstrapSingleResource("Exclude commercetools rest calls from caching.", "Exclude commercetools rest calls from caching.", "/mgnl-bootstrap/commercetools-integration/config.modules.cache.config.contentCaching.defaultPageCache.cachePolicy.shouldBypassVoters.urls.excludes.restCommercetools.xml"),
+                                        new RemovePermissionTask("Remove permission to anonymous user access ctCart rest endpoint.", "rest", "uri", "/.rest/ctCart*", AddURIPermissionTask.GET_POST),
+                                        new RemovePermissionTask("Remove permission to anonymous user access ctCart rest endpoint.", "rest", "uri", "/.rest/ctVariant*", AddURIPermissionTask.GET_POST),
+                                        new AddURIPermissionTask("Add permission to anonymous user access ctCart rest endpoint.", "rest", "/.rest/commercetools*", AddURIPermissionTask.GET_POST)
+                                )
+                        )
         );
     }
 
@@ -76,8 +85,7 @@ public class CommercetoolsIntegrationModuleVersionHandler extends DefaultModuleV
         List<Task> tasks = new ArrayList<Task>();
         tasks.addAll(super.getExtraInstallTasks(installContext));
         tasks.add(new OrderNodeBeforeTask("/server/filters/cms/ctSignupLoginLogout", "modelExecution"));
-        tasks.add(new AddURIPermissionTask("Add permition to anonymous user access ctCart rest endpoint.", "rest", "/.rest/ctCart*", AddURIPermissionTask.GET_POST));
-        tasks.add(new AddURIPermissionTask("Add permition to anonymous user access ctCart rest endpoint.", "rest", "/.rest/ctVariant*", AddURIPermissionTask.GET_POST));
+        tasks.add(new AddURIPermissionTask("Add permission to anonymous user access commercetools rest endpoints.", "rest", "/.rest/commercetools*", AddURIPermissionTask.GET_POST));
         return tasks;
     }
 

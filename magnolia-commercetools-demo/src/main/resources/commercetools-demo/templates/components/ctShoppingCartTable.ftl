@@ -101,7 +101,7 @@
         $(".quantity-input").on("change", function () {
             var productElement = this;
             $.ajax({
-                url: "${ctx.contextPath}/.rest/ctCart/${ctfn.getProjectName()}/${ctfn.getCountryCode()}/${ctfn.getCurrencyCode()}/" + cartId + "/" + productElement.getAttribute("productId") + "/" + productElement.value,
+                url: "${ctx.contextPath}/.rest/commercetools/cart/${ctfn.getProjectName()}/${ctfn.getCountryCode()}/${ctfn.getCurrencyCode()}/" + cartId + "/" + productElement.getAttribute("productId") + "/" + productElement.value,
                 data: {
                     format: "json"
                 },
@@ -129,7 +129,7 @@
             e.preventDefault();
             var productElement = this;
             $.ajax({
-                url: "${ctx.contextPath}/.rest/ctCart/${ctfn.getProjectName()}/${ctfn.getCountryCode()}/${ctfn.getCurrencyCode()}/" + cartId + "/" + productElement.getAttribute("productId"),
+                url: "${ctx.contextPath}/.rest/commercetools/cart/${ctfn.getProjectName()}/${ctfn.getCountryCode()}/${ctfn.getCurrencyCode()}/" + cartId + "/" + productElement.getAttribute("productId"),
                 data: {
                     format: "json"
                 },
