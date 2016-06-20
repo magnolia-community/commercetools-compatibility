@@ -28,14 +28,12 @@ import info.magnolia.commercetools.integration.rest.CommercetoolsVariantEndPoint
 import info.magnolia.commercetools.integration.templating.CommercetoolsTemplatingFunctions;
 import info.magnolia.module.DefaultModuleVersionHandler;
 import info.magnolia.module.InstallContext;
-import info.magnolia.module.delta.AddRoleToGroupTask;
 import info.magnolia.module.delta.AddRoleToUserTask;
 import info.magnolia.module.delta.AddURIPermissionTask;
 import info.magnolia.module.delta.ArrayDelegateTask;
 import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.DeltaBuilder;
-import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
 import info.magnolia.module.delta.OrderNodeBeforeTask;
 import info.magnolia.module.delta.RemovePermissionTask;
 import info.magnolia.module.delta.RenameNodeTask;
@@ -50,15 +48,7 @@ import java.util.List;
  */
 public class CommercetoolsIntegrationModuleVersionHandler extends DefaultModuleVersionHandler {
 
-    private Task assignCommercetoolsRestRoleTask = new ArrayDelegateTask("Assign commercetools-rest role.", "Assign commercetools-rest role.",
-            new AddRoleToUserTask("Add commercetools-rest role to anonymous user.", UserManager.ANONYMOUS_USER, "commercetools-rest"),
-            new IsModuleInstalledOrRegistered("Add commercetools-rest role to travel-demo editors and publishers if demo is installed", "travel-demo",
-                    new ArrayDelegateTask("Add commercetools-rest role to travel-demo editors and publishers", "Add commercetools-rest role to travel-demo editors and publishers",
-                            new AddRoleToGroupTask("Add commercetools-rest to travel-demo-editors group.", "commercetools-rest", "travel-demo-editors"),
-                            new AddRoleToGroupTask("Add commercetools-rest to travel-demo-publishers group.", "commercetools-rest", "travel-demo-publishers")
-                    )
-            )
-    );
+    private Task assignCommercetoolsRestRoleTask = new AddRoleToUserTask("Add commercetools-rest role to anonymous user.", UserManager.ANONYMOUS_USER, "commercetools-rest");
 
     public CommercetoolsIntegrationModuleVersionHandler() {
         register(DeltaBuilder.update("1.1", "")
