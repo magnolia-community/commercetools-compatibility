@@ -19,9 +19,12 @@ import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.AddRoleToGroupTask;
 import info.magnolia.module.delta.ArrayDelegateTask;
 import info.magnolia.module.delta.DeltaBuilder;
+import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.IsModuleInstalledOrRegistered;
 import info.magnolia.module.delta.ModuleDependencyBootstrapTask;
+import info.magnolia.module.delta.SetPropertyTask;
 import info.magnolia.module.delta.Task;
+import info.magnolia.repository.RepositoryConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +41,13 @@ public class CommercetoolsDemoModuleVersionHandler extends DefaultModuleVersionH
             )
     );
 
+    private Task resetRedirectURIOnPublicInstanceTask = new IsAuthorInstanceDelegateTask("Reset default redirect URI on public instance.", "Reset default redirect URI on public instance.", null,
+            new SetPropertyTask(RepositoryConstants.CONFIG, "/modules/ui-admincentral/virtualURIMapping/default", "toURI", "redirect:/commercetools.html"));
+
     public CommercetoolsDemoModuleVersionHandler() {
         register(DeltaBuilder.update("1.1", "")
-                        .addTask(assignCommercetoolsRestRoleTask)
+                .addTask(assignCommercetoolsRestRoleTask)
+                .addTask(resetRedirectURIOnPublicInstanceTask)
         );
     }
 
@@ -50,6 +57,7 @@ public class CommercetoolsDemoModuleVersionHandler extends DefaultModuleVersionH
         tasks.addAll(super.getExtraInstallTasks(installContext));
         tasks.add(new IsModuleInstalledOrRegistered("Install site configuration for travel-demo if demo is installed", "travel-demo", new ModuleDependencyBootstrapTask("multisite")));
         tasks.add(assignCommercetoolsRestRoleTask);
+        tasks.add(resetRedirectURIOnPublicInstanceTask);
         return tasks;
     }
 
