@@ -71,11 +71,6 @@
     <!-- REST -->
     <dependency>
       <groupId>info.magnolia.rest</groupId>
-      <artifactId>magnolia-rest-integration</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>info.magnolia.rest</groupId>
       <artifactId>magnolia-rest-services</artifactId>
     </dependency>
 
