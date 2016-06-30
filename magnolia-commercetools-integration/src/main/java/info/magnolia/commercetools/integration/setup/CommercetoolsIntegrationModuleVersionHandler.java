@@ -48,7 +48,7 @@ import java.util.List;
  */
 public class CommercetoolsIntegrationModuleVersionHandler extends DefaultModuleVersionHandler {
 
-    private Task assignCommercetoolsRestRoleTask = new AddRoleToUserTask("Add commercetools-rest role to anonymous user.", UserManager.ANONYMOUS_USER, "commercetools-rest");
+    private Task assignCommercetoolsRestRoleTask = new ArrayDelegateTask("Add commercetools-rest role.", "Add commercetools-rest role to anonymous user and superuser.", new AddRoleToUserTask("Add commercetools-rest role to anonymous user.", UserManager.ANONYMOUS_USER, "commercetools-rest"), new AddRoleToUserTask("Add commercetools-rest role to superuser.", UserManager.SYSTEM_USER, "commercetools-rest"));
 
     public CommercetoolsIntegrationModuleVersionHandler() {
         register(DeltaBuilder.update("1.1", "")
