@@ -4,11 +4,11 @@
   <parent>
     <groupId>info.magnolia.commercetools</groupId>
     <artifactId>magnolia-commercetools</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>magnolia-commercetools-templates</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
   <name>Commercetools Templates Module</name>
 
