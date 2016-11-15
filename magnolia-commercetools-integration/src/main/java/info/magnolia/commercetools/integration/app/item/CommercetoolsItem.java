@@ -19,7 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.vaadin.data.util.BeanItem;
 
 /**
- * Base implementation for KonaKart items.
+ * Base implementation for commercetools items.
  *
  * @param <BT> bean type
  */
