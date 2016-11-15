@@ -26,7 +26,10 @@ import com.vaadin.data.Item;
 
 /**
  * Transformer for MoneyImpl.
+ *
+ * @deprecated since 1.2, use {@link info.magnolia.commercetools.integration.app.detail.converters.MonetaryAmountConverter} for {@link com.vaadin.data.util.BeanItem} instead. *
  */
+@Deprecated
 public class MoneyTransformer extends BasicTransformer {
 
     public MoneyTransformer(Item relatedFormItem, ConfiguredFieldDefinition definition, Class type, I18NAuthoringSupport i18NAuthoringSupport) {

@@ -24,7 +24,10 @@ import io.sphere.sdk.models.LocalizedString;
 
 /**
  * Transformer for LocalizedString.
+ * 
+ * @deprecated since 1.2, use {@link info.magnolia.commercetools.integration.app.detail.converters.LocalizedStringConverter} for {@link com.vaadin.data.util.BeanItem} instead.
  */
+@Deprecated
 public class LocalizedStringTransformer extends BasicTransformer {
     public LocalizedStringTransformer(Item relatedFormItem, ConfiguredFieldDefinition definition, Class type, I18NAuthoringSupport i18NAuthoringSupport) {
         super(relatedFormItem, definition, type, i18NAuthoringSupport);

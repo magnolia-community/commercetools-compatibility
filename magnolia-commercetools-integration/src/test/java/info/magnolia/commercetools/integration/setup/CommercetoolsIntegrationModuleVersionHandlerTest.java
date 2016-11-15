@@ -14,6 +14,8 @@
  */
 package info.magnolia.commercetools.integration.setup;
 
+import static info.magnolia.test.hamcrest.NodeMatchers.hasProperty;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 
 import info.magnolia.cms.security.MgnlRoleManager;
@@ -23,6 +25,10 @@ import info.magnolia.cms.security.SecuritySupportImpl;
 import info.magnolia.cms.security.SystemUserManager;
 import info.magnolia.cms.security.User;
 import info.magnolia.cms.security.UserManager;
+import info.magnolia.commercetools.integration.app.detail.converters.LocalizedStringConverter;
+import info.magnolia.commercetools.integration.app.detail.converters.MonetaryAmountConverter;
+import info.magnolia.commercetools.integration.app.detail.transformers.LocalizedStringTransformer;
+import info.magnolia.commercetools.integration.app.detail.transformers.MoneyTransformer;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.jcr.util.NodeUtil;
@@ -35,6 +41,7 @@ import info.magnolia.test.ComponentsTestUtil;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.jcr.Node;
 import javax.jcr.Session;
 
 import org.junit.Before;
@@ -50,6 +57,7 @@ public class CommercetoolsIntegrationModuleVersionHandlerTest extends ModuleVers
     private MgnlRoleManager roleManager;
     private SystemUserManager userManager;
     private Session users;
+    private Session config;
 
     @Override
     protected String getModuleDescriptorPath() {
@@ -96,6 +104,8 @@ public class CommercetoolsIntegrationModuleVersionHandlerTest extends ModuleVers
         roleManager = new MgnlRoleManager();
         securitySupport.setRoleManager(roleManager);
         ComponentsTestUtil.setInstance(SecuritySupport.class, securitySupport);
+
+        config = MgnlContext.getJCRSession(RepositoryConstants.CONFIG);
     }
 
     @Test
@@ -110,5 +120,26 @@ public class CommercetoolsIntegrationModuleVersionHandlerTest extends ModuleVers
         // THEN
         assertTrue(anonymous.hasRole("commercetools-rest"));
         assertTrue(systemuser.hasRole("commercetools-rest"));
+    }
+
+    @Test
+    public void updateTo12() throws Exception {
+        // GIVEN
+        String TRANSFORMERCLASS_PROPERTY_NAME = "transformerClass";
+        String CONVERTERCLASS_PROPERTY_NAME = "converterClass";
+        Node detail = NodeUtil.createPath(config.getRootNode(), "/modules/commercetools-integration/apps/ctBrowser/subApps/detail/editor/form", NodeTypes.ContentNode.NAME);
+        Node node1 = detail.addNode("node1", NodeTypes.ContentNode.NAME);
+        node1.setProperty(TRANSFORMERCLASS_PROPERTY_NAME, LocalizedStringTransformer.class.getName());
+        Node node2 = detail.addNode("node2", NodeTypes.ContentNode.NAME);
+        node2.setProperty(TRANSFORMERCLASS_PROPERTY_NAME, MoneyTransformer.class.getName());
+
+        // WHEN
+        executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("1.1"));
+
+        // THEN
+        assertThat(node1, not(hasProperty(TRANSFORMERCLASS_PROPERTY_NAME)));
+        assertThat(node1, hasProperty(CONVERTERCLASS_PROPERTY_NAME, LocalizedStringConverter.class.getName()));
+        assertThat(node2, not(hasProperty(TRANSFORMERCLASS_PROPERTY_NAME)));
+        assertThat(node2, hasProperty(CONVERTERCLASS_PROPERTY_NAME, MonetaryAmountConverter.class.getName()));
     }
 }

@@ -83,6 +83,10 @@ public class CommercetoolsIntegrationModuleVersionHandler extends DefaultModuleV
                                         )
                         )
         );
+
+        register(DeltaBuilder.update("1.2", "")
+                        .addTask(new ReplaceTransformersWithConvertersTask())
+        );
     }
 
     @Override
