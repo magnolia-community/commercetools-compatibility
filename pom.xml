@@ -4,20 +4,23 @@
   <parent>
     <groupId>info.magnolia.maven.poms-enterprise</groupId>
     <artifactId>magnolia-parent-pom-enterprise</artifactId>
-    <version>31</version>
+    <version>32</version>
   </parent>
   <groupId>info.magnolia.commercetools</groupId>
   <artifactId>magnolia-commercetools</artifactId>
   <name>Commercetools Parent</name>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
     <magnoliaVersion>5.4.6</magnoliaVersion>
     <damVersion>2.1</damVersion>
     <javaVersion>1.8</javaVersion>
-    <commercetoolsSDKVersion>1.0.0</commercetoolsSDKVersion>
-    <resteasyVersion>3.0.4.Final</resteasyVersion>
+    <commercetoolsSDKVersion>1.6.0</commercetoolsSDKVersion>
+    <restVersion>1.2</restVersion>
+    <siteVersion>1.0.6</siteVersion>
+    <formVersion>2.3.5</formVersion>
+    <resteasyVersion>3.0.19.Final</resteasyVersion>
   </properties>
 
   <issueManagement>
@@ -65,21 +68,21 @@
       <dependency>
         <groupId>info.magnolia.site</groupId>
         <artifactId>magnolia-site</artifactId>
-        <version>1.0.6</version>
+        <version>${siteVersion}</version>
       </dependency>
 
       <!-- FORM -->
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-form</artifactId>
-        <version>2.3.5</version>
+        <version>${formVersion}</version>
       </dependency>
 
       <!-- REST -->
       <dependency>
         <groupId>info.magnolia.rest</groupId>
         <artifactId>magnolia-rest-services</artifactId>
-        <version>1.1.1</version>
+        <version>${restVersion}</version>
         <exclusions>
           <exclusion>
             <groupId>org.jboss.resteasy</groupId>
@@ -90,7 +93,7 @@
       <dependency>
         <groupId>info.magnolia.rest</groupId>
         <artifactId>magnolia-rest-integration</artifactId>
-        <version>1.1.1</version>
+        <version>${restVersion}</version>
         <exclusions>
           <exclusion>
             <groupId>org.jboss.resteasy</groupId>
