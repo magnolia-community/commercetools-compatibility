@@ -76,7 +76,7 @@ public class SiteSelectFieldFactory extends AbstractCommercetoolsFieldFactory<De
     }
 
     @Override
-    public void setPropertyDataSourceAndDefaultValue(Property<?> property) {
+    public void setPropertyDataSourceAndDefaultValue(Property property) {
         field.removeValueChangeListener(listener);
         super.setPropertyDataSourceAndDefaultValue(property);
         field.addValueChangeListener(listener);

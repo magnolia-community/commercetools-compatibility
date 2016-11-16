@@ -13,12 +13,12 @@
   <packaging>pom</packaging>
 
   <properties>
-    <magnoliaVersion>5.4.6</magnoliaVersion>
+    <magnoliaVersion>5.4.9</magnoliaVersion>
     <damVersion>2.1</damVersion>
     <javaVersion>1.8</javaVersion>
     <commercetoolsSDKVersion>1.6.0</commercetoolsSDKVersion>
     <restVersion>1.2</restVersion>
-    <siteVersion>1.0.6</siteVersion>
+    <siteVersion>1.0.9</siteVersion>
     <formVersion>2.3.5</formVersion>
     <resteasyVersion>3.0.19.Final</resteasyVersion>
   </properties>
