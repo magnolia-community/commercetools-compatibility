@@ -57,47 +57,47 @@
   <dependencies>
     <dependency>
       <name>core</name>
-      <version>5.4.6/*</version>
+      <version>${magnoliaVersion}/*</version>
     </dependency>
     <dependency>
       <name>rendering</name>
-      <version>5.4.6/*</version>
+      <version>${magnoliaVersion}/*</version>
     </dependency>
     <dependency>
       <name>templating</name>
-      <version>5.4.6/*</version>
+      <version>${magnoliaVersion}/*</version>
     </dependency>
     <dependency>
       <name>ui-framework</name>
-      <version>5.4.6/*</version>
+      <version>${magnoliaVersion}/*</version>
     </dependency>
     <dependency>
       <name>dam</name>
-      <version>2.1/*</version>
+      <version>${damVersion}/*</version>
     </dependency>
     <dependency>
       <name>dam-app</name>
-      <version>2.1/*</version>
+      <version>${damVersion}/*</version>
     </dependency>
     <dependency>
       <name>site</name>
-      <version>1.0.6/*</version>
+      <version>${siteVersion}/*</version>
     </dependency>
     <dependency>
       <name>form</name>
-      <version>2.3.5/*</version>
+      <version>${formVersion}/*</version>
     </dependency>
     <dependency>
       <name>enterprise</name>
-      <version>5.4.6/*</version>
+      <version>${magnoliaVersion}/*</version>
     </dependency>
     <dependency>
       <name>rest-integration</name>
-      <version>1.1.1/*</version>
+      <version>${restVersion}/*</version>
     </dependency>
     <dependency>
       <name>rest-services</name>
-      <version>1.1.1/*</version>
+      <version>${restVersion}/*</version>
     </dependency>
   </dependencies>
 </module>
