@@ -21,13 +21,12 @@ import info.magnolia.ui.form.field.definition.CompositeFieldDefinition;
 import info.magnolia.ui.form.field.definition.Layout;
 import info.magnolia.ui.form.field.factory.AbstractFieldFactory;
 import info.magnolia.ui.form.field.factory.FieldFactoryFactory;
-import info.magnolia.ui.form.field.transformer.Transformer;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
 import com.vaadin.data.Item;
+import com.vaadin.data.Property;
+import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.data.util.PropertysetItem;
 import com.vaadin.ui.Field;
 
@@ -60,13 +59,13 @@ public class VariantsListFieldFactory extends AbstractFieldFactory<VariantsListF
     }
 
     @Override
-    protected Transformer<?> initializeTransformer(Class<? extends Transformer<?>> transformerClass) {
-        List<String> propertyNames = definition.getFieldNames();
-        Transformer<?> transformer = this.componentProvider.newInstance(transformerClass, item, definition, PropertysetItem.class, propertyNames);
-        transformer.setLocale(getLocale());
-        return transformer;
+    protected Property<PropertysetItem> initializeProperty() {
+        PropertysetItem items = new PropertysetItem();
+        for (String fieldName : definition.getFieldNames()) {
+            items.addItemProperty(fieldName, new ObjectProperty<>(item));
+        }
+        return new ObjectProperty<>(items, PropertysetItem.class);
     }
-
 
     /**
      * Field definition for {@link VariantsListField}.

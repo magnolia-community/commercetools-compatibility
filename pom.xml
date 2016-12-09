@@ -14,6 +14,7 @@
 
   <properties>
     <magnoliaVersion>5.4.9</magnoliaVersion>
+    <magnoliaUIVersion>5.4.9</magnoliaUIVersion>
     <damVersion>2.1</damVersion>
     <javaVersion>1.8</javaVersion>
     <commercetoolsSDKVersion>1.6.0</commercetoolsSDKVersion>
@@ -51,7 +52,7 @@
       <dependency>
         <groupId>info.magnolia.ui</groupId>
         <artifactId>magnolia-ui-project</artifactId>
-        <version>${magnoliaVersion}</version>
+        <version>${magnoliaUIVersion}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
