@@ -54,8 +54,7 @@ public class VariantsListFieldFactory extends AbstractFieldFactory<VariantsListF
 
     @Override
     protected Field<PropertysetItem> createFieldComponent() {
-        VariantsListField field = new VariantsListField(definition, fieldFactoryFactory, componentProvider, item, i18nAuthoringSupport);
-        return field;
+        return new VariantsListField(definition, fieldFactoryFactory, componentProvider, item, i18nAuthoringSupport);
     }
 
     @Override

@@ -18,7 +18,6 @@ form:
           rows: 1
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
         - name: mandatory
-          selected: false
           defaultValue: false
           type: Boolean
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition

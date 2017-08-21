@@ -17,6 +17,9 @@ package info.magnolia.commercetools.integration.app.configuration.field;
 import info.magnolia.commercetools.integration.CommercetoolsIntegrationModule;
 import info.magnolia.commercetools.integration.app.configuration.field.CountrySelectFieldFactory.Definition;
 import info.magnolia.commercetools.integration.service.CommercetoolsServices;
+import info.magnolia.objectfactory.Components;
+import info.magnolia.ui.api.context.UiContext;
+import info.magnolia.ui.api.i18n.I18NAuthoringSupport;
 import info.magnolia.ui.form.field.definition.SelectFieldDefinition;
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
 
@@ -37,13 +40,21 @@ import io.sphere.sdk.client.SphereClient;
 public class CountrySelectFieldFactory extends AbstractCommercetoolsFieldFactory<Definition> {
 
     @Inject
+    public CountrySelectFieldFactory(Definition definition, Item relatedFieldItem, UiContext uiContext, I18NAuthoringSupport i18nAuthoringSupport, Provider<CommercetoolsIntegrationModule> provider, CommercetoolsServices services) {
+        super(definition, relatedFieldItem, uiContext, i18nAuthoringSupport, provider, services);
+    }
+
+    /**
+     * @deprecated since 1.2, use {@link #CountrySelectFieldFactory(Definition, Item, UiContext, I18NAuthoringSupport, Provider, CommercetoolsServices)} instead.
+     */
+    @Deprecated
     public CountrySelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommercetoolsIntegrationModule> provider, CommercetoolsServices services) {
-        super(definition, relatedFieldItem, provider, services);
+        this(definition, relatedFieldItem, Components.getComponent(UiContext.class), Components.getComponent(I18NAuthoringSupport.class), provider, services);
     }
 
     @Override
-    public List<SelectFieldOptionDefinition> getSelectFieldOptionDefinition() {
-        List<SelectFieldOptionDefinition> result = new ArrayList<SelectFieldOptionDefinition>();
+    public List<SelectFieldOptionDefinition> getOptions() {
+        List<SelectFieldOptionDefinition> result = new ArrayList<>();
         for (CountryCode countryCode : getCountries(getProvider().get().getSphereClient(getSelectedProject()))) {
             SelectFieldOptionDefinition optionDefinition = new SelectFieldOptionDefinition();
             optionDefinition.setName(countryCode.getAlpha2());

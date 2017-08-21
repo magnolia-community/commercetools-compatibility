@@ -119,25 +119,22 @@ public class CommercetoolsImageField extends CustomField<ArrayList> {
 
                 imageLayout.addComponent(embedded);
 
-                lightboxButton.addClickListener(new Button.ClickListener() {
-                    @Override
-                    public void buttonClick(Button.ClickEvent event) {
-                        Class<? extends PreviewComponentProvider> previewActionClass = definition.getPreviewComponentProviderClass();
-                        // Launch Lightbox component
-                        if (previewActionClass == null) {
-                            log.warn("No preview component defined.");
-                        }
-                        PreviewComponentProvider implementation = componentProvider.newInstance(previewActionClass);
+                lightboxButton.addClickListener((Button.ClickListener) event -> {
+                    Class<? extends PreviewComponentProvider> previewActionClass = definition.getPreviewComponentProviderClass();
+                    // Launch Lightbox component
+                    if (previewActionClass == null) {
+                        log.warn("No preview component defined.");
+                    }
+                    PreviewComponentProvider implementation = componentProvider.newInstance(previewActionClass);
 
-                        if (StringUtils.isBlank(productImageUrl)) {
-                            log.warn("Full image not found.");
-                            return;
-                        }
-                        try {
-                            implementation.open(new ExternalResource(new URL(productImageUrl)));
-                        } catch (MalformedURLException e) {
-                            log.warn("Unable to obtain preview image from {}", productImageUrl, e.getMessage());
-                        }
+                    if (StringUtils.isBlank(productImageUrl)) {
+                        log.warn("Full image not found.");
+                        return;
+                    }
+                    try {
+                        implementation.open(new ExternalResource(new URL(productImageUrl)));
+                    } catch (MalformedURLException e) {
+                        log.warn("Unable to obtain preview image from {}", productImageUrl, e.getMessage());
                     }
                 });
             }

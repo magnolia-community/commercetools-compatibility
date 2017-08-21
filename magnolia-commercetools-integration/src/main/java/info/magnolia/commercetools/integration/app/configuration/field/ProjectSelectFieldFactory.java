@@ -20,7 +20,10 @@ import info.magnolia.commercetools.integration.app.configuration.event.ProjectCh
 import info.magnolia.commercetools.integration.app.configuration.field.ProjectSelectFieldFactory.Definition;
 import info.magnolia.commercetools.integration.service.CommercetoolsServices;
 import info.magnolia.event.EventBus;
+import info.magnolia.objectfactory.Components;
 import info.magnolia.ui.api.app.SubAppEventBus;
+import info.magnolia.ui.api.context.UiContext;
+import info.magnolia.ui.api.i18n.I18NAuthoringSupport;
 import info.magnolia.ui.form.field.definition.SelectFieldDefinition;
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
 
@@ -43,25 +46,30 @@ import com.vaadin.ui.AbstractSelect;
  */
 public class ProjectSelectFieldFactory extends AbstractCommercetoolsFieldFactory<Definition> {
 
-    private final EventBus eventBus;
-    private final Property.ValueChangeListener listener = new Property.ValueChangeListener() {
-        @Override
-        public void valueChange(Property.ValueChangeEvent event) {
-            String value = (String) event.getProperty().getValue();
-            if (StringUtils.isNotBlank(value))
-                eventBus.fireEvent(new ProjectChangedEvent(value));
-        }
+    private EventBus eventBus;
+    private final Property.ValueChangeListener listener = event -> {
+        String value = (String) event.getProperty().getValue();
+        if (StringUtils.isNotBlank(value))
+            eventBus.fireEvent(new ProjectChangedEvent(value));
     };
 
     @Inject
-    public ProjectSelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommercetoolsIntegrationModule> provider, @Named(SubAppEventBus.NAME) EventBus eventBus, CommercetoolsServices services) {
-        super(definition, relatedFieldItem, provider, services);
+    public ProjectSelectFieldFactory(Definition definition, Item relatedFieldItem, UiContext uiContext, I18NAuthoringSupport i18nAuthoringSupport, Provider<CommercetoolsIntegrationModule> provider, @Named(SubAppEventBus.NAME) EventBus eventBus, CommercetoolsServices services) {
+        super(definition, relatedFieldItem, uiContext, i18nAuthoringSupport, provider, services);
         this.eventBus = eventBus;
     }
 
+    /**
+     * @deprecated since 1.2, use {@link #ProjectSelectFieldFactory(Definition, Item, UiContext, I18NAuthoringSupport, Provider, EventBus, CommercetoolsServices)} instead.
+     */
+    @Deprecated
+    public ProjectSelectFieldFactory(Definition definition, Item relatedFieldItem, Provider<CommercetoolsIntegrationModule> provider, @Named(SubAppEventBus.NAME) EventBus eventBus, CommercetoolsServices services) {
+        this(definition, relatedFieldItem, Components.getComponent(UiContext.class), Components.getComponent(I18NAuthoringSupport.class), provider, eventBus, services);
+    }
+
     @Override
-    public List<SelectFieldOptionDefinition> getSelectFieldOptionDefinition() {
-        List<SelectFieldOptionDefinition> result = new ArrayList<SelectFieldOptionDefinition>();
+    public List<SelectFieldOptionDefinition> getOptions() {
+        List<SelectFieldOptionDefinition> result = new ArrayList<>();
         result.add(createEmptyOption());
         Map<String, CommercetoolsProjectConfiguration> projects = getProvider().get().getProjects();
         for (Map.Entry<String, CommercetoolsProjectConfiguration> entry : projects.entrySet()) {

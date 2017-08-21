@@ -22,7 +22,6 @@ import info.magnolia.module.form.processors.AbstractFormProcessor;
 import info.magnolia.module.form.processors.FormProcessorFailedException;
 
 import java.util.Map;
-import java.util.function.Function;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -36,7 +35,6 @@ import io.sphere.sdk.carts.Cart;
 import io.sphere.sdk.carts.commands.CartUpdateCommand;
 import io.sphere.sdk.carts.commands.updateactions.SetShippingMethod;
 import io.sphere.sdk.models.SphereException;
-import io.sphere.sdk.orders.Order;
 import io.sphere.sdk.orders.OrderFromCartDraft;
 import io.sphere.sdk.orders.PaymentState;
 import io.sphere.sdk.orders.commands.OrderFromCartCreateCommand;
@@ -81,13 +79,10 @@ public class CommercetoolsCartProcessor extends AbstractFormProcessor {
         } else if (StringUtils.equals(parameters.get(CT_ACTION_PARAM).toString(), CT_ACTION_ORDER)) {
             try {
                 commercetoolsTemplatingFunctions.getProjectClient().execute(OrderFromCartCreateCommand.of(OrderFromCartDraft.of(cart, null, PaymentState.BALANCE_DUE)))
-                        .thenApplyAsync(new Function<Order, Object>() {
-                            @Override
-                            public Object apply(Order order) {
-                                webContext.setAttribute(CommercetoolsServices.CT_LAST_ORDER_ID, order.getId(), Context.LOCAL_SCOPE);
-                                webContext.removeAttribute(projectName + "_" + CommercetoolsServices.CT_CART_ID, Context.SESSION_SCOPE);
-                                return null;
-                            }
+                        .thenApplyAsync(order -> {
+                            webContext.setAttribute(CommercetoolsServices.CT_LAST_ORDER_ID, order.getId(), Context.LOCAL_SCOPE);
+                            webContext.removeAttribute(projectName + "_" + CommercetoolsServices.CT_CART_ID, Context.SESSION_SCOPE);
+                            return null;
                         }).toCompletableFuture().join();
             } catch (SphereException e) {
                 log.error("Order creation.", e);

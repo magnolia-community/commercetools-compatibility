@@ -51,21 +51,11 @@ public class CommercetoolsConfigurationViewImpl implements CommercetoolsConfigur
         Button saveButton = new Button(i18n.translate("ctSetup.app.buttons.save.label"));
         saveButton.addStyleName("v-button-smallapp");
         saveButton.addStyleName("commit");
-        saveButton.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                listener.save();
-            }
-        });
+        saveButton.addClickListener((Button.ClickListener) event -> listener.save());
 
         Button removeButton = new Button(i18n.translate("ctSetup.app.buttons.remove.label"));
         removeButton.addStyleName("v-button-smallapp");
-        removeButton.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                listener.reset();
-            }
-        });
+        removeButton.addClickListener((Button.ClickListener) event -> listener.reset());
 
         final CssLayout buttonLayout = new CssLayout();
         buttonLayout.addStyleName("v-csslayout-smallapp-actions");

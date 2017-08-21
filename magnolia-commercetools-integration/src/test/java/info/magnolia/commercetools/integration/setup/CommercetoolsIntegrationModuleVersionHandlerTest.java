@@ -23,7 +23,6 @@ import info.magnolia.cms.security.Realm;
 import info.magnolia.cms.security.SecuritySupport;
 import info.magnolia.cms.security.SecuritySupportImpl;
 import info.magnolia.cms.security.SystemUserManager;
-import info.magnolia.cms.security.User;
 import info.magnolia.cms.security.UserManager;
 import info.magnolia.commercetools.integration.app.detail.converters.LocalizedStringConverter;
 import info.magnolia.commercetools.integration.app.detail.converters.MonetaryAmountConverter;
@@ -52,8 +51,6 @@ import org.junit.Test;
  */
 public class CommercetoolsIntegrationModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
 
-    private User anonymous;
-    private User systemuser;
     private MgnlRoleManager roleManager;
     private SystemUserManager userManager;
     private Session users;
@@ -99,8 +96,6 @@ public class CommercetoolsIntegrationModuleVersionHandlerTest extends ModuleVers
         userManager = new SystemUserManager();
         userManager.setRealmName(Realm.REALM_SYSTEM.getName());
         securitySupport.addUserManager(Realm.REALM_SYSTEM.getName(), userManager);
-        systemuser = userManager.getUser(UserManager.SYSTEM_USER);
-        anonymous = userManager.getUser(UserManager.ANONYMOUS_USER);
         roleManager = new MgnlRoleManager();
         securitySupport.setRoleManager(roleManager);
         ComponentsTestUtil.setInstance(SecuritySupport.class, securitySupport);
@@ -111,15 +106,15 @@ public class CommercetoolsIntegrationModuleVersionHandlerTest extends ModuleVers
     @Test
     public void updateTo11() throws Exception {
         // GIVEN
-        assertFalse(anonymous.hasRole("commercetools-rest"));
-        assertFalse(systemuser.hasRole("commercetools-rest"));
+        assertFalse(userManager.getUser(UserManager.ANONYMOUS_USER).hasRole("commercetools-rest"));
+        assertFalse(userManager.getUser(UserManager.SYSTEM_USER).hasRole("commercetools-rest"));
 
         // WHEN
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("1.0"));
 
         // THEN
-        assertTrue(anonymous.hasRole("commercetools-rest"));
-        assertTrue(systemuser.hasRole("commercetools-rest"));
+        assertTrue(userManager.getUser(UserManager.ANONYMOUS_USER).hasRole("commercetools-rest"));
+        assertTrue(userManager.getUser(UserManager.SYSTEM_USER).hasRole("commercetools-rest"));
     }
 
     @Test

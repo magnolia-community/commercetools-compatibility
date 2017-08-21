@@ -54,8 +54,7 @@ public class CategoriesListFieldFactory extends AbstractFieldFactory<CategoriesL
 
     @Override
     protected Field<PropertysetItem> createFieldComponent() {
-        CategoriesListField field = new CategoriesListField(definition, fieldFactoryFactory, componentProvider, item, i18nAuthoringSupport);
-        return field;
+        return new CategoriesListField(definition, fieldFactoryFactory, componentProvider, item, i18nAuthoringSupport);
     }
 
     @Override

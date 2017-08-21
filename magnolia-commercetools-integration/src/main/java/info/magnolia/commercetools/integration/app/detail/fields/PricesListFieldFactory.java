@@ -49,8 +49,7 @@ public class PricesListFieldFactory extends AbstractFieldFactory<PricesListField
 
     @Override
     protected Field<PropertysetItem> createFieldComponent() {
-        PricesListField field = new PricesListField(definition, fieldFactoryFactory, componentProvider, item, i18nAuthoringSupport);
-        return field;
+        return new PricesListField(definition, fieldFactoryFactory, componentProvider, item, i18nAuthoringSupport);
     }
 
     @Override
