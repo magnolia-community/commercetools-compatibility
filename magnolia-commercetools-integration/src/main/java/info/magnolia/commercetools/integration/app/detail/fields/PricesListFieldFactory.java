@@ -17,8 +17,6 @@ package info.magnolia.commercetools.integration.app.detail.fields;
 import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.ui.api.context.UiContext;
 import info.magnolia.ui.api.i18n.I18NAuthoringSupport;
-import info.magnolia.ui.form.field.definition.CompositeFieldDefinition;
-import info.magnolia.ui.form.field.definition.Layout;
 import info.magnolia.ui.form.field.factory.AbstractFieldFactory;
 import info.magnolia.ui.form.field.factory.FieldFactoryFactory;
 
@@ -33,14 +31,14 @@ import com.vaadin.ui.Field;
 /**
  * Field factory that builds {@link PricesListField}.
  */
-public class PricesListFieldFactory extends AbstractFieldFactory<PricesListFieldFactory.Definition, PropertysetItem> {
+public class PricesListFieldFactory extends AbstractFieldFactory<AbstractListField.Definition, PropertysetItem> {
 
     private final FieldFactoryFactory fieldFactoryFactory;
     private final ComponentProvider componentProvider;
     private final I18NAuthoringSupport i18nAuthoringSupport;
 
     @Inject
-    public PricesListFieldFactory(Definition definition, Item relatedFieldItem, UiContext uiContext, I18NAuthoringSupport i18NAuthoringSupport, FieldFactoryFactory fieldFactoryFactory, ComponentProvider componentProvider, I18NAuthoringSupport i18nAuthoringSupport) {
+    public PricesListFieldFactory(AbstractListField.Definition definition, Item relatedFieldItem, UiContext uiContext, I18NAuthoringSupport i18NAuthoringSupport, FieldFactoryFactory fieldFactoryFactory, ComponentProvider componentProvider, I18NAuthoringSupport i18nAuthoringSupport) {
         super(definition, relatedFieldItem, uiContext, i18NAuthoringSupport);
         this.fieldFactoryFactory = fieldFactoryFactory;
         this.componentProvider = componentProvider;
@@ -64,19 +62,6 @@ public class PricesListFieldFactory extends AbstractFieldFactory<PricesListField
     /**
      * Field definition for {@link PricesListField}.
      */
-    public static class Definition extends CompositeFieldDefinition {
-
-        private Layout layout = Layout.vertical;
-
-        @Override
-        public Layout getLayout() {
-            return layout;
-        }
-
-        @Override
-        public void setLayout(Layout layout) {
-            this.layout = layout;
-        }
-
+    public static class Definition extends AbstractListField.Definition {
     }
 }
