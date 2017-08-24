@@ -53,7 +53,7 @@ public class CommercetoolsDemoModuleVersionHandler extends DefaultModuleVersionH
 
     @Override
     protected List<Task> getExtraInstallTasks(InstallContext installContext) {
-        List<Task> tasks = new ArrayList<Task>();
+        List<Task> tasks = new ArrayList<>();
         tasks.addAll(super.getExtraInstallTasks(installContext));
         tasks.add(new IsModuleInstalledOrRegistered("Install site configuration for travel-demo if demo is installed", "travel-demo", new ModuleDependencyBootstrapTask("multisite")));
         tasks.add(assignCommercetoolsRestRoleTask);

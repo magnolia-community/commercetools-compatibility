@@ -16,6 +16,9 @@ package info.magnolia.commercetools.integration.app.configuration.field;
 
 import info.magnolia.commercetools.integration.CommercetoolsIntegrationModule;
 import info.magnolia.commercetools.integration.service.CommercetoolsServices;
+import info.magnolia.objectfactory.Components;
+import info.magnolia.ui.api.context.UiContext;
+import info.magnolia.ui.api.i18n.I18NAuthoringSupport;
 import info.magnolia.ui.form.field.definition.SelectFieldDefinition;
 import info.magnolia.ui.form.field.definition.SelectFieldOptionDefinition;
 import info.magnolia.ui.form.field.factory.SelectFieldFactory;
@@ -42,10 +45,18 @@ public abstract class AbstractCommercetoolsFieldFactory<T extends SelectFieldDef
     private final CommercetoolsServices services;
 
     @Inject
-    public AbstractCommercetoolsFieldFactory(T definition, Item relatedFieldItem, Provider<CommercetoolsIntegrationModule> provider, CommercetoolsServices services) {
-        super(definition, relatedFieldItem);
+    public AbstractCommercetoolsFieldFactory(T definition, Item relatedFieldItem, UiContext uiContext, I18NAuthoringSupport i18nAuthoringSupport, Provider<CommercetoolsIntegrationModule> provider, CommercetoolsServices services) {
+        super(definition, relatedFieldItem, uiContext, i18nAuthoringSupport);
         this.provider = provider;
         this.services = services;
+    }
+
+    /**
+     * @deprecated since 1.2, use {@link #AbstractCommercetoolsFieldFactory(SelectFieldDefinition, Item, UiContext, I18NAuthoringSupport, Provider, CommercetoolsServices)} instead.
+     */
+    @Deprecated
+    public AbstractCommercetoolsFieldFactory(T definition, Item relatedFieldItem, Provider<CommercetoolsIntegrationModule> provider, CommercetoolsServices services) {
+        this(definition, relatedFieldItem, Components.getComponent(UiContext.class), Components.getComponent(I18NAuthoringSupport.class), provider, services);
     }
 
     protected String getSelectedProject() {

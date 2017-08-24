@@ -14,6 +14,7 @@
  */
 package info.magnolia.commercetools.integration.app.browser.contentview.tree;
 
+import info.magnolia.commercetools.integration.app.browser.event.ProjectIdChangedEvent;
 import info.magnolia.commercetools.integration.app.container.CommercetoolsContainer;
 import info.magnolia.commercetools.integration.app.contentconnector.CommercetoolsContentConnector;
 import info.magnolia.commercetools.integration.app.contentconnector.CommercetoolsContentConnectorDefinition;
@@ -21,7 +22,6 @@ import info.magnolia.commercetools.integration.app.contentconnector.Commercetool
 import info.magnolia.commercetools.integration.app.item.CommercetoolsCategoryItem;
 import info.magnolia.commercetools.integration.app.item.CommercetoolsProductItem;
 import info.magnolia.event.EventBus;
-import info.magnolia.commercetools.integration.app.browser.event.ProjectIdChangedEvent;
 import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.ui.vaadin.integration.contentconnector.ContentConnector;
 import info.magnolia.ui.workbench.definition.WorkbenchDefinition;
@@ -56,12 +56,9 @@ public class CommercetoolsTreePresenter extends TreePresenter {
     }
 
     protected void bindEvents() {
-        eventBus.addHandler(ProjectIdChangedEvent.class, new ProjectIdChangedEvent.Handler() {
-            @Override
-            public void onProjectIdChange(final ProjectIdChangedEvent event) {
-                CommercetoolsContainer ctContainer = (CommercetoolsContainer) container;
-                ctContainer.getContentConnectorDefinition().setDefaultProjectId(event.getNewProjectId());
-            }
+        eventBus.addHandler(ProjectIdChangedEvent.class, event -> {
+            CommercetoolsContainer ctContainer = (CommercetoolsContainer) container;
+            ctContainer.getContentConnectorDefinition().setDefaultProjectId(event.getNewProjectId());
         });
     }
 

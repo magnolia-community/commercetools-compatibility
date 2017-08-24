@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -44,7 +43,6 @@ import io.sphere.sdk.models.Reference;
 import io.sphere.sdk.products.Price;
 import io.sphere.sdk.products.ProductProjection;
 import io.sphere.sdk.products.ProductVariant;
-import io.sphere.sdk.products.attributes.AttributeDefinition;
 import io.sphere.sdk.producttypes.ProductType;
 import io.sphere.sdk.producttypes.ProductTypeLocalRepository;
 import io.sphere.sdk.queries.PagedQueryResult;
@@ -341,12 +339,7 @@ public class CommercetoolsTemplatingFunctions {
     public List<String> getLocalizedAttributeName(ProductTypeLocalRepository productTypes, String attributeName) {
         List<String> localizedName = new ArrayList<>();
         for (ProductType productType : productTypes.getAll()) {
-            productType.findAttribute(attributeName).ifPresent(new Consumer<AttributeDefinition>() {
-                @Override
-                public void accept(AttributeDefinition attributeDefinition) {
-                    localizedName.add(attributeDefinition.getLabel().get(getLanguage()));
-                }
-            });
+            productType.findAttribute(attributeName).ifPresent(attributeDefinition -> localizedName.add(attributeDefinition.getLabel().get(getLanguage())));
 
         }
 

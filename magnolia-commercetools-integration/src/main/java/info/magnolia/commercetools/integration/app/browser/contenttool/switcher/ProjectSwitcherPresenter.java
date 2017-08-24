@@ -82,15 +82,12 @@ public class ProjectSwitcherPresenter implements ContentToolPresenter {
         CommercetoolsContainer container = (CommercetoolsContainer) ((CommercetoolsContentConnector) contentConnector).getContainer();
         comboBox.select(container.getContentConnectorDefinition().getDefaultProjectId());
 
-        comboBox.addValueChangeListener(new Property.ValueChangeListener() {
-            @Override
-            public void valueChange(Property.ValueChangeEvent event) {
-                if (event.getProperty() != null) {
-                    String value = String.valueOf(event.getProperty().getValue());
-                    eventBus.fireEvent(new ProjectIdChangedEvent(value));
-                    workbenchPresenter.select(contentConnector.getDefaultItemId());
-                    workbenchPresenter.refresh();
-                }
+        comboBox.addValueChangeListener((Property.ValueChangeListener) event -> {
+            if (event.getProperty() != null) {
+                String value = String.valueOf(event.getProperty().getValue());
+                eventBus.fireEvent(new ProjectIdChangedEvent(value));
+                workbenchPresenter.select(contentConnector.getDefaultItemId());
+                workbenchPresenter.refresh();
             }
         });
 

@@ -26,7 +26,6 @@ import info.magnolia.module.site.SiteManager;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.CompletionStage;
-import java.util.function.Function;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -113,22 +112,16 @@ public class CommercetoolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
         final String projectName = getProjectName();
 
         logIn()
-                .thenApplyAsync(new Function<CustomerSignInResult, Object>() {
-                    @Override
-                    public Object apply(CustomerSignInResult result) {
-                        webContext.setAttribute(projectName + "_" + CommercetoolsServices.CT_CUSTOMER_ID, result.getCustomer().getId(), Context.SESSION_SCOPE);
-                        webContext.setAttribute(projectName + "_" + CommercetoolsServices.CT_CART_ID, result.getCart().getId(), Context.SESSION_SCOPE);
-                        webContext.setAttribute(RESULT, true, Context.LOCAL_SCOPE);
-                        return null;
-                    }
+                .thenApplyAsync(result -> {
+                    webContext.setAttribute(projectName + "_" + CommercetoolsServices.CT_CUSTOMER_ID, result.getCustomer().getId(), Context.SESSION_SCOPE);
+                    webContext.setAttribute(projectName + "_" + CommercetoolsServices.CT_CART_ID, result.getCart().getId(), Context.SESSION_SCOPE);
+                    webContext.setAttribute(RESULT, true, Context.LOCAL_SCOPE);
+                    return null;
                 })
-                .exceptionally(new Function<Throwable, Object>() {
-                    @Override
-                    public Object apply(Throwable throwable) {
-                        webContext.setAttribute(ATTRIBUTE_LOGIN_ERROR, (throwable.getCause() instanceof ErrorResponseException ? ((ErrorResponseException) throwable.getCause()).getErrors() : throwable.getMessage()), Context.LOCAL_SCOPE);
-                        webContext.setAttribute(RESULT, false, Context.LOCAL_SCOPE);
-                        return null;
-                    }
+                .exceptionally(throwable -> {
+                    webContext.setAttribute(ATTRIBUTE_LOGIN_ERROR, (throwable.getCause() instanceof ErrorResponseException ? ((ErrorResponseException) throwable.getCause()).getErrors() : throwable.getMessage()), Context.LOCAL_SCOPE);
+                    webContext.setAttribute(RESULT, false, Context.LOCAL_SCOPE);
+                    return null;
                 }).toCompletableFuture().join();
     }
 
@@ -137,21 +130,15 @@ public class CommercetoolsSignupLoginLogoutFilter extends AbstractMgnlFilter {
         final String projectName = getProjectName();
 
         signUp()
-                .thenApplyAsync(new Function<CustomerSignInResult, Object>() {
-                    @Override
-                    public Object apply(CustomerSignInResult result) {
-                        webContext.setAttribute(projectName + "_" + CommercetoolsServices.CT_CUSTOMER_ID, result.getCustomer().getId(), Context.SESSION_SCOPE);
-                        webContext.setAttribute(RESULT, true, Context.LOCAL_SCOPE);
-                        return null;
-                    }
+                .thenApplyAsync(result -> {
+                    webContext.setAttribute(projectName + "_" + CommercetoolsServices.CT_CUSTOMER_ID, result.getCustomer().getId(), Context.SESSION_SCOPE);
+                    webContext.setAttribute(RESULT, true, Context.LOCAL_SCOPE);
+                    return null;
                 })
-                .exceptionally(new Function<Throwable, Object>() {
-                    @Override
-                    public Object apply(Throwable throwable) {
-                        webContext.setAttribute(ATTRIBUTE_SIGNUP_ERROR, (throwable.getCause() instanceof ErrorResponseException ? ((ErrorResponseException) throwable.getCause()).getErrors() : throwable.getMessage()), Context.LOCAL_SCOPE);
-                        webContext.setAttribute(RESULT, false, Context.LOCAL_SCOPE);
-                        return null;
-                    }
+                .exceptionally(throwable -> {
+                    webContext.setAttribute(ATTRIBUTE_SIGNUP_ERROR, (throwable.getCause() instanceof ErrorResponseException ? ((ErrorResponseException) throwable.getCause()).getErrors() : throwable.getMessage()), Context.LOCAL_SCOPE);
+                    webContext.setAttribute(RESULT, false, Context.LOCAL_SCOPE);
+                    return null;
                 }).toCompletableFuture().join();
     }
 

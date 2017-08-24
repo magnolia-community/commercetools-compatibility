@@ -91,7 +91,7 @@ public class CommercetoolsIntegrationModuleVersionHandler extends DefaultModuleV
 
     @Override
     protected List<Task> getExtraInstallTasks(InstallContext installContext) {
-        List<Task> tasks = new ArrayList<Task>();
+        List<Task> tasks = new ArrayList<>();
         tasks.addAll(super.getExtraInstallTasks(installContext));
         tasks.add(new OrderNodeBeforeTask("/server/filters/cms/ctSignupLoginLogout", "modelExecution"));
         tasks.add(assignCommercetoolsRestRoleTask);

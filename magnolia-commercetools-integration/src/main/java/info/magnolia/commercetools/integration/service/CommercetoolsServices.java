@@ -21,8 +21,6 @@ import info.magnolia.commercetools.integration.CommercetoolsIntegrationModule;
 import info.magnolia.context.Context;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -30,10 +28,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -77,7 +72,6 @@ import io.sphere.sdk.customers.commands.CustomerPasswordResetCommand;
 import io.sphere.sdk.models.Address;
 import io.sphere.sdk.products.ProductProjection;
 import io.sphere.sdk.products.ProductVariant;
-import io.sphere.sdk.products.attributes.AttributeDefinition;
 import io.sphere.sdk.products.attributes.AttributeType;
 import io.sphere.sdk.products.attributes.BooleanAttributeType;
 import io.sphere.sdk.products.attributes.DateAttributeType;
@@ -95,7 +89,6 @@ import io.sphere.sdk.products.queries.ProductProjectionQuery;
 import io.sphere.sdk.products.queries.ProductProjectionQueryModel;
 import io.sphere.sdk.products.search.ProductAttributeFacetSearchModel;
 import io.sphere.sdk.products.search.ProductAttributeFacetedSearchSearchModel;
-import io.sphere.sdk.products.search.ProductProjectionFilterSearchModel;
 import io.sphere.sdk.products.search.ProductProjectionSearch;
 import io.sphere.sdk.products.search.ProductProjectionSearchModel;
 import io.sphere.sdk.producttypes.ProductType;
@@ -106,7 +99,6 @@ import io.sphere.sdk.projects.queries.ProjectGet;
 import io.sphere.sdk.queries.PagedQueryResult;
 import io.sphere.sdk.queries.QueryPredicate;
 import io.sphere.sdk.queries.QuerySort;
-import io.sphere.sdk.search.FilterExpression;
 import io.sphere.sdk.search.PagedSearchResult;
 import io.sphere.sdk.search.model.RangeTermFacetedSearchSearchModel;
 import io.sphere.sdk.search.model.TermFacetedSearchSearchModel;
@@ -162,8 +154,7 @@ public class CommercetoolsServices {
 
     public Project getProjectDetail(SphereClient sphereClient) {
         final BlockingSphereClient client = BlockingSphereClient.of(sphereClient, CommercetoolsIntegrationModule.DEFAULT_QUERY_TIMEOUT, SECONDS);
-        Project project = client.executeBlocking(ProjectGet.of());
-        return project;
+        return client.executeBlocking(ProjectGet.of());
     }
 
     public PagedQueryResult<Category> getCategories(SphereClient pureAsyncClient, String parentId, Locale sortByLocale) {
@@ -188,12 +179,7 @@ public class CommercetoolsServices {
     }
 
     private static List<Category> sortCategories(final List<Category> categories) {
-        Collections.sort(categories, new Comparator<Category>() {
-            @Override
-            public int compare(Category c1, Category c2) {
-                return ObjectUtils.compare(c1.getOrderHint(), c2.getOrderHint());
-            }
-        });
+        categories.sort((c1, c2) -> ObjectUtils.compare(c1.getOrderHint(), c2.getOrderHint()));
 
         return categories;
     }
@@ -208,12 +194,9 @@ public class CommercetoolsServices {
         Map<String, List<AttributeType>> attributeNameTypeMap = new HashMap<>();
         for (String attributeName : attributeFacets) {
             for (ProductType productType : productTypes.getAll()) {
-                productType.findAttribute(attributeName).ifPresent(new Consumer<AttributeDefinition>() {
-                    @Override
-                    public void accept(AttributeDefinition attributeDefinition) {
-                        attributeNameTypeMap.putIfAbsent(attributeName, new ArrayList<>());
-                        attributeNameTypeMap.get(attributeName).add(attributeDefinition.getAttributeType());
-                    }
+                productType.findAttribute(attributeName).ifPresent(attributeDefinition -> {
+                    attributeNameTypeMap.putIfAbsent(attributeName, new ArrayList<>());
+                    attributeNameTypeMap.get(attributeName).add(attributeDefinition.getAttributeType());
                 });
 
             }
@@ -252,19 +235,9 @@ public class CommercetoolsServices {
 
         if (parentId != null) {
             if (includeSubtree) {
-                searchRequest = searchRequest.withQueryFilters(new Function<ProductProjectionFilterSearchModel, List<FilterExpression<ProductProjection>>>() {
-                    @Override
-                    public List<FilterExpression<ProductProjection>> apply(ProductProjectionFilterSearchModel productProjectionFilterSearchModel) {
-                        return productProjectionFilterSearchModel.categories().id().isInSubtree(parentId);
-                    }
-                });
+                searchRequest = searchRequest.withQueryFilters(productProjectionFilterSearchModel -> productProjectionFilterSearchModel.categories().id().isInSubtree(parentId));
             } else {
-                searchRequest = searchRequest.withQueryFilters(new Function<ProductProjectionFilterSearchModel, List<FilterExpression<ProductProjection>>>() {
-                    @Override
-                    public List<FilterExpression<ProductProjection>> apply(ProductProjectionFilterSearchModel productProjectionFilterSearchModel) {
-                        return productProjectionFilterSearchModel.categories().id().is(parentId);
-                    }
-                });
+                searchRequest = searchRequest.withQueryFilters(productProjectionFilterSearchModel -> productProjectionFilterSearchModel.categories().id().is(parentId));
             }
         }
 
@@ -375,13 +348,10 @@ public class CommercetoolsServices {
         final Context context = contextProvider.get();
 
         return fetchCart(pureAsyncClient, customerId, cartId, contextCountryCode, currencyCode)
-                .thenComposeAsync(new Function<Cart, CompletionStage<Cart>>() {
-                    @Override
-                    public CompletionStage<Cart> apply(Cart cart) {
-                        overwriteCartSessionData(cart, projectName, context);
-                        final boolean hasDifferentCountry = !contextCountryCode.equals(cart.getCountry());
-                        return hasDifferentCountry ? updateCartCountry(pureAsyncClient, cart, contextCountryCode) : CompletableFuture.completedFuture(cart);
-                    }
+                .thenComposeAsync(cart -> {
+                    overwriteCartSessionData(cart, projectName, context);
+                    final boolean hasDifferentCountry = !contextCountryCode.equals(cart.getCountry());
+                    return hasDifferentCountry ? updateCartCountry(pureAsyncClient, cart, contextCountryCode) : CompletableFuture.completedFuture(cart);
                 }).toCompletableFuture().join();
     }
 
@@ -401,12 +371,7 @@ public class CommercetoolsServices {
         final CartByIdGet query = CartByIdGet.of(cartId)
                 .withExpansionPaths(expansionPathContainerFunction);
         return pureAsyncClient.execute(query)
-                .thenComposeAsync(new Function<Cart, CompletionStage<Cart>>() {
-                    @Override
-                    public CompletionStage<Cart> apply(Cart cart) {
-                        return validateOrCreateNewCart(pureAsyncClient, customerId, cart, contextCountryCode, currencyCode);
-                    }
-                });
+                .thenComposeAsync(cart -> validateOrCreateNewCart(pureAsyncClient, customerId, cart, contextCountryCode, currencyCode));
     }
 
     private CompletionStage<Cart> fetchCartByCustomerOrNew(SphereClient pureAsyncClient, String customerId, CountryCode contextCountryCode, String currencyCode) {
@@ -415,34 +380,14 @@ public class CommercetoolsServices {
         final CartByCustomerIdGet query = CartByCustomerIdGet.of(customerId)
                 .withExpansionPaths(expansionPathContainerFunction);
         return pureAsyncClient.execute(query)
-                .thenComposeAsync(new Function<Cart, CompletionStage<Cart>>() {
-                    @Override
-                    public CompletionStage<Cart> apply(Cart cart) {
-                        return validateOrCreateNewCart(pureAsyncClient, customerId, cart, contextCountryCode, currencyCode);
-                    }
-                });
+                .thenComposeAsync(cart -> validateOrCreateNewCart(pureAsyncClient, customerId, cart, contextCountryCode, currencyCode));
     }
 
     private CompletionStage<Cart> validateOrCreateNewCart(SphereClient pureAsyncClient, String customerId, @Nullable final Cart cart, CountryCode contextCountryCode, String currencyCode) {
         return Optional.ofNullable(cart)
-                .filter(new Predicate<Cart>() {
-                    @Override
-                    public boolean test(Cart cart) {
-                        return cart.getCartState().equals(CartState.ACTIVE);
-                    }
-                })
-                .map(new Function<Cart, CompletionStage<Cart>>() {
-                    @Override
-                    public CompletionStage<Cart> apply(Cart cart) {
-                        return CompletableFuture.completedFuture(cart);
-                    }
-                })
-                .orElseGet(new Supplier<CompletionStage<Cart>>() {
-                    @Override
-                    public CompletionStage<Cart> get() {
-                        return createCart(pureAsyncClient, customerId, contextCountryCode, currencyCode);
-                    }
-                });
+                .filter(cart1 -> cart1.getCartState().equals(CartState.ACTIVE))
+                .map((Function<Cart, CompletionStage<Cart>>) CompletableFuture::completedFuture)
+                .orElseGet(() -> createCart(pureAsyncClient, customerId, contextCountryCode, currencyCode));
     }
 
     private CompletionStage<Cart> createCart(SphereClient pureAsyncClient, String customerId, CountryCode contextCountryCode, String currencyCode) {
@@ -463,18 +408,8 @@ public class CommercetoolsServices {
      */
     private CompletionStage<Cart> updateCartCountry(SphereClient pureAsyncClient, final Cart cart, final CountryCode country) {
         final Address shippingAddress = Optional.ofNullable(cart.getShippingAddress())
-                .map(new Function<Address, Address>() {
-                    @Override
-                    public Address apply(Address address) {
-                        return address.withCountry(country);
-                    }
-                })
-                .orElseGet(new Supplier<Address>() {
-                    @Override
-                    public Address get() {
-                        return Address.of(country);
-                    }
-                });
+                .map(address -> address.withCountry(country))
+                .orElseGet(() -> Address.of(country));
         final CartUpdateCommand updateCommand = CartUpdateCommand.of(cart,
                 asList(SetShippingAddress.of(shippingAddress), SetCountry.of(country)));
         return pureAsyncClient.execute(updateCommand);

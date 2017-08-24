@@ -81,18 +81,8 @@ public class CommercetoolsConfigurationPresenter implements CommercetoolsConfigu
     }
 
     public CommercetoolsConfigurationView start() {
-        subAppEventBus.addHandler(SiteChangedEvent.class, new SiteChangedEvent.Handler() {
-            @Override
-            public void onSiteChanged(SiteChangedEvent event) {
-                CommercetoolsConfigurationPresenter.this.onSiteChanged(event.getSiteName());
-            }
-        });
-        subAppEventBus.addHandler(ProjectChangedEvent.class, new ProjectChangedEvent.Handler() {
-            @Override
-            public void onProjectChanged(ProjectChangedEvent event) {
-                CommercetoolsConfigurationPresenter.this.onProjectChanged(event.getProjectName());
-            }
-        });
+        subAppEventBus.addHandler(SiteChangedEvent.class, event -> CommercetoolsConfigurationPresenter.this.onSiteChanged(event.getSiteName()));
+        subAppEventBus.addHandler(ProjectChangedEvent.class, event -> CommercetoolsConfigurationPresenter.this.onProjectChanged(event.getProjectName()));
 
         subAppEventBus.fireEvent(new SiteChangedEvent(DEFAULT_SITE_NAME));
         view.setListener(this);
@@ -150,7 +140,7 @@ public class CommercetoolsConfigurationPresenter implements CommercetoolsConfigu
     public void onSiteChanged(String siteName) {
         Item item = getItemDataSource(siteName);
         if (item != null) {
-            item.addItemProperty(AbstractCommercetoolsFieldFactory.SITE_SELECT_PROPERTY_NAME, new DefaultProperty<String>(siteName));
+            item.addItemProperty(AbstractCommercetoolsFieldFactory.SITE_SELECT_PROPERTY_NAME, new DefaultProperty<>(siteName));
             FormViewReduced formView = componentProvider.getComponent(FormViewReduced.class);
             formBuilder.buildReducedForm(formDefinition, formView, item, null);
             view.setFormViewReduced(formView);
@@ -162,8 +152,8 @@ public class CommercetoolsConfigurationPresenter implements CommercetoolsConfigu
         String siteName = (String) item.getItemProperty(AbstractCommercetoolsFieldFactory.SITE_SELECT_PROPERTY_NAME).getValue();
         Item vaadinItem = getItemDataSource(siteName);
         if (vaadinItem != null) {
-            vaadinItem.addItemProperty(AbstractCommercetoolsFieldFactory.PROJECT_SELECT_PROPERTY_NAME, new DefaultProperty<String>(projectName));
-            vaadinItem.addItemProperty(AbstractCommercetoolsFieldFactory.SITE_SELECT_PROPERTY_NAME, new DefaultProperty<String>(siteName));
+            vaadinItem.addItemProperty(AbstractCommercetoolsFieldFactory.PROJECT_SELECT_PROPERTY_NAME, new DefaultProperty<>(projectName));
+            vaadinItem.addItemProperty(AbstractCommercetoolsFieldFactory.SITE_SELECT_PROPERTY_NAME, new DefaultProperty<>(siteName));
             FormViewReduced formView = componentProvider.getComponent(FormViewReduced.class);
             formBuilder.buildReducedForm(formDefinition, formView, vaadinItem, null);
             view.setFormViewReduced(formView);

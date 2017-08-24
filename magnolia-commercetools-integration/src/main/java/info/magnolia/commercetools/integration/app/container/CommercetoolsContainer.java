@@ -169,7 +169,7 @@ public class CommercetoolsContainer extends AbstractContainer implements Contain
                     }
                 }
             } else {
-                childProducts.put((CommercetoolsItemId) itemId, Collections.<CommercetoolsItemId>emptyList());
+                childProducts.put((CommercetoolsItemId) itemId, Collections.emptyList());
             }
             products.addAll(childProducts.get(itemId));
         }
@@ -264,14 +264,14 @@ public class CommercetoolsContainer extends AbstractContainer implements Contain
 
     @Override
     public Property getContainerProperty(final Object itemId, final Object propertyId) {
-        Property property = getItem(itemId).getItemProperty(propertyId);
+        Property<?> property = getItem(itemId).getItemProperty(propertyId);
         if (property.getType().isAssignableFrom(LocalizedString.class)) {
             LocalizedString localizedString = ((LocalizedString) property.getValue());
             Set<Locale> availableLocales = localizedString.getLocales();
             if (availableLocales.contains(context.getLocale())) {
-                return new DefaultProperty(localizedString.get(context.getLocale()));
+                return new DefaultProperty<>(localizedString.get(context.getLocale()));
             } else {
-                return new DefaultProperty(localizedString.get(availableLocales.iterator().next()));
+                return new DefaultProperty<>(localizedString.get(availableLocales.iterator().next()));
             }
         }
 
