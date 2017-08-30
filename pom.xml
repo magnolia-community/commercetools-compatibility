@@ -17,7 +17,7 @@
     <magnoliaUIVersion>5.4.9</magnoliaUIVersion>
     <damVersion>2.1</damVersion>
     <javaVersion>1.8</javaVersion>
-    <commercetoolsSDKVersion>1.6.0</commercetoolsSDKVersion>
+    <commercetoolsSDKVersion>1.22.0</commercetoolsSDKVersion>
     <restVersion>1.2</restVersion>
     <siteVersion>1.0.9</siteVersion>
     <formVersion>2.3.5</formVersion>
