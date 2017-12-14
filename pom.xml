@@ -13,15 +13,15 @@
   <packaging>pom</packaging>
 
   <properties>
-    <magnoliaVersion>5.4.9</magnoliaVersion>
-    <magnoliaUIVersion>5.4.9</magnoliaUIVersion>
+    <magnoliaVersion>5.6</magnoliaVersion>
+    <magnoliaUIVersion>5.6</magnoliaUIVersion>
+    <magnoliaExternalDependencies>5.6</magnoliaExternalDependencies>
     <damVersion>2.1</damVersion>
     <javaVersion>1.8</javaVersion>
-    <commercetoolsSDKVersion>1.22.0</commercetoolsSDKVersion>
-    <restVersion>1.2</restVersion>
-    <siteVersion>1.0.9</siteVersion>
-    <formVersion>2.3.5</formVersion>
-    <resteasyVersion>3.0.19.Final</resteasyVersion>
+    <commercetoolsSDKVersion>1.29.1</commercetoolsSDKVersion>
+    <restVersion>2.0</restVersion>
+    <siteVersion>1.2</siteVersion>
+    <formVersion>2.4</formVersion>
   </properties>
 
   <issueManagement>
@@ -47,36 +47,12 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-
-      <!-- UI -->
       <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-project</artifactId>
-        <version>${magnoliaUIVersion}</version>
+        <groupId>info.magnolia.boms</groupId>
+        <artifactId>magnolia-external-dependencies</artifactId>
+        <version>${magnoliaExternalDependencies}</version>
         <type>pom</type>
         <scope>import</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>info.magnolia.dam</groupId>
-        <artifactId>magnolia-dam-parent</artifactId>
-        <version>${damVersion}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-      <!-- SITE -->
-      <dependency>
-        <groupId>info.magnolia.site</groupId>
-        <artifactId>magnolia-site</artifactId>
-        <version>${siteVersion}</version>
-      </dependency>
-
-      <!-- FORM -->
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-module-form</artifactId>
-        <version>${formVersion}</version>
       </dependency>
 
       <!-- REST -->
@@ -102,11 +78,6 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <dependency>
-        <groupId>org.jboss.resteasy</groupId>
-        <artifactId>resteasy-jackson2-provider</artifactId>
-        <version>${resteasyVersion}</version>
-      </dependency>
 
       <!-- COMMERCETOOLS API -->
       <dependency>
@@ -123,6 +94,12 @@
         <groupId>com.commercetools.sdk.jvm.core</groupId>
         <artifactId>commercetools-convenience</artifactId>
         <version>${commercetoolsSDKVersion}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <!-- COMMONS CONFIGURATION -->
@@ -138,14 +115,6 @@
         </exclusions>
       </dependency>
 
-      <!-- SERVLET API -->
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>
-        <version>2.5</version>
-        <scope>provided</scope>
-      </dependency>
-
       <!-- WEB APP -->
       <dependency>
         <groupId>info.magnolia.eebundle</groupId>
@@ -155,12 +124,15 @@
         <scope>import</scope>
       </dependency>
 
-      <!-- TEST -->
       <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.11</version>
-        <scope>test</scope>
+        <groupId>com.google.code.findbugs</groupId>
+        <artifactId>jsr305</artifactId>
+        <version>3.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.neovisionaries</groupId>
+        <artifactId>nv-i18n</artifactId>
+        <version>1.17</version>
       </dependency>
 
     </dependencies>

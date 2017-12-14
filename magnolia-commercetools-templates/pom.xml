@@ -12,12 +12,4 @@
   <packaging>jar</packaging>
   <name>Commercetools Templates Module</name>
 
-  <dependencies>
-    <!-- CORE -->
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-core</artifactId>
-    </dependency>
-  </dependencies>
-
 </project>

@@ -32,8 +32,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import com.vaadin.data.Container;
-import com.vaadin.data.Item;
+import com.vaadin.v7.data.Container;
+import com.vaadin.v7.data.Item;
 
 /**
  * Tree presenter that uses {@link CommercetoolsContainer}.

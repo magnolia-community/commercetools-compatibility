@@ -30,15 +30,14 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.vaadin.data.Item;
-import com.vaadin.data.util.BeanItem;
-import com.vaadin.data.util.PropertysetItem;
-import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Field;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.v7.data.Item;
+import com.vaadin.v7.data.util.BeanItem;
+import com.vaadin.v7.data.util.PropertysetItem;
+import com.vaadin.v7.ui.Field;
 
 /**
  * Base implementation for the list based fields.
@@ -102,9 +101,6 @@ public abstract class AbstractListField<B> extends AbstractCustomMultiField<Abst
 
         Field<?> field = fieldfactory.createField();
 
-        if (field instanceof AbstractComponent) {
-            ((AbstractComponent) field).setImmediate(true);
-        }
         // Set Caption if desired
         if (setCaptionToNull) {
             field.setCaption(null);

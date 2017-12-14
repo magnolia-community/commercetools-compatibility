@@ -16,7 +16,7 @@ package info.magnolia.commercetools.integration.app.item;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.vaadin.data.util.BeanItem;
+import com.vaadin.v7.data.util.BeanItem;
 
 /**
  * Base implementation for commercetools items.

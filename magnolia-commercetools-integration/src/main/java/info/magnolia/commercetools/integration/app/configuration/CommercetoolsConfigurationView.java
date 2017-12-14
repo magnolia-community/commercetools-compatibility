@@ -18,7 +18,7 @@ import info.magnolia.ui.api.view.View;
 import info.magnolia.ui.form.EditorValidator;
 import info.magnolia.ui.vaadin.form.FormViewReduced;
 
-import com.vaadin.data.Item;
+import com.vaadin.v7.data.Item;
 
 /**
  * View interface for commercetools configuration app.

@@ -16,7 +16,7 @@ package info.magnolia.commercetools.integration.app.detail.converters;
 
 import java.util.Locale;
 
-import com.vaadin.data.util.converter.Converter;
+import com.vaadin.v7.data.util.converter.Converter;
 
 import io.sphere.sdk.models.LocalizedString;
 

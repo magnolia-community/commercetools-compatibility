@@ -19,7 +19,7 @@ import info.magnolia.ui.vaadin.form.FormViewReduced;
 
 import javax.inject.Inject;
 
-import com.vaadin.data.Item;
+import com.vaadin.v7.data.Item;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;

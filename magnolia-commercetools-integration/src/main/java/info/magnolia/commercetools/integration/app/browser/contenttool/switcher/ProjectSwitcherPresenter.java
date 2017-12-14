@@ -33,9 +33,9 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.vaadin.data.Property;
+import com.vaadin.v7.data.Property;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.ComboBox;
+import com.vaadin.v7.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 

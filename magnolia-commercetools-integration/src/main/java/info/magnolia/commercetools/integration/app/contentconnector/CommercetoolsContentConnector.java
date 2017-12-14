@@ -16,10 +16,10 @@ package info.magnolia.commercetools.integration.app.contentconnector;
 
 import info.magnolia.ui.vaadin.integration.contentconnector.ContentConnector;
 
-import com.vaadin.data.Container;
+import com.vaadin.v7.data.Container;
 
 /**
- * {@link ContentConnector} implementation responsible for creating {@link com.vaadin.data.Container.Hierarchical}.
+ * {@link ContentConnector} implementation responsible for creating {@link com.vaadin.v7.data.Container.Hierarchical}.
  */
 public interface CommercetoolsContentConnector extends ContentConnector {
 

@@ -43,7 +43,7 @@ import org.junit.Test;
 public class CommercetoolsDemoModuleVersionHandlerTest extends ModuleVersionHandlerTestCase {
 
     private Session config;
-    private Node defaultURI;
+    private Node defaultUri;
 
     @Override
     protected String getModuleDescriptorPath() {
@@ -76,8 +76,8 @@ public class CommercetoolsDemoModuleVersionHandlerTest extends ModuleVersionHand
         super.setUp();
         addSupportForSetupModuleRepositoriesTask(DamConstants.WORKSPACE);
         config = MgnlContext.getJCRSession(RepositoryConstants.CONFIG);
-        defaultURI = NodeUtil.createPath(config.getRootNode(), "/modules/ui-admincentral/virtualURIMapping/default", NodeTypes.ContentNode.NAME);
-        defaultURI.setProperty("toURI",  "redirect:/travel.html");
+        defaultUri = NodeUtil.createPath(config.getRootNode(), "/modules/ui-admincentral/virtualUriMappings/default", NodeTypes.ContentNode.NAME);
+        defaultUri.setProperty("toURI",  "redirect:/travel.html");
     }
 
     @Test
@@ -89,7 +89,7 @@ public class CommercetoolsDemoModuleVersionHandlerTest extends ModuleVersionHand
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(null);
 
         // THEN
-        assertThat(defaultURI, hasProperty("toURI", "redirect:/commercetools.html"));
+        assertThat(defaultUri, hasProperty("toUri", "redirect:/commercetools.html"));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class CommercetoolsDemoModuleVersionHandlerTest extends ModuleVersionHand
         executeUpdatesAsIfTheCurrentlyInstalledVersionWas(Version.parseVersion("1.0"));
 
         //THEN
-        assertThat(defaultURI, hasProperty("toURI", "redirect:/commercetools.html"));
+        assertThat(defaultUri, hasProperty("toUri", "redirect:/commercetools.html"));
     }
 
 }

@@ -22,8 +22,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import com.vaadin.data.Item;
-import com.vaadin.data.util.BeanItem;
+import com.vaadin.v7.data.Item;
+import com.vaadin.v7.data.util.BeanItem;
 
 import io.sphere.sdk.products.Price;
 import io.sphere.sdk.products.ProductVariant;
