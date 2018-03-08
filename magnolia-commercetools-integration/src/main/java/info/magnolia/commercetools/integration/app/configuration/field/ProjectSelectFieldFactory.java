@@ -37,9 +37,9 @@ import javax.inject.Provider;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.vaadin.data.Item;
-import com.vaadin.data.Property;
-import com.vaadin.ui.AbstractSelect;
+import com.vaadin.v7.data.Item;
+import com.vaadin.v7.data.Property;
+import com.vaadin.v7.ui.AbstractSelect;
 
 /**
  * Factory that constructs select field with commercetools projects.

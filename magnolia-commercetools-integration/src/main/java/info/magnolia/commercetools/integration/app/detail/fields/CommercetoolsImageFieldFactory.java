@@ -23,8 +23,8 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import com.vaadin.data.Item;
-import com.vaadin.ui.Field;
+import com.vaadin.v7.data.Item;
+import com.vaadin.v7.ui.Field;
 
 /**
  * Field factory that builds {@link CommercetoolsImageField}.

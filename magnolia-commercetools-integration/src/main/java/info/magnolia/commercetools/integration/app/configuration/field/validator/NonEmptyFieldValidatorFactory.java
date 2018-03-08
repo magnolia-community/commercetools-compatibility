@@ -16,8 +16,8 @@ package info.magnolia.commercetools.integration.app.configuration.field.validato
 
 import info.magnolia.ui.form.validator.factory.AbstractFieldValidatorFactory;
 
-import com.vaadin.data.Validator;
-import com.vaadin.data.validator.StringLengthValidator;
+import com.vaadin.v7.data.Validator;
+import com.vaadin.v7.data.validator.StringLengthValidator;
 
 /**
  * Build a {@link StringLengthValidator}.

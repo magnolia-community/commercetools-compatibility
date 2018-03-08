@@ -28,9 +28,9 @@ import java.util.Iterator;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import com.vaadin.data.Item;
-import com.vaadin.data.Property;
-import com.vaadin.ui.AbstractSelect;
+import com.vaadin.v7.data.Item;
+import com.vaadin.v7.data.Property;
+import com.vaadin.v7.ui.AbstractSelect;
 
 /**
  * Abstract select field for commercetools fields.<br/>

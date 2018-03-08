@@ -7,6 +7,13 @@
   <versionHandler>info.magnolia.commercetools.demo.setup.CommercetoolsDemoModuleVersionHandler</versionHandler>
   <version>${project.version}</version>
 
+  <properties>
+    <property>
+      <name>defaultPublicURI</name>
+      <value>redirect:/commercetools.html</value>
+    </property>
+  </properties>
+
   <dependencies>
     <dependency>
       <name>commercetools-integration</name>
@@ -20,13 +27,13 @@
 
     <dependency>
       <name>travel-demo</name>
-      <version>0.11/*</version>
+      <version>1.2/*</version>
       <optional>true</optional>
     </dependency>
 
     <dependency>
       <name>multisite</name>
-      <version>1.2.3/*</version>
+      <version>1.3/*</version>
       <optional>true</optional>
     </dependency>
   </dependencies>

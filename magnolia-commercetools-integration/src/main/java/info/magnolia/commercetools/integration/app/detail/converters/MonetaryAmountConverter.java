@@ -20,7 +20,7 @@ import javax.money.MonetaryAmount;
 
 import org.javamoney.moneta.FastMoney;
 
-import com.vaadin.data.util.converter.Converter;
+import com.vaadin.v7.data.util.converter.Converter;
 
 /**
  *  Converter for {@link MonetaryAmount}.

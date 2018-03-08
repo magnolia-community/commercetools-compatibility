@@ -18,14 +18,14 @@ import info.magnolia.ui.api.i18n.I18NAuthoringSupport;
 import info.magnolia.ui.form.field.definition.ConfiguredFieldDefinition;
 import info.magnolia.ui.form.field.transformer.basic.BasicTransformer;
 
-import com.vaadin.data.Item;
+import com.vaadin.v7.data.Item;
 
 import io.sphere.sdk.models.LocalizedString;
 
 /**
  * Transformer for LocalizedString.
  * 
- * @deprecated since 1.2, use {@link info.magnolia.commercetools.integration.app.detail.converters.LocalizedStringConverter} for {@link com.vaadin.data.util.BeanItem} instead.
+ * @deprecated since 1.2, use {@link info.magnolia.commercetools.integration.app.detail.converters.LocalizedStringConverter} for {@link com.vaadin.v7.data.util.BeanItem} instead.
  */
 @Deprecated
 public class LocalizedStringTransformer extends BasicTransformer {

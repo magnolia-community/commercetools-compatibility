@@ -22,12 +22,12 @@ import javax.money.MonetaryAmount;
 
 import org.javamoney.moneta.FastMoney;
 
-import com.vaadin.data.Item;
+import com.vaadin.v7.data.Item;
 
 /**
  * Transformer for MoneyImpl.
  *
- * @deprecated since 1.2, use {@link info.magnolia.commercetools.integration.app.detail.converters.MonetaryAmountConverter} for {@link com.vaadin.data.util.BeanItem} instead. *
+ * @deprecated since 1.2, use {@link info.magnolia.commercetools.integration.app.detail.converters.MonetaryAmountConverter} for {@link com.vaadin.v7.data.util.BeanItem} instead. *
  */
 @Deprecated
 public class MoneyTransformer extends BasicTransformer {

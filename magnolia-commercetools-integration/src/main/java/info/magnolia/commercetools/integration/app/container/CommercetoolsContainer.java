@@ -49,10 +49,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
-import com.vaadin.data.Container;
-import com.vaadin.data.ContainerHelpers;
-import com.vaadin.data.Item;
-import com.vaadin.data.Property;
+import com.vaadin.v7.data.Container;
+import com.vaadin.v7.data.ContainerHelpers;
+import com.vaadin.v7.data.Item;
+import com.vaadin.v7.data.Property;
 
 import io.sphere.sdk.categories.Category;
 import io.sphere.sdk.client.SphereClient;

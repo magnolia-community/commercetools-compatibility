@@ -30,7 +30,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import com.neovisionaries.i18n.CountryCode;
-import com.vaadin.data.Item;
+import com.vaadin.v7.data.Item;
 
 import io.sphere.sdk.client.SphereClient;
 
