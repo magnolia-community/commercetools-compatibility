@@ -18,7 +18,7 @@
     <magnoliaExternalDependencies>5.6</magnoliaExternalDependencies>
     <damVersion>2.1</damVersion>
     <javaVersion>1.8</javaVersion>
-    <commercetoolsSDKVersion>1.29.1</commercetoolsSDKVersion>
+    <commercetoolsSDKVersion>1.36.0</commercetoolsSDKVersion>
     <restVersion>2.0</restVersion>
     <siteVersion>1.2</siteVersion>
     <formVersion>2.4</formVersion>
