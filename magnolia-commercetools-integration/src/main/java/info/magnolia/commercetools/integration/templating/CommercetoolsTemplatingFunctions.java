@@ -294,9 +294,12 @@ public class CommercetoolsTemplatingFunctions {
         List<Map<String, String>> breadcrumbList = new ArrayList<>();
 
         for (Reference<Category> ancestor : category.getAncestors()) {
-            breadcrumbList.add(new HashMap<String, String>() {{
-                put(ancestor.getId(), ancestor.getObj().getName().get(getLanguage()));
-            }});
+            if(ancestor !=null && ancestor.getId() != null && ancestor.getObj() != null ) {
+                breadcrumbList.add(new HashMap<String, String>() {{
+                    put(ancestor.getId(), ancestor.getObj().getName().get(getLanguage()));
+                }});
+            }
+            
         }
 
         breadcrumbList.add(new HashMap<String, String>() {{
