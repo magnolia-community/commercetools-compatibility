@@ -1,24 +1,16 @@
-/**
- * This file Copyright (c) 2016-2018 Magnolia International
- * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
+/*
+ * This file Copyright (c) 2016-2018 Magnolia International Ltd.
+ * (http://www.magnolia-cms.com). All rights reserved.
  *
  *
- * This program and the accompanying materials are made
- * available under the terms of the Magnolia Network Agreement
- * which accompanies this distribution, and is available at
- * http://www.magnolia-cms.com/mna.html
- *
- * Any modifications to this file must keep this entire header
- * intact.
+ * This program and the accompanying materials are made available under
+ * the terms of the MIT License which accompanies this distribution, and
+ * is available at https://opensource.org/license/mit
  *
  */
 package info.magnolia.commercetools.integration;
 
 import info.magnolia.commercetools.integration.service.CommercetoolsServices;
-import info.magnolia.license.EnterpriseLicensedModule;
-import info.magnolia.license.License;
-import info.magnolia.license.LicenseConsts;
-import info.magnolia.license.LicenseStatus;
 import info.magnolia.module.ModuleLifecycle;
 import info.magnolia.module.ModuleLifecycleContext;
 
@@ -27,7 +19,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +29,7 @@ import io.sphere.sdk.models.SphereException;
 /**
  * Module class.
  */
-public class CommercetoolsIntegrationModule implements EnterpriseLicensedModule, ModuleLifecycle {
+public class CommercetoolsIntegrationModule implements ModuleLifecycle {
 
     private static final Logger log = LoggerFactory.getLogger(CommercetoolsIntegrationModule.class);
 
@@ -60,26 +51,6 @@ public class CommercetoolsIntegrationModule implements EnterpriseLicensedModule,
     @Inject
     public CommercetoolsIntegrationModule(CommercetoolsServices services) {
         this.services = services;
-    }
-
-    @Override
-    public String[] getSupportedEditions() {
-        return new String[]{LicenseConsts.EDITION_ENTERPRISE};
-    }
-
-    @Override
-    public boolean isDemoAllowed() {
-        return true;
-    }
-
-    @Override
-    public boolean isForceCheck() {
-        return false;
-    }
-
-    @Override
-    public LicenseStatus checkLicense(License license) {
-        return new LicenseStatus(LicenseStatus.STATUS_VALID, StringUtils.EMPTY, license);
     }
 
     public SphereClient getSphereClient(String name) {

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>info.magnolia.maven.poms-enterprise</groupId>
-    <artifactId>magnolia-parent-pom-enterprise</artifactId>
-    <version>36</version>
-  </parent>
+
   <groupId>info.magnolia.commercetools</groupId>
   <artifactId>magnolia-commercetools</artifactId>
   <name>Commercetools Parent</name>
-  <version>1.3.1-SNAPSHOT</version>
+  <version>1.4.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     <magnoliaVersion>5.6</magnoliaVersion>
     <magnoliaUIVersion>5.6</magnoliaUIVersion>
     <magnoliaExternalDependencies>5.6</magnoliaExternalDependencies>
@@ -24,29 +24,34 @@
     <formVersion>2.4</formVersion>
   </properties>
 
+  <organization>
+    <name>Magnolia International Ltd.</name>
+    <url>http://www.magnolia-cms.com</url>
+  </organization>
+  <inceptionYear>2016</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/license/mit</url>
+    </license>
+  </licenses>
+
   <issueManagement>
-    <system>Jira</system>
-    <url>http://jira.magnolia-cms.com/browse/MCOMMTOOLS</url>
+    <system>GitHub Issues</system>
+    <url>https://github.com/magnolia-community/magnolia-commercetools-compatibility/issues</url>
   </issueManagement>
 
   <!-- Fill the following in, so you can use the release plugin -->
   <scm>
-    <connection>scm:git:ssh://git@git.magnolia-cms.com/integration/commercetools.git</connection>
-    <developerConnection>scm:git:ssh://git@git.magnolia-cms.com/integration/commercetools.git</developerConnection>
-    <url>https://git.magnolia-cms.com/projects/INTEGRATION/repos/commercetools</url>
+    <connection>scm:git:ssh://git@github.com:magnolia-community/magnolia-commercetools-compatibility.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:magnolia-community/magnolia-commercetools-compatibility.git</developerConnection>
+    <url>https://github.com/magnolia-community/magnolia-commercetools-compatibility</url>
     <tag>HEAD</tag>
   </scm>
 
   <dependencyManagement>
     <dependencies>
-      <!-- EE BUNDLE -->
-      <dependency>
-        <groupId>info.magnolia.eebundle</groupId>
-        <artifactId>magnolia-enterprise-bundle-parent</artifactId>
-        <version>${magnoliaVersion}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
       <dependency>
         <groupId>info.magnolia.boms</groupId>
         <artifactId>magnolia-external-dependencies</artifactId>
@@ -55,28 +60,70 @@
         <scope>import</scope>
       </dependency>
 
-      <!-- REST -->
+      <!-- OWN PROJECT REACTOR -->
       <dependency>
-        <groupId>info.magnolia.rest</groupId>
-        <artifactId>magnolia-rest-services</artifactId>
-        <version>${restVersion}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jackson-provider</artifactId>
-          </exclusion>
-        </exclusions>
+        <groupId>info.magnolia.commercetools</groupId>
+        <artifactId>magnolia-commercetools-integration</artifactId>
+        <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>info.magnolia.commercetools</groupId>
+        <artifactId>magnolia-commercetools-templates</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.commercetools</groupId>
+        <artifactId>magnolia-commercetools-demo</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- CORE & UI -->
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-project</artifactId>
+        <version>${magnoliaVersion}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.ui</groupId>
+        <artifactId>magnolia-ui-project</artifactId>
+        <version>${magnoliaUIVersion}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- REST -->
       <dependency>
         <groupId>info.magnolia.rest</groupId>
         <artifactId>magnolia-rest-integration</artifactId>
         <version>${restVersion}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jackson-provider</artifactId>
-          </exclusion>
-        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.rest</groupId>
+        <artifactId>magnolia-rest-services</artifactId>
+        <version>${restVersion}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>info.magnolia.dam</groupId>
+        <artifactId>magnolia-dam-jcr</artifactId>
+        <version>${damVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.dam</groupId>
+        <artifactId>magnolia-dam-app</artifactId>
+        <version>${damVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.site</groupId>
+        <artifactId>magnolia-site</artifactId>
+        <version>${siteVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.form</groupId>
+        <artifactId>magnolia-form</artifactId>
+        <version>${formVersion}</version>
       </dependency>
 
       <!-- COMMERCETOOLS API -->
@@ -115,15 +162,6 @@
         </exclusions>
       </dependency>
 
-      <!-- WEB APP -->
-      <dependency>
-        <groupId>info.magnolia.eebundle</groupId>
-        <artifactId>magnolia-enterprise-pro-demo-webapp</artifactId>
-        <version>${magnoliaVersion}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
       <dependency>
         <groupId>com.google.code.findbugs</groupId>
         <artifactId>jsr305</artifactId>
@@ -141,24 +179,10 @@
   <repositories>
     <repository>
       <id>magnolia.public</id>
-      <url>https://nexus.magnolia-cms.com/content/groups/public</url>
+      <url>https://nexus.magnolia-cms.com/repository/public</url>
       <releases>
         <enabled>true</enabled>
       </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>magnolia.enterprise.releases</id>
-      <url>https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>magnolia.enterprise.snapshots</id>
-      <url>https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.snapshots</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -175,4 +199,48 @@
     <module>magnolia-commercetools-demo</module>
     <module>magnolia-commercetools-webapp</module>
   </modules>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.11.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.1.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.4.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>3.3.0</version>
+          <configuration>
+            <headerLocation>${maven.multiModuleProjectDirectory}/magnolia-commercetools-integration/src/build/license/mit/header.regex</headerLocation>
+            <configLocation>${maven.multiModuleProjectDirectory}/magnolia-commercetools-integration/src/build/checkstyle.xml</configLocation>
+            <consoleOutput>true</consoleOutput>
+            <failsOnError>true</failsOnError>
+            <enableRulesSummary>true</enableRulesSummary>
+            <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          </configuration>
+          <executions>
+            <execution>
+              <id>validate</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
