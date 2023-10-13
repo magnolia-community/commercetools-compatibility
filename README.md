@@ -1,5 +1,7 @@
 # commercetools Connector module
 
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/magnolia-community/magnolia-commercetools-compatibility/.github%2Fworkflows%2Fmaven.yml)
+
 The commercetools integration module `commercetools-integration` was deprecated in 2019, see [Deprecation List](https://docs.magnolia-cms.com/product-docs/6.2/Support/Deprecation-policy/Deprecations.html).
 We have now donated it to our Forge community.
 
